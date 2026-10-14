@@ -48,7 +48,7 @@
 <section class="process" aria-labelledby="process-h"><div class="wrap reveal">
   <p class="eyebrow">My process</p>
   <h2 class="h-md" id="process-h">From problem to prototype</h2>
-  <div class="steps-row c4"><a class="step-card" href="#objectives"><span class="ph">Analyze</span><p>Picked a task where a small slip has a real cost: booking the wrong patient or the wrong provider.</p><span class="see">See it <span class="arrow" aria-hidden="true">→</span></span></a><a class="step-card" href="#flow"><span class="ph">Design</span><p>Wrote three objectives, a Show me / Try me / Test me flow, and feedback for every wrong path.</p><span class="see">See it <span class="arrow" aria-hidden="true">→</span></span></a><a class="step-card" href="#flow"><span class="ph">Develop</span><p>Built a reusable component library in Figma, then 15 screens with branching prototype links.</p><span class="see">See it <span class="arrow" aria-hidden="true">→</span></span></a><a class="step-card" href="#evaluation"><span class="ph">Evaluate</span><p>First-try data from Try me and Test me, a readiness check, and a supervisor audit plan.</p><span class="see">See it <span class="arrow" aria-hidden="true">→</span></span></a></div>
+  <div class="steps-row c4"><a class="step-card" href="#objectives"><span class="ph">Analyze</span><p>Picked a task where a small slip has a real cost: booking the wrong patient or the wrong provider.</p><span class="see">See it <span class="arrow" aria-hidden="true">→</span></span></a><a class="step-card" href="#flow"><span class="ph">Design</span><p>Wrote three objectives, a Show me / Try me / Test me flow, and feedback for every wrong path.</p><span class="see">See it <span class="arrow" aria-hidden="true">→</span></span></a><a class="step-card" href="#flow"><span class="ph">Develop</span><p>Built a reusable component library in Figma, then 29 screens with branching prototype links.</p><span class="see">See it <span class="arrow" aria-hidden="true">→</span></span></a><a class="step-card" href="#evaluation"><span class="ph">Evaluate</span><p>First-try data from Try me and Test me, a readiness check, and a supervisor audit plan.</p><span class="see">See it <span class="arrow" aria-hidden="true">→</span></span></a></div>
 </div></section>
 <section><div class="wrap two">
   <div class="reveal"><h2 class="h-md">The Problem</h2><p>Software training often stops at “click here, then here.” New staff watch a demo, then meet the real system and miss the one detail that matters. In scheduling, that detail is usually the patient or the provider. Two patients share a last name, or the scheduler quietly fills in the last provider someone booked for. Either slip means a missed follow-up and a second phone call to fix it.</p></div>
@@ -58,7 +58,7 @@
   <p class="eyebrow">Learning objectives</p>
   <h2 class="h-md">What learners will be able to do</h2>
   <p class="lead">Given a provider&#x27;s follow-up note, a new front-desk staff member will:</p>
-  <ol class="objectives"><li><span class="obj-n">01</span><div><p class="obj-b">Find the right patient using two identifiers: name and date of birth.</p><p class="obj-c">Measured by: Test me question 1, plus the record they open in Show me step 1.</p></div></li><li><span class="obj-n">02</span><div><p class="obj-b">Book the follow-up with the right provider and date window from the provider&#x27;s note, at a time the patient can make.</p><p class="obj-c">Mastery: in Try me, find Maria, switch to Dr. Patel, and book the only open slot before 10:00 AM that week.</p></div></li><li><span class="obj-n">03</span><div><p class="obj-b">Read back the five booking details and send a reminder before finishing.</p><p class="obj-c">Practiced in Show me step 4 and kept on the job aid.</p></div></li></ol>
+  <ol class="objectives"><li><span class="obj-n">01</span><div><p class="obj-b">Find the right patient using two identifiers: name and date of birth.</p><p class="obj-c">Measured by: the record they open in Try me, plus Test me question 1.</p></div></li><li><span class="obj-n">02</span><div><p class="obj-b">Book the follow-up with the right provider and date window from the provider&#x27;s note, at a time the patient can make.</p><p class="obj-c">Mastery: in Try me, find Maria, switch to Dr. Patel, and book the only open slot before 10:00 AM that week.</p></div></li><li><span class="obj-n">03</span><div><p class="obj-b">Read back the five booking details and send a reminder before finishing.</p><p class="obj-c">Practiced in Show me step 4 and kept on the job aid.</p></div></li></ol>
   <p class="obj-note">Each objective maps to a screen in the module and a step on the job aid.</p>
 </div></section>
 <section id="flow"><div class="wrap">
@@ -98,7 +98,7 @@
 
 <section><div class="wrap reveal">
   <h2 class="h-md">Full Development</h2>
-  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Everything the tutorial points at works: learners can select the ringed patient row, the Schedule follow-up button, a time slot or Book appointment, or use Next step. In Try me, the patient search takes real keyboard input through Figma variables and key-press triggers, and the app's sidebar and the Provider, Visit type and Week dropdowns all respond, and a wrong patient, a booked time or a slot after 10:00 AM brings up a short pop-up that explains why. Buttons and answers respond on hover. In all, there are 29 screens, 14 feedback pop-ups and more than 350 interactions.</p>
+  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Everything the tutorial points at works: learners can select the ringed patient row, the Schedule follow-up button, a time slot or Book appointment, or use Next step. In Try me, the patient search takes real keyboard input through Figma variables and key-press triggers. The app's sidebar and the Provider, Visit type and Week dropdowns all respond, and a wrong patient, a booked time or a slot after 10:00 AM brings up a short pop-up that explains why. Buttons and answers respond on hover. In all, there are 29 screens, 14 feedback pop-ups and more than 350 interactions.</p>
   <p style="margin-top:28px"><a class="pill" href="https://www.figma.com/proto/Sbr79IbDZx9iKQXk1YxOAg/Software-Training?node-id=2-2&starting-point-node-id=2%3A2&scaling=scale-down" target="_blank" rel="noopener">Try the prototype <span class="arrow" aria-hidden="true">→</span></a></p>
 </div></section>
 <section id="accessibility"><div class="wrap reveal">
@@ -126,8 +126,8 @@
 <footer class="footer">
   <div class="wrap">
     <a href="mailto:TshwjxeebKVaaj@gmail.com">TshwjxeebKVaaj@gmail.com</a>
-    <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="#" target="_blank" rel="noopener">Résumé (PDF)</a>
+    
+    
     <span>© <span id="year">2026</span> Tshwjxeeb Vaaj</span>
   </div>
 </footer>

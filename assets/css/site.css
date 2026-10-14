@@ -372,3 +372,5 @@ a.step-card:hover { border-color: var(--copper); transform: translateY(-2px); }
 .trio-figs img { border-radius: 16px; }
 .trio-figs figcaption { margin-top: 10px; color: var(--copper); font-size: 15px; font-weight: 500; }
 @media (max-width: 860px) { .trio-figs { grid-template-columns: 1fr; } }
+.life.solo { grid-template-columns: 1fr; max-width: 760px; }
+.about-photo { width: 100%; border-radius: 28px; object-fit: cover; min-height: 340px; }

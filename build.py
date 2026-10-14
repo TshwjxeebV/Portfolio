@@ -64,8 +64,8 @@ def footer():
     return f"""<footer class="footer">
   <div class="wrap">
     <a href="mailto:{e(EMAIL)}">{e(EMAIL)}</a>
-    <a href="{e(LINKEDIN)}" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="{e(RESUME)}" target="_blank" rel="noopener">Résumé (PDF)</a>
+    {f'<a href="{e(LINKEDIN)}" target="_blank" rel="noopener">LinkedIn</a>' if LINKEDIN not in ("", "#") else ""}
+    {f'<a href="{e(RESUME)}" target="_blank" rel="noopener">Résumé (PDF)</a>' if RESUME not in ("", "#") else ""}
     <span>© <span id="year">2026</span> Tshwjxeeb Vaaj</span>
   </div>
 </footer>
@@ -286,6 +286,13 @@ home += footer()
 write("index.html", home)
 
 # ======================= ABOUT =======================
+# Photos appear automatically once these files exist in assets/img/.
+import os
+def _photo(path, alt, cls="reveal d1"):
+    return f'<img class="about-photo {cls}" src="{path}" alt="{e(alt)}" loading="lazy">' if os.path.exists(path) else ""
+ABOUT_MAIN = _photo("assets/img/about-main.jpg", "Tshwjxeeb Vaaj outside of work")
+_trio = [_photo("assets/img/about-volleyball.jpg", "Volleyball", "reveal"), _photo("assets/img/about-hobbies.jpg", "Gaming and mechanical keyboards"), _photo("assets/img/about-travel.jpg", "Travel and nature", "reveal d2")]
+ABOUT_TRIO = f'<div class="trio">{"".join(_trio)}</div>' if any(_trio) else ""
 about = head("About · Tshwjxeeb Vaaj", "Learning designer with a background in chemistry education, program leadership and coaching.")
 about += nav("about")
 about += f"""<main>
@@ -339,22 +346,16 @@ about += f"""<main>
 <section>
   <div class="wrap">
     <p class="eyebrow reveal">More about me</p>
-    <div class="life">
+    <div class="life{'' if ABOUT_MAIN else ' solo'}">
       <div class="reveal">
         <h2 class="h-md" style="margin-bottom:20px">Life off the clock.</h2>
         {paras("Outside of work, you'll find me deep in an RPG or a cozy game, tinkering with retro handhelds, or building yet another mechanical keyboard.",
                "Volleyball is still part of my life, and I love getting out into nature and traveling whenever I can.",
                "I believe the best learning happens when people feel safe to try, miss, and try again. That guides me professionally as much as it does personally.")}
       </div>
-      <!-- TODO: replace with <img src="assets/img/about-main.jpg" alt="..."> -->
-      <div class="photo-slot reveal d1" style="min-height:460px">Photo coming soon</div>
+      {ABOUT_MAIN}
     </div>
-    <!-- TODO: swap these placeholders for real photos -->
-    <div class="trio">
-      <div class="photo-slot reveal">Volleyball photo coming soon</div>
-      <div class="photo-slot reveal d1">Gaming &amp; keyboards photo coming soon</div>
-      <div class="photo-slot reveal d2">Travel or nature photo coming soon</div>
-    </div>
+    {ABOUT_TRIO}
   </div>
 </section>
 
@@ -593,7 +594,7 @@ PIP_EXTRAS = {
         [("1 · Reaction", "Students want to keep playing.", "Teacher notes on engagement during independent practice.", "Planned"),
          ("2 · Learning", "Students compare by place value, not by guessing.", "First-try accuracy on each level; 4 of 5 unlocks the next.", "Built into the game"),
          ("3 · Behavior", "Students use the place-by-place routine in class.", "A short paper comparison task in small group.", "Planned"),
-         ("4 · Results", "Fewer place-value mix-ups across the class.", "Pre- and post- exit ticket on comparing three-digit numbers.", "Planned")],
+         ("4 · Results", "Fewer place-value mix-ups across the class.", "Exit tickets on comparing three-digit numbers, before and after.", "Planned")],
         '<p class="ev-extra"><strong>Playtest.</strong> My wife, a 2nd grade student teacher, played through the game and gave feedback on it from a classroom point of view.</p>'),
 }
 
@@ -687,7 +688,7 @@ sw += f"""<section class="cs-intro"><div class="wrap reveal">
 sw += process_strip([
     ("Analyze", "Picked a task where a small slip has a real cost: booking the wrong patient or the wrong provider.", "#objectives", None),
     ("Design", "Wrote three objectives, a Show me / Try me / Test me flow, and feedback for every wrong path.", "#flow", None),
-    ("Develop", "Built a reusable component library in Figma, then 15 screens with branching prototype links.", "#flow", None),
+    ("Develop", "Built a reusable component library in Figma, then 29 screens with branching prototype links.", "#flow", None),
     ("Evaluate", "First-try data from Try me and Test me, a readiness check, and a supervisor audit plan.", "#evaluation", None),
 ])
 sw += """<section><div class="wrap two">
@@ -698,7 +699,7 @@ sw += """<section><div class="wrap two">
 sw += objectives(
     "Given a provider's follow-up note, a new front-desk staff member will:",
     [("Find the right patient using two identifiers: name and date of birth.",
-      "Measured by: Test me question 1, plus the record they open in Show me step 1."),
+      "Measured by: the record they open in Try me, plus Test me question 1."),
      ("Book the follow-up with the right provider and date window from the provider's note, at a time the patient can make.",
       "Mastery: in Try me, find Maria, switch to Dr. Patel, and book the only open slot before 10:00 AM that week."),
      ("Read back the five booking details and send a reminder before finishing.",
@@ -741,7 +742,7 @@ sw += f"""<section id="flow"><div class="wrap">
 
 <section><div class="wrap reveal">
   <h2 class="h-md">Full Development</h2>
-  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Everything the tutorial points at works: learners can select the ringed patient row, the Schedule follow-up button, a time slot or Book appointment, or use Next step. In Try me, the patient search takes real keyboard input through Figma variables and key-press triggers, and the app's sidebar and the Provider, Visit type and Week dropdowns all respond, and a wrong patient, a booked time or a slot after 10:00 AM brings up a short pop-up that explains why. Buttons and answers respond on hover. In all, there are 29 screens, 14 feedback pop-ups and more than 350 interactions.</p>
+  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Everything the tutorial points at works: learners can select the ringed patient row, the Schedule follow-up button, a time slot or Book appointment, or use Next step. In Try me, the patient search takes real keyboard input through Figma variables and key-press triggers. The app's sidebar and the Provider, Visit type and Week dropdowns all respond, and a wrong patient, a booked time or a slot after 10:00 AM brings up a short pop-up that explains why. Buttons and answers respond on hover. In all, there are 29 screens, 14 feedback pop-ups and more than 350 interactions.</p>
   <p style="margin-top:28px">{pill(S, "Try the prototype", external=True)}</p>
 </div></section>
 """
