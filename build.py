@@ -5,7 +5,7 @@ Edit the SETTINGS below, then run again to update every page.
 import html
 
 # ---------------- SETTINGS (edit me) ----------------
-EMAIL = "YOUR-EMAIL@example.com"          # TODO: your contact email
+EMAIL = "TshwjxeebKVaaj@gmail.com"
 LINKEDIN = "#"                             # TODO: your LinkedIn URL
 RESUME = "#"                               # TODO: link to your résumé PDF (e.g. assets/resume.pdf)
 COACHING_URL = "https://www.figma.com/proto/dQfAXwxr1hTJab9ClCiHmL/Coach-Conflict-Simulation?node-id=8-2&starting-point-node-id=8%3A2&scaling=scale-down"
