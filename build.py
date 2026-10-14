@@ -8,9 +8,9 @@ import html
 EMAIL = "TshwjxeebKVaaj@gmail.com"
 LINKEDIN = "https://www.linkedin.com/in/tshwjxeebvaaj/"
 RESUME = "#"                               # TODO: link to your résumé PDF (e.g. assets/resume.pdf)
-COACHING_URL = "https://www.figma.com/proto/dQfAXwxr1hTJab9ClCiHmL/Coach-Conflict-Simulation?node-id=8-2&starting-point-node-id=8%3A2&scaling=scale-down"
+COACHING_URL = "play/coaching/"
 PIP_URL = "play/pip/"
-TV_URL = "https://www.figma.com/proto/w9wKmXGWE0hztSUz83MSDh?node-id=5-474&starting-point-node-id=5%3A474&scaling=scale-down"
+TV_URL = "play/tv-wall/"
 SW_URL = "play/scheduling/"
 # ----------------------------------------------------
 
@@ -506,7 +506,8 @@ c += f"""<section class="cs-intro">
   <div class="reveal">
     <h2 class="h-md">Full Development</h2>
     {paras("After several rounds of iteration, I developed the full module as a clickable prototype: 68 screens that move from a story-driven opening through three sets of decisions and a closing season wrap-up with Coach Ramos, each wrong choice with its own aftermath, and a success screen for each set. Each round of changes came from walking through the flow as a learner would. For example, I replaced a text-message exchange with a whiteboard chalk talk, so the mentor teaches the principles directly instead of just encouraging the learner.",
-           "I also used Figma's prototyping features to make the experience feel responsive. Prototype links handle the branching, so each choice leads to its own consequence and every “Replay the point” button returns learners to the decision. Smart Animate reveals the whiteboard ideas one at a time, a “mental timeout” screen lets learners tap their best guess about what is behind the behavior, and dissolve transitions carry the story from scene to scene. The clipboard opens as an overlay on top of the current screen and closes right back to the same moment, so checking notes never breaks the flow. A prototype variable also remembers the learner's mental-timeout guess, so the follow-up screen shows that guess beside the real cause.")}
+           "I also used Figma's prototyping features to make the experience feel responsive. Prototype links handle the branching, so each choice leads to its own consequence and every “Replay the point” button returns learners to the decision. Smart Animate reveals the whiteboard ideas one at a time, a “mental timeout” screen lets learners tap their best guess about what is behind the behavior, and dissolve transitions carry the story from scene to scene. The clipboard opens as an overlay on top of the current screen and closes right back to the same moment, so checking notes never breaks the flow. A prototype variable also remembers the learner's mental-timeout guess, so the follow-up screen shows that guess beside the real cause.",
+           "Once the Figma prototype was final, I rebuilt the module as a web page in HTML, CSS and JavaScript, using the same script, images and branching, so anyone can play it in a browser on a computer or a phone.")}
   </div>
   <div class="wide-visual reveal d1">{video("assets/video/coaching-walkthrough.mp4", "assets/img/poster-coaching.jpg", "Walkthrough of the Coaching Through Conflict module", "player wide")}</div>
   <p style="margin-top:28px" class="reveal">{pill(C, "Experience the project", external=True)}</p>

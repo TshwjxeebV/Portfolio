@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The TV Wall · Sales Simulator</title>
+<meta name="description" content="A capstone sales simulator: help five customers on the sales floor with the D.I.S.C. framework. Portfolio sample by Tshwjxeeb Vaaj.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0D12'/%3E%3Crect x='12' y='18' width='40' height='24' rx='3' fill='%233056D9'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0D12; --panel:#151922; --panel-2:#1B202B; --line:#272D3A; --text:#EEF1F6; --muted:#9AA3B5;
+  --blue:#3056D9; --blue-2:#4A6EF0; --gold:#D9B26F; --green:#22B565; --red:#E5484D;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.55}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+[tabindex="-1"]:focus{outline:none}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;margin:0}
+
+/* glowing TV wall */
+.wall{position:fixed;inset:0 0 auto 0;height:130px;display:flex;gap:2%;padding:0 2%;pointer-events:none;z-index:0;opacity:.9}
+.wall i{flex:1;margin-top:-30px;border-radius:12px;filter:blur(26px);background:#1d2a6b;animation:flick 6s ease-in-out infinite}
+.wall i:nth-child(2n){background:#2a2d36;animation-delay:-2s}
+.wall i:nth-child(3n){animation-delay:-4s}
+@keyframes flick{50%{opacity:.6}}
+@media (prefers-reduced-motion:reduce){.wall i{animation:none}.msg{animation:none!important}}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 32px 48px}
+
+/* header */
+.hdr{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:22px 0 26px}
+.brand .k{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.brand .s{font-size:14px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);text-decoration:none;font-size:13px;margin-top:4px}
+.back:hover{color:var(--text)}
+.phases{display:flex;gap:8px;list-style:none;margin:0;padding:0}
+.phases li{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.phases li.cur{background:var(--blue);border-color:var(--blue);color:#fff}
+.phases li.done{color:var(--text);border-color:#3a4252}
+.score{justify-self:end;display:flex;gap:18px;align-items:center;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted)}
+.score b{font:700 22px "Inter Tight";margin-left:6px;vertical-align:-2px}
+.score .kept b{color:var(--green)} .score .ret b{color:var(--red)}
+.bump{animation:bump .5s}
+@keyframes bump{50%{transform:scale(1.4)}}
+
+/* welcome */
+.center{max-width:720px;margin:7vh auto 0;text-align:center}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.center h1{font-size:clamp(36px,5vw,56px);font-weight:800;letter-spacing:-.02em;margin-bottom:16px}
+.center p{color:var(--muted);font-size:17px}
+.disc{display:flex;justify-content:center;gap:10px;margin:22px 0}
+.disc div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-width:78px}
+.disc b{display:block;font:700 30px "Inter Tight";color:var(--blue-2)}
+.disc span{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.hint{color:var(--gold)!important;font-size:14px!important}
+.btn{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:12px 20px;font-weight:600;transition:background .15s, transform .1s}
+.btn:hover{background:var(--blue-2)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--panel-2)}
+
+/* sim layout */
+.sim{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;align-items:start}
+.prof{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;position:sticky;top:16px}
+.av{width:58px;height:58px;border-radius:50%;border:2px solid var(--blue);background:#1a2140;display:grid;place-items:center;font:700 18px "Inter Tight";margin-bottom:14px}
+.prof h2{font-size:20px}
+.prof .role{color:var(--muted);font-size:14px;padding-bottom:12px;border-bottom:2px solid var(--gold);margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{background:var(--panel-2);border-radius:999px;padding:4px 10px;font-size:12px;color:#C9CFDB}
+.notes{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.notes .lab{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.notes ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:#C9CFDB}
+
+.log{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.msg{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;scroll-margin-top:16px}
+.msg.new{animation:pop .3s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg .who{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-bottom:6px}
+.msg.cust .who{background:var(--gold);color:#1a1405}
+.msg.you{border-color:#2a3a7a;background:#141b33}
+.msg.you .who{background:var(--blue);color:#fff}
+.msg.sys{background:transparent;border-style:dashed;color:var(--muted)}
+.msg.sys .who{background:var(--panel-2);color:var(--muted)}
+.msg p{margin:0;font-size:17px}
+.msg ul{margin:6px 0;padding-left:20px}
+.msg.ans{margin-left:28px}
+
+.prompt{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin:6px 0 10px}
+.choices{display:flex;flex-direction:column;gap:10px}
+.ch{display:flex;gap:14px;align-items:center;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;transition:border-color .15s, background .15s}
+.ch:hover:not([disabled]){border-color:var(--blue-2);background:var(--panel-2)}
+.ch .k{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:.12em;background:#1d2550;color:#AFC0FF;border-radius:4px;padding:4px 8px}
+.ch[disabled]{opacity:.45;cursor:default}
+.ch[disabled] .k{background:var(--green);color:#fff}
+.ch.rec .k{background:var(--gold);color:#1a1405}
+.ch.next{border-color:var(--blue);background:#141b33}
+.ch.next .k{background:var(--blue);color:#fff}
+
+/* outcome */
+.out{max-width:620px;margin:8vh auto 0;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 36px;text-align:center}
+.out .eyebrow{margin-bottom:14px}
+.pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;padding:6px 14px;border-radius:999px;color:#fff;margin-bottom:16px}
+.pill.kept{background:var(--green)} .pill.ret{background:var(--red)}
+.out h2{font-size:22px;margin-bottom:12px}
+.out p{color:var(--muted);font-size:17px;margin:0 0 22px}
+.out .acts{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.out .done{color:var(--text);font-size:15px;border-top:1px solid var(--line);padding-top:16px}
+
+/* final */
+.big{display:flex;justify-content:center;gap:16px;margin:22px 0}
+.big div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 28px}
+.big b{display:block;font:800 46px/1 "Inter Tight"}
+.big .kept b{color:var(--green)} .big .ret b{color:var(--red)}
+.big span{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.recap{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 18px;margin:0 0 22px}
+.recap div{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.recap div:first-child{border-top:0}
+.recap .nm{font-weight:600;min-width:110px}
+.recap .tv{color:var(--muted);flex:1}
+.recap .t{font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:999px;color:#fff}
+.recap .t.kept{background:var(--green)} .recap .t.ret{background:var(--red)}
+
+@media (max-width:860px){
+  .wrap{padding:0 16px 40px}
+  .hdr{grid-template-columns:1fr auto;grid-template-areas:"brand score" "phases phases";padding:16px 0 18px}
+  .brand{grid-area:brand}.score{grid-area:score}.phases{grid-area:phases;justify-content:center;flex-wrap:wrap}
+  .phases li{padding:5px 10px;font-size:10px}
+  .sim{grid-template-columns:1fr}
+  .prof{position:static;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:16px}
+  .av{margin:0;grid-row:span 2}
+  .prof .role{border:0;margin:0;padding:0}
+  .tags{grid-column:1 / -1;margin-top:8px}
+  .notes{grid-column:1 / -1}
+  .msg.ans{margin-left:12px}
+  .msg p{font-size:16px}
+  .out{padding:26px 20px;margin-top:4vh}
+  .big div{padding:12px 18px}
+}
+</style>
+</head>
+<body>
+<div class="wall" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+  <header class="hdr">
+    <div class="brand"><div class="k">The TV Wall · <span id="mode">Capstone simulator</span></div><div class="s" id="cnum"></div><a class="back" href="../../tv-wall.html">&larr; Case study</a></div>
+    <ol class="phases" id="phases" hidden aria-label="D.I.S.C. phase"><li>Discover</li><li>Inspire</li><li>Solve</li><li>Close</li></ol>
+    <div class="score" id="score" hidden><span class="kept">KEPT<b id="kept">0</b></span><span class="ret">RETURNS<b id="ret">0</b></span></div>
+  </header>
+  <main id="main" aria-live="polite"></main>
+</div>
+
+<script>
+const QUESTIONS = [
+  "What is the primary lighting like in the room? Lots of windows or mostly dark?",
+  "What type of content is playing the majority of the time?",
+  "How is the seating arranged? Will anyone be watching from a wide angle?",
+  "Are you planning to connect a next-gen gaming console or home theater audio?"
+];
+const INSPIRE = [
+  "...doesn't force you to pull the curtains closed just to see the screen.",
+  "...delivers a true cinematic feel with perfectly rich colors and infinite shadows.",
+  "...provides a highly reliable, clear picture without over-complicating your daily routine.",
+  "...easily cuts through the harsh overhead glare to give your patrons a perfect view."
+];
+const SOLVE = [
+  "Instead of a standard panel that washes out, a Mini-LED uses tiny lights to actively overpower the sun while keeping the contrast sharp.",
+  "Since you want a cinema experience, an OLED turns off its own pixels to give you absolute perfect black levels without any glowing.",
+  "Since you just need reliable, everyday viewing, a standard LED display will give you great colors without making you pay for features you don't need.",
+  "Since you want vibrant, punchy colors on a budget, a QLED will easily upgrade your viewing experience without breaking the bank."
+];
+const TVS = ["Standard LED TV","QLED TV","Premium Mini-LED TV","Premium OLED TV"];
+
+const C = [
+ {nm:"Marcus", ini:"MA", role:"PC Builder", tags:["Hardware enthusiast","Dark room","Custom rig"],
+  ans:["It's a total blackout cave. I keep the curtains drawn 24/7 so there's zero glare on my screens.",
+       "I'm hooked up to my custom rig, pushing high frames on an NVIDIA GPU playing massive open-world RPGs.",
+       "I'm sitting dead center in my gaming chair, about four feet from the wall.",
+       "Visual response time is all I care about. Audio goes through my external DAC."],
+  sum:["you game in a completely dark room","you are playing high-end RPGs on a custom PC","you sit dead center in front of the screen","you need top-tier visual response times"],
+  solveR:"Exactly. When I'm in a dungeon, I want the shadows to be pitch black, not glowing grey.",
+  closeR:"That sounds like exactly what my rig needs to push those graphics.",
+  out:[["RETURNED","The standard LED was a massive bottleneck for his expensive graphics card. He lost trust in your advice."],
+       ["RETURNED","The colors were great but the grey blacks ruined his immersion."],
+       ["RETURNED","Marcus complained the blooming around his crosshairs in the dark room drove him crazy."],
+       ["KEPT","Marcus is mind-blown by the absolute black levels and instant response time. Perfect recommendation."]]},
+ {nm:"Elena", ini:"EL", role:"Stressed Parent", tags:["Work-from-home","Bright sunroom","Chaos"],
+  ans:["South-facing windows. The sunlight bounces off absolutely everything in the room.",
+       "Cartoons for the kids during the day, maybe some Netflix at night if I'm still awake.",
+       "We have a huge sectional, and the kids are usually sprawled on the floor at weird angles.",
+       "Whatever is easiest to use. One remote, please."],
+  sum:["you deal with extreme sunlight and window glare","you mostly watch bright daytime content and cartoons","your family watches from very wide angles","you just need simple audio integration"],
+  solveR:"Yes! The glare on Sunday afternoons is awful right now. We want to actually see the screen without fighting the sun.",
+  closeR:"That sounds perfect. I just need it to work and be bright enough for the kids.",
+  out:[["KEPT","She didn't return it, but complains the picture looks washed out. You missed out on premium margin."],
+       ["KEPT","It handles the sunroom decently well, but she wishes it were just a little punchier during the day."],
+       ["KEPT","Elena loves that they can finally see the screen clearly on sunny afternoons without closing the blinds."],
+       ["RETURNED","The TV was too dim to fight the window glare, and she panicked about the cartoon logo causing burn-in."]]},
+ {nm:"Walter", ini:"WA", role:"Budget Senior", tags:["Retiree","Static news","Fixed seating"],
+  ans:["I keep the blinds drawn. Just a nice reading lamp in the corner.",
+       "Just the local news, maybe some classic movies on cable when nothing else is on.",
+       "My recliner is right in front of the TV. Nowhere else.",
+       "No gaming. Just need the TV speakers to be loud enough to hear the dialogue."],
+  sum:["your room has moderate, controlled lighting","you leave the news running constantly","you sit directly in front of the TV","you rely purely on the TV's internal speakers"],
+  solveR:"Oh, that sounds lovely. My eyes aren't what they used to be, so clear and simple is best.",
+  closeR:"Perfect. I just want something reliable that I don't have to worry about maintaining or overpaying for.",
+  out:[["KEPT","The TV runs reliably all day. Walter is thrilled with your honest, practical recommendation."],
+       ["KEPT","The colors pop nicely for his classic movies without breaking his budget."],
+       ["KEPT","He likes it, but the extra brightness actually hurts his eyes at night. An unnecessary upsell."],
+       ["RETURNED (ANGRY)","The news channel ticker permanently burned into the screen after 3 weeks."]]},
+ {nm:"Sofia", ini:"SO", role:"Interior Designer", tags:["Luxury loft","Dim lighting","High budget"],
+  ans:["Motorized blackout shades, highly controlled smart lighting. Very moody.",
+       "4K architectural documentaries and atmospheric cinema. Aesthetics are everything.",
+       "A low-profile designer sofa, perfectly centered in the space.",
+       "Hidden surround sound system, already wired into the walls."],
+  sum:["you are outfitting a dark, premium viewing room","you watch high-end cinematic content","you sit perfectly centered in the room","you use high-end professional audio"],
+  solveR:"That's exactly what I'm looking for. The picture quality needs to look like art.",
+  closeR:"If it delivers the absolute best picture quality possible, I'll take it.",
+  out:[["RETURNED","The cheap panel made the luxury room feel incredibly cheap. She was highly disappointed."],
+       ["RETURNED","The grey blacks during letterboxed movies completely ruined the aesthetic."],
+       ["RETURNED","She felt the slight blooming in the dark room ruined the cinematic mood of her space."],
+       ["KEPT","Sofia is blown away by the picture quality. It perfectly matches her luxury loft aesthetic."]]},
+ {nm:"Coach Carter", ini:"CC", role:"Bar Owner", tags:["Sports bar","14-hour days","Neon lights"],
+  ans:["Track lighting, neon signs, huge windows. It's an incredibly bright venue.",
+       "Sports, 14 hours a day. And static digital menus on the side screens.",
+       "Patrons are standing, sitting, and cheering from every corner of the room.",
+       "We route everything through a commercial AV receiver matrix."],
+  sum:["your business has incredibly bright, harsh lighting","you run sports and static menus 14 hours a day","your customers watch from every angle imaginable","you use professional AV routing hardware"],
+  solveR:"Absolutely, my fans need to see the score from the back of the room through all the glare.",
+  closeR:"I need durability and punch. If it cuts through the glare and lasts 14 hours a day, I'm sold.",
+  out:[["RETURNED","The TV washed out completely under the bar's neon lights."],
+       ["KEPT","It handles the glare decently well and provides a massive, colorful image for the patrons."],
+       ["KEPT","The fans can clearly see the games from the street, driving massive foot traffic into the bar."],
+       ["RETURNED (LAWSUIT)","The static scoreboards caused severe burn-in in just two weeks."]]},
+];
+
+const st = { i:0, kept:0, ret:0, asked:[], phase:0, log:[], results:[], shown:0 };
+const $ = s => document.querySelector(s);
+const main = $('#main');
+
+function header(show){
+  $('#phases').hidden = !show; $('#score').hidden = !show;
+  $('#mode').textContent = show ? 'Sales Floor' : 'Capstone simulator';
+  $('#cnum').textContent = show ? `Customer ${st.i+1} of 5` : '';
+  $('#phases').querySelectorAll('li').forEach((li,k)=>{ li.className = k<st.phase?'done':k===st.phase?'cur':''; li.setAttribute('aria-current', k===st.phase?'step':'false'); });
+  $('#kept').textContent = st.kept; $('#ret').textContent = st.ret;
+}
+function focusFirst(sel){ const el = main.querySelector(sel); if(el) el.focus({preventScroll:true}); }
+
+function welcome(){
+  Object.assign(st,{i:0,kept:0,ret:0,results:[]});
+  header(false);
+  main.innerHTML = `<section class="center"><div class="eyebrow">The TV Wall · Capstone simulator</div>
+    <h1 tabindex="-1" id="h">Welcome to the Floor</h1>
+    <p>Knowledge is only half the battle. In this virtual experience, you'll help five customers on the sales floor. Practice the D.I.S.C. framework: Discover their needs, Inspire a vision, Solve their problem with the right hardware, and Close the sale.</p>
+    <div class="disc"><div><b>D</b><span>Discover</span></div><div><b>I</b><span>Inspire</span></div><div><b>S</b><span>Solve</span></div><div><b>C</b><span>Close</span></div></div>
+    <p class="hint">Ask at least 3 Discovery questions to unlock the Inspire phase. Every TV you recommend is checked 30 days later: kept or returned.</p>
+    <button class="btn" id="go" type="button">Start virtual experience</button></section>`;
+  $('#go').onclick = ()=>startCustomer(0);
+  focusFirst('#h');
+}
+
+function startCustomer(i){
+  Object.assign(st,{i, asked:[], phase:0, log:[], shown:0});
+  const c = C[i];
+  st.log.push(['sys','System',`A customer is approaching the TV wall. ${c.nm} looks around at the screens.`]);
+  renderSim('greet');
+}
+
+function msgHTML([cls,who,body],idx){
+  return `<div class="msg ${cls}${idx>=st.shown?' new':''}"><span class="who">${who}</span>${body.startsWith('<')?body:`<p>${body}</p>`}</div>`;
+}
+
+function renderSim(step){
+  const c = C[st.i];
+  header(true);
+  let ctl = '';
+  if(step==='greet'){
+    ctl = `<div class="prompt">Your move</div><div class="choices"><button class="ch next" data-a="greet" type="button"><span class="k">SYS</span><span>Greet the approaching customer</span></button></div>`;
+  } else if(step==='discover'){
+    const n = st.asked.length;
+    ctl = `<div class="prompt">Ask Discovery questions · at least 3 to unlock Inspire <span aria-live="polite">(${n} of 4 asked)</span></div><div class="choices">
+      ${QUESTIONS.map((q,k)=>`<button class="ch" data-q="${k}" type="button" ${st.asked.includes(k)?'disabled':''}><span class="k">${st.asked.includes(k)?'ASKED':'ASK'}</span><span>${q}</span></button>`).join('')}
+      ${n>=3?`<button class="ch next" data-a="toInspire" type="button"><span class="k">NEXT</span><span>Summarize what you heard and move to Inspire</span></button>`:''}</div>`;
+  } else if(step==='inspire'){
+    ctl = `<div class="prompt">Inspire a vision</div><div class="choices">${INSPIRE.map((t,k)=>`<button class="ch" data-in="${k}" type="button"><span class="k">INSPIRE</span><span>${t}</span></button>`).join('')}</div>`;
+  } else if(step==='solve'){
+    ctl = `<div class="prompt">Solve their problem with the right hardware</div><div class="choices">${SOLVE.map((t,k)=>`<button class="ch" data-so="${k}" type="button"><span class="k">SOLVE</span><span>${t}</span></button>`).join('')}</div>`;
+  } else if(step==='close'){
+    ctl = `<div class="prompt">Close the sale · recommend a TV</div><div class="choices">${TVS.map((t,k)=>`<button class="ch rec" data-tv="${k}" type="button"><span class="k">RECOMMEND</span><span>${t}</span></button>`).join('')}</div>`;
+  }
+  const notes = st.asked.length ? `<div class="notes"><span class="lab">What you've learned</span><ul>${st.asked.map(k=>`<li>${c.sum[k]}</li>`).join('')}</ul></div>` : '';
+  main.innerHTML = `<div class="sim">
+    <aside class="prof" aria-label="Customer profile"><div class="av" aria-hidden="true">${c.ini}</div><div><h2>${c.nm}</h2><div class="role">${c.role}</div></div>
+      <div class="tags">${c.tags.map(t=>`<span>${t}</span>`).join('')}</div>${notes}</aside>
+    <section><div class="log">${st.log.map((m,i)=>msgHTML(m,i)).join('')}</div><div id="ctl">${ctl}</div></section></div>`;
+  wire();
+  const first = main.querySelector('#ctl .ch:not([disabled])');
+  if(first) first.focus({preventScroll:true});
+  const fresh = main.querySelector('.log .msg.new');
+  if(fresh && step!=='greet' && st.shown>0) fresh.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  st.shown = st.log.length;
+}
+
+function wire(){
+  const c = C[st.i];
+  main.querySelectorAll('[data-a="greet"]').forEach(b=>b.onclick=()=>{
+    st.log.push(['cust',c.nm,"Hi, I need some help deciding what TV I should buy. I'm looking for a new TV and need some guidance on what technology makes sense for me."]);
+    renderSim('discover');
+  });
+  main.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{
+    const k=+b.dataset.q; st.asked.push(k);
+    st.log.push(['you','You',QUESTIONS[k]]);
+    st.log.push(['cust ans',c.nm,`${c.nm}: “${c.ans[k]}”`]);
+    renderSim('discover');
+  });
+  main.querySelectorAll('[data-a="toInspire"]').forEach(b=>b.onclick=()=>{
+    st.phase=1;
+    const items = [...st.asked].sort().map(k=>`<li>${c.sum[k]}</li>`).join('');
+    st.log.push(['you','You',`<p>Okay, so I understand that:</p><ul>${items}</ul><p>Is that correct?</p>`]);
+    st.log.push(['cust',c.nm,"Yes, exactly! That's exactly what I'm dealing with."]);
+    renderSim('inspire');
+  });
+  main.querySelectorAll('[data-in]').forEach(b=>b.onclick=()=>{
+    st.phase=2;
+    st.log.push(['you','You',"Awesome, based on your environment, I want to recommend a viewing experience that "+INSPIRE[+b.dataset.in].slice(3)]);
+    st.log.push(['cust',c.nm,c.solveR]);
+    renderSim('solve');
+  });
+  main.querySelectorAll('[data-so]').forEach(b=>b.onclick=()=>{
+    st.phase=3;
+    st.log.push(['you','You',SOLVE[+b.dataset.so]]);
+    st.log.push(['cust',c.nm,c.closeR]);
+    renderSim('close');
+  });
+  main.querySelectorAll('[data-tv]').forEach(b=>b.onclick=()=>outcome(+b.dataset.tv));
+}
+
+function outcome(k){
+  const c = C[st.i], [status,text] = c.out[k], kept = status.startsWith('KEPT');
+  if(kept) st.kept++; else st.ret++;
+  st.results.push({nm:c.nm, tv:TVS[k], status, kept});
+  header(true);
+  const el = $(kept?'#kept':'#ret'); el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+  const last = st.i===4;
+  main.innerHTML = `<section class="out"><div class="eyebrow">30 days later…</div>
+    <span class="pill ${kept?'kept':'ret'}">${status}</span>
+    <h2 tabindex="-1" id="h">You recommended the ${TVS[k]}.</h2><p>${text}</p>
+    ${last?`<p class="done">Shift complete. You've helped every customer on the floor today. Excellent work applying the D.I.S.C. framework.</p>`:''}
+    <div class="acts">${last?'':`<button class="btn" id="next" type="button">Take next customer</button>`}<button class="btn ${last?'':'ghost'}" id="fin" type="button">Finish module</button></div></section>`;
+  if(!last) $('#next').onclick=()=>startCustomer(st.i+1);
+  $('#fin').onclick=final;
+  focusFirst('#h');
+}
+
+function final(){
+  header(false);
+  $('#cnum').textContent='Shift complete';
+  main.innerHTML = `<section class="center"><div class="eyebrow">Shift complete</div>
+    <h1 tabindex="-1" id="h">Congratulations!</h1><p>You have mastered the TV Wall.</p>
+    <div class="big"><div class="kept"><b>${st.kept}</b><span>TVs kept</span></div><div class="ret"><b>${st.ret}</b><span>Returns</span></div></div>
+    ${st.results.length?`<div class="recap">${st.results.map(r=>`<div><span class="nm">${r.nm}</span><span class="tv">${r.tv}</span><span class="t ${r.kept?'kept':'ret'}">${r.status}</span></div>`).join('')}</div>`:''}
+    <p>You now understand how modern display technology works and how to use the D.I.S.C. sales model to pair each customer with their ideal panel.</p>
+    <button class="btn" id="re" type="button">Restart simulator</button></section>`;
+  $('#re').onclick=welcome;
+  focusFirst('#h');
+}
+
+welcome();
+</script>
+</body>
+</html>

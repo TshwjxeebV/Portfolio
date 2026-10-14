@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coaching Through Conflict · Scenario</title>
+<meta name="description" content="A branching coaching scenario: trade control for connection and build a team that leads itself. Portfolio sample by Tshwjxeeb Vaaj.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231B2A4E'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23F7C531'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2A4E; --navy-2:#24365F; --gold:#F7C531; --gold-soft:#FBF1D2; --paper:#F8F8F5; --line:#C9CDD5;
+  --ink:#1B2A4E; --muted:#56607A; --red:#B42318; --red-soft:#FCE9E7; --green:#1E7B3C; --green-soft:#E5F3E9;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:Barlow,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#0d1424;font-size:17px;line-height:1.5}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+[hidden]{display:none!important}
+.cond{font-family:"Barlow Condensed",Barlow,sans-serif;letter-spacing:.02em}
+
+/* stage */
+.stage{position:relative;min-height:100vh;min-height:100dvh;overflow:hidden;display:flex;flex-direction:column}
+.bg{position:absolute;inset:0;background:#0d1424 center/cover no-repeat;transition:opacity .5s, filter .5s;transform:scale(1.03)}
+.bg.dim{filter:brightness(.55) saturate(.8)}
+.bg.blur{filter:blur(6px) brightness(.6)}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,20,36,.15),rgba(13,20,36,.35))}
+
+/* top bar */
+.top{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 24px}
+.back{color:#fff;text-decoration:none;font-weight:600;font-size:14px;background:rgba(13,20,36,.55);padding:7px 12px;border-radius:8px;backdrop-filter:blur(4px)}
+.back:hover{background:rgba(13,20,36,.8)}
+.tag{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border-radius:6px;padding:6px 10px;font:700 13px "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.tag b{color:var(--gold);font-weight:700}
+.tag i{width:1px;height:12px;background:rgba(255,255,255,.4)}
+.prog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.15);z-index:3}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .4s}
+
+/* content */
+.content{position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center;padding:8px 24px 72px}
+.scene{width:100%;max-width:1180px;animation:in .45s ease both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.scene{animation:none}.bg{transition:none}}
+
+.card{background:var(--paper);border:4px solid #A9AEB8;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.35);padding:30px 32px}
+.card.narrow{max-width:520px}
+.card.mid{max-width:680px;margin:0 auto}
+.chip{display:inline-block;background:var(--navy);color:var(--gold);font:700 13px "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;margin-bottom:14px}
+.chip.won{background:var(--green);color:#fff}
+.chip.lost{background:var(--red);color:#fff}
+h1,h2{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;margin:0 0 12px;line-height:1.02;color:var(--navy)}
+h1{font-size:clamp(40px,6vw,64px);font-weight:800}
+h2{font-size:clamp(28px,3.4vw,38px);font-weight:700}
+h2.plain{text-transform:none}
+.card p{margin:0 0 14px}
+.card p:last-child{margin-bottom:0}
+.lede{font-size:19px}
+.btn{display:inline-block;background:var(--gold);color:var(--navy);border:0;border-radius:6px;padding:12px 22px;font:700 17px "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 4px 0 var(--navy);margin-top:8px;transition:transform .1s, box-shadow .1s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 5px 0 var(--navy)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--navy)}
+.btn.ghost{background:transparent;border:2px solid var(--navy);box-shadow:none;margin-left:8px}
+.btn.red{background:var(--red);color:#fff;box-shadow:0 4px 0 #5e140e}
+
+.row{display:flex;gap:24px;align-items:center}
+.row > .card.narrow{flex:0 0 400px}
+.side{flex:1}
+
+/* roster */
+.roster{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.duo{border:2px dashed #E3B42A;background:var(--gold-soft);border-radius:10px;padding:26px 14px 14px;position:relative;display:flex;flex-direction:column;gap:10px;flex:2 1 300px}
+.duo > .lab{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--navy);color:var(--gold);font:700 12px "Barlow Condensed";letter-spacing:.1em;padding:3px 10px;border-radius:999px}
+.duo .pair{display:flex;gap:10px}
+.player{flex:1 1 120px;text-align:center}
+.jersey{background:var(--navy);color:var(--gold);border-radius:10px;font:800 64px/1 "Barlow Condensed";padding:30px 0;margin-bottom:10px}
+.player .nm{font:700 22px "Barlow Condensed";text-transform:uppercase;color:var(--navy)}
+.player .role{font:600 12px "Barlow Condensed";letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.player p,.duo > p{font-size:14px;color:var(--muted);margin:0;text-align:center}
+
+/* chalkboard */
+.board{background:#fff;border:10px solid #C8CCD3;border-radius:6px;padding:26px 30px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.board h3{font:700 30px "Barlow Condensed";text-transform:uppercase;margin:0 0 18px;color:var(--navy)}
+.idea{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-top:2px dashed #D9DDE3;transition:opacity .35s}
+.idea.off{opacity:.18}
+.idea .n{flex:0 0 44px;height:44px;border-radius:50%;border:3px solid var(--navy);display:grid;place-items:center;font:800 24px "Barlow Condensed";color:var(--navy)}
+.idea.on .n{background:var(--gold)}
+.idea b{display:block;font:700 22px "Barlow Condensed";text-transform:uppercase;color:#1f55c9}
+.idea span{color:var(--muted)}
+
+/* choices */
+.choices{display:flex;flex-direction:column;gap:12px}
+.opt{display:flex;gap:16px;align-items:center;text-align:left;background:var(--paper);border:2px solid var(--navy);border-radius:8px;padding:14px 18px;box-shadow:0 4px 0 var(--navy);font-size:17px;transition:transform .1s, background .15s}
+.opt:hover{background:#fff;transform:translateY(-1px)}
+.opt .k{flex:0 0 36px;height:36px;border-radius:6px;background:var(--navy);color:var(--gold);display:grid;place-items:center;font:800 19px "Barlow Condensed"}
+.opt.picked{background:var(--gold-soft)}
+.sub{font:600 13px "Barlow Condensed";letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:6px 0 10px}
+
+/* timeout breath */
+.breath{display:grid;place-items:center;gap:22px;text-align:center;color:#fff}
+.ring{width:180px;height:180px;border-radius:50%;border:4px solid var(--gold);display:grid;place-items:center;animation:breathe 1.75s ease-in-out both}
+.ring span{font:700 22px "Barlow Condensed";letter-spacing:.1em;text-transform:uppercase}
+.breath p{font:700 clamp(26px,4vw,40px) "Barlow Condensed";margin:0}
+@keyframes breathe{0%{transform:scale(.6);opacity:.2}50%{transform:scale(1.05);opacity:1}100%{transform:scale(.95);opacity:1}}
+
+/* reveal */
+.guess{display:flex;align-items:center;gap:14px;background:#fff;border:2px solid var(--line);border-radius:8px;padding:12px 14px;margin:6px 0 18px}
+.guess .lab{font:700 12px "Barlow Condensed";letter-spacing:.12em;color:var(--muted);text-transform:uppercase;display:block}
+.guess .g{font-weight:600}
+.guess .mk{margin-left:auto;flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;font-weight:700;color:#fff}
+.guess .mk.y{background:var(--green)} .guess .mk.n{background:var(--red)}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 14px;border-radius:0 6px 6px 0}
+
+/* season */
+.bars{display:flex;gap:22px;align-items:flex-end;height:200px;padding:10px 6px 0;border-bottom:3px solid var(--navy)}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.bar i{display:block;width:100%;max-width:90px;background:var(--navy);border-radius:6px 6px 0 0;height:0;transition:height 1s ease}
+.bar:nth-child(2) i{background:#2D4A86}.bar:nth-child(3) i{background:var(--gold)}
+.barlab{display:flex;gap:22px;padding:8px 6px 0}
+.barlab span{flex:1;text-align:center;font:700 15px "Barlow Condensed";letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.big{font:800 clamp(80px,12vw,140px)/.9 "Barlow Condensed";color:var(--navy)}
+.big.gold{color:#C79A0E}
+.stat{display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 16px}
+.stat .s{display:flex;flex-direction:column}
+.stat .s small{font:700 13px "Barlow Condensed";letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quote{font:700 clamp(30px,4vw,44px)/1.1 "Barlow Condensed";color:var(--navy);margin:0 0 8px}
+.wis{list-style:none;margin:0 0 16px;padding:0}
+.wis li{padding:10px 0;border-top:2px dashed #D9DDE3;font-size:19px}
+.wis li b{font-family:"Barlow Condensed";font-size:24px;text-transform:uppercase;color:#1f55c9;display:block;line-height:1.1}
+.tools{list-style:none;padding:0;margin:0 0 18px}
+.tools li{display:flex;gap:14px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.tools .n{flex:0 0 36px;height:36px;border-radius:6px;background:var(--navy);color:var(--gold);display:grid;place-items:center;font:800 19px "Barlow Condensed"}
+.tools b{display:block;font:700 20px "Barlow Condensed";text-transform:uppercase}
+.tools span{color:var(--muted);font-size:15px}
+
+/* clipboard */
+.clipbtn{position:fixed;left:20px;bottom:20px;z-index:5;border:0;background:none;padding:0;display:none;flex-direction:column;align-items:center;gap:6px}
+.clipbtn.show{display:flex}
+.clipbtn .cb{width:76px;height:96px;background:#A0703F;border-radius:8px;position:relative;box-shadow:0 8px 20px rgba(0,0,0,.4);transition:transform .15s}
+.clipbtn:hover .cb{transform:translateY(-3px) rotate(-2deg)}
+.clipbtn .cb::before{content:"";position:absolute;left:24px;top:-6px;width:28px;height:12px;background:#C9CDD5;border-radius:4px}
+.clipbtn .cb::after{content:"GAME PLAN";position:absolute;inset:12px 8px 8px;background:#fff;border-radius:2px;font:800 12px/1.1 "Barlow Condensed";color:#1f55c9;text-align:center;padding-top:8px}
+.clipbtn .lab{background:var(--navy);color:var(--gold);font:700 11px "Barlow Condensed";letter-spacing:.12em;padding:3px 8px;border-radius:999px}
+.clipbtn.pulse .cb{animation:pulse 1.2s ease-in-out 3}
+@keyframes pulse{50%{box-shadow:0 0 0 10px rgba(247,197,49,.45),0 8px 20px rgba(0,0,0,.4)}}
+dialog{border:0;padding:0;background:transparent;max-width:min(560px,92vw)}
+dialog::backdrop{background:rgba(13,20,36,.7)}
+.clip{background:#A0703F;border-radius:14px;padding:22px 18px 18px;position:relative}
+.clip::before{content:"";position:absolute;left:50%;top:-10px;transform:translateX(-50%);width:110px;height:24px;background:#C9CDD5;border-radius:6px}
+.clip .paper{background:#fff;border-radius:4px;padding:24px 26px}
+.clip h2{color:#1f55c9}
+.clip .src{font-size:14px;color:var(--muted);margin:10px 0 0}
+
+/* unlock */
+.unlock{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.unlock .hint{color:#fff;text-align:center}
+.unlock .hint b{display:block;font:700 22px "Barlow Condensed";letter-spacing:.06em;color:var(--gold)}
+
+@media (max-width:860px){
+  body{font-size:16px}
+  .row{flex-direction:column;align-items:stretch}
+  .row > .card.narrow{flex:none;max-width:none}
+  .card{padding:22px 20px}
+  .content{align-items:flex-start;padding:4px 14px 130px}
+  .top{padding:12px 14px}
+  .jersey{font-size:44px;padding:18px 0}
+  .unlock{grid-template-columns:1fr}
+  .clipbtn{left:auto;right:14px;bottom:14px}
+  .clipbtn .cb{width:58px;height:72px}
+  .clipbtn .cb::after{font-size:10px}
+  .bars{height:150px;gap:12px}.barlab{gap:12px}
+  .opt{padding:12px 14px;font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="bg" id="bg" aria-hidden="true"></div>
+  <div class="top">
+    <a class="back" href="../../coaching.html">&larr; Case study</a>
+    <span class="tag" id="tag" hidden></span>
+  </div>
+  <main class="content" id="main" aria-live="polite"></main>
+  <div class="prog" aria-hidden="true"><i id="prog"></i></div>
+</div>
+
+<button class="clipbtn" id="clipBtn" type="button" aria-haspopup="dialog" aria-label="Open my clipboard: the three ideas from Coach Ramos">
+  <span class="cb" aria-hidden="true"></span><span class="lab">MY CLIPBOARD</span>
+</button>
+
+<dialog id="clipDlg" aria-labelledby="clipTitle">
+  <div class="clip"><div class="paper">
+    <h2 id="clipTitle">My game plan</h2>
+    <ul class="tools">
+      <li><span class="n">1</span><div><b>Pause and diagnose.</b><span>Find the cause before you react.</span></div></li>
+      <li><span class="n">2</span><div><b>Name the behavior, protect the person.</b><span>What happened, not who they are.</span></div></li>
+      <li><span class="n">3</span><div><b>Hand back ownership.</b><span>Let players be part of the solution.</span></div></li>
+    </ul>
+    <p class="src">From Coach Ramos's chalk talk</p>
+    <button class="btn" id="clipClose" type="button">Back to the court</button>
+  </div></div>
+</dialog>
+
+<script>
+const IMG = n => `img/${n}.jpg`;
+const state = { guess:{}, clip:false };
+
+/* Correct timeout guesses (index into options) */
+const TIMEOUTS = {
+  s1:{ q:"Breathe. What's really going on here?", lead:"Before reacting, you call a timeout in your head. Take a breath. What might be underneath?",
+       opts:["They lost track of the defensive system","The huddle is running long","Something's going on between them"], right:1 },
+  s2:{ q:"Breathe. Look past the moment.", lead:"Before reacting, you take a breath. Why might Micah be fading?",
+       opts:["The drill is too easy for him","Something's weighing on him outside the gym","He's frustrated with his own play"], right:1 },
+  s3:{ q:"Breathe. What does he need right now?", lead:"Before reacting, you take a breath. Why is Eli boiling over?",
+       opts:["He feels like he has to win the game by himself","He's frustrated with the officiating","He's running out of gas"], right:0 },
+};
+
+const S = {
+/* ---------- OPENING ---------- */
+title:{type:'title', bg:'match-night'},
+intro:{type:'story', bg:'locker', tag:['SET 1','WARM-UP'],
+  body:["You're the program director and head coach of a high school boys' volleyball team. You run a tight ship: every rep called, every mistake corrected on the spot. But practices feel tense, and your players are tuning out. You sense there's a better way, but aren't sure where to start."], next:'last'},
+last:{type:'story', bg:'gym', tag:['SET 1','WARM-UP'], chip:'Last season',
+  body:["Last season ended 0–10. The losses piled up, and so did the frustration.","Looking back, you notice a pattern. When one player's energy dropped, the rest of the court followed. When one player lost his cool, it spread. On this team, how one player shows up shapes how everyone else plays."],
+  side:`<div class="card" style="text-align:center;max-width:340px;margin:0 auto"><div class="sub">Last season</div><div class="big">0–10</div><div class="sub">Wins – Losses</div></div>`, next:'team'},
+team:{type:'team', bg:'gym', tag:['SET 1','WARM-UP'], next:'reach'},
+reach:{type:'story', bg:'parking', tag:['SET 1','WARM-UP'],
+  body:["You decide to reach out to an old friend, Coach Ramos, who coaches college men's volleyball. You're invited to sit in on practice Saturday morning."], next:'notice'},
+notice:{type:'story', bg:'arena', tag:['SET 1','WARM-UP'],
+  body:["Right away, something feels different. The players run their own warm-up, call out their own fixes, and hold each other to the standard. Coach Ramos barely says a word."], next:'convo'},
+convo:{type:'story', bg:'arena', tag:['SET 1','WARM-UP'],
+  body:["After practice, Coach Ramos explains that the team owns its culture. The coaches guide, ask questions, and let players solve problems. You have your doubts, but you're curious."], next:'chalk'},
+chalk:{type:'chalk', bg:'arena', tag:['SET 1','CHALK TALK'], next:'unlock'},
+unlock:{type:'unlock', bg:'parking', tag:['SET 1','CHALK TALK'], next:'practice'},
+
+/* ---------- SET 1 ---------- */
+practice:{type:'story', bg:'whiteboard', tag:['SET 1','PRACTICE'],
+  body:["Monday's practice. You gather the team in a huddle to walk through a new defensive system. With Coach Ramos's advice fresh in your mind, you keep your eyes open for chances to start building a better culture."], next:'moment1'},
+moment1:{type:'story', bg:'huddle', tag:['SET 1','PRACTICE'],
+  body:["Halfway through your explanation, Austin (8) and Troy (14) start laughing and nudging each other in the back of the huddle. A few teammates turn to look."], next:'react1'},
+react1:{type:'story', bg:'coach-view', tag:['SET 1','PRACTICE'],
+  body:["Your face gets hot. The old you would snap at them in front of everyone, and the whole team is waiting to see what you'll do."], next:'to1'},
+to1:{type:'timeout', bg:'whiteboard', tag:['SET 1','PRACTICE'], key:'s1', next:'d11'},
+d11:{type:'decision', bg:'whiteboard', tag:['SET 1','YOUR CALL'], chip:'Your call · 1 of 2', h:'What do you do?',
+  body:'Austin and Troy are still laughing, and the rest of the team is watching you.',
+  opts:[["Pause, wait for their eyes, and say, “I need everyone for this one.”",'w11'],
+        ["Call them out with a sarcastic comment in front of everyone",'l11a'],
+        ["Ignore it and keep talking",'l11b'],
+        ["Send them out of the huddle",'l11c']]},
+l11a:{type:'lost', bg:'whiteboard', tag:['SET 1','YOUR CALL'], h:'The laughing stops, but so does the trust.',
+  body:"Austin and Troy go quiet and red-faced, and the rest of the huddle tenses up. It's the old you, and the team knows it. Sarcasm shames the person instead of naming the behavior. Try a response that refocuses the group while protecting the player.", back:'d11'},
+l11b:{type:'lost', bg:'whiteboard', tag:['SET 1','YOUR CALL'], h:"It spreads, and now you've lost the huddle.",
+  body:"Two more players drift off, and your setter has to ask you to repeat the defensive system. Ignoring it told the team this moment didn't matter. The behavior was public, so it needs a response. Try redirecting the whole group.", back:'d11'},
+l11c:{type:'lost', bg:'whiteboard', tag:['SET 1','YOUR CALL'], h:'Overcorrection. The drill falls apart.',
+  body:"Sending them out feels decisive, but they miss the defensive system and it breaks down on the very next rep. The punishment outweighs a moment of goofing off. Match your response to the size of the problem. Try a lighter redirect first.", back:'d11'},
+w11:{type:'won', bg:'huddle-board', tag:['SET 1','YOUR CALL'], h:'You refocused the team without shaming anyone.',
+  body:"The pause brought their eyes back, and “I need everyone for this one” kept it about the group, not Austin and Troy. That's pausing before you react, and naming the behavior while protecting the person. Next, you'll follow up with them privately after practice.", cta:'See what really happened', next:'r1'},
+r1:{type:'reveal', bg:'gym', tag:['SET 1','DEBRIEF'], key:'s1', hdrY:'You called it', hdrN:'After practice', h:'What was really going on',
+  body:"After practice, you pull Austin and Troy aside and ask what happened. They admit they'd already understood the defensive system. The huddle ran long, they got bored, and they started messing around.",
+  y:"You read it right. Looking past the behavior led you to the real cause, and part of the fix is yours: keep huddles short, and let players walk through the system themselves.",
+  n:"Good instinct to look underneath the behavior, but the cause was the huddle itself. Part of the fix is yours: keep huddles short, and let players walk through the system themselves.",
+  cta:'Plan for next time', next:'d12'},
+d12:{type:'decision', bg:'whiteboard', tag:['SET 1','YOUR CALL'], chip:'Your call · 2 of 2', h:'How do you handle the next time?',
+  body:'Austin and Troy get it, and they want to stay locked in. Your next install is Wednesday.',
+  opts:[["Split them up for every drill from now on.",'l12a'],
+        ["“Next time I see you two goofing off, you're both running.”",'l12b'],
+        ["Ask them, “What would keep you two locked in when you already get it?” and build it together, like making them your demo pair when you teach the next drill, while you keep huddles short.",'w12']]},
+l12a:{type:'lost', bg:'whiteboard', tag:['SET 1','YOUR CALL'], h:'Split up, and checked out.',
+  body:"Austin and Troy feel singled out, and their energy disappears with their friendship on the court. Separating them treats the symptom and ignores the real cause: the huddle ran long. Build the fix with them.", back:'d12'},
+l12b:{type:'lost', bg:'whiteboard', tag:['SET 1','YOUR CALL'], h:'Quiet, but not with you.',
+  body:"They stop joking, but they also stop talking, and practice feels tense again. A threat handles the symptom, not the boredom underneath. Hand them some ownership instead.", back:'d12'},
+w12:{type:'won', bg:'huddle-board', tag:['SET 1','DEBRIEF'], h:'The jokesters become your examples.',
+  body:"On Wednesday, you teach the new system, and Austin and Troy step in as your demo pair. They fill in and show each rep so the rest of the team can see it and run it. Your huddles stay short, and their energy turns into the team's energy.", cta:'On to Set 2', next:'k2'},
+
+/* ---------- SET 2 ---------- */
+k2:{type:'kickoff', bg:'gym', tag:['SET 2','KICKOFF'], chip:'Set 2 · The Spark', h:'When your best player goes quiet',
+  body:"Two weeks later, your huddles are tighter, and Austin and Troy are locked in. But Micah (#10), the player who usually lifts everyone, is starting to fade.",
+  player:['10','Micah','Team spark'], cta:'Start Set 2', next:'drill2'},
+drill2:{type:'story', bg:'practice', tag:['SET 2','PRACTICE'],
+  body:["Wednesday's practice. During a serve-receive drill, Micah, one of your best players and usually your best attitude, is checked out: low energy, flat passes, no talk. When you give him a correction, he nods like he's listening, then answers with an edge."], next:'ripple2'},
+ripple2:{type:'story', bg:'practice', tag:['SET 2','PRACTICE'],
+  body:["Within a few reps, the energy drains from the whole line. Eli starts jogging too, and the passes get sloppy.","When your spark goes quiet, the team goes quiet with him. You feel the old urge to stop everything and call him out."], next:'to2'},
+to2:{type:'timeout', bg:'practice', tag:['SET 2','PRACTICE'], key:'s2', next:'d21'},
+d21:{type:'decision', bg:'practice', tag:['SET 2','YOUR CALL'], chip:'Your call · 1 of 3', h:'What do you do right now?',
+  body:'Micah is still at half-speed, and the line is following him.',
+  opts:[["Stop the drill and call him out: “Our best player is jogging. Come on.”",'l21a'],
+        ["Let it slide. He's earned a little slack.",'l21b'],
+        ["Pull Micah out of the drill and have him sit.",'l21c'],
+        ["Give the whole line a neutral cue, “Game speed on this next round,” and plan to talk with Micah after practice.",'d22']]},
+l21a:{type:'lost', bg:'practice', tag:['SET 2','YOUR CALL'], h:'He speeds up, but he shuts down.',
+  body:"Micah's face goes flat. He hustles for two reps, then goes silent for the rest of practice, and the guys tiptoe around him. Calling out your leader in public turned a dip in energy into a standoff. Try a cue that lifts the whole group without singling him out.", back:'d21'},
+l21b:{type:'lost', bg:'practice', tag:['SET 2','YOUR CALL'], h:'The fade becomes the standard.',
+  body:"By the end of the drill, half the line is coasting. Letting it slide told the team that game speed is optional, even for your best player. The behavior is public, so it needs a response. Try a cue that resets the whole line.", back:'d21'},
+l21c:{type:'lost', bg:'practice', tag:['SET 2','YOUR CALL'], h:"Benched, and now he's checked out.",
+  body:"Micah sits with his arms crossed, and the drill loses its best passer. Pulling him treats a dip in energy like a punishment, and you still don't know why he's fading. Try a lighter, group-wide reset first.", back:'d21'},
+d22:{type:'decision', bg:'locker', tag:['SET 2','AFTER PRACTICE'], chip:'Your call · 2 of 3', h:'After practice: what do you say?',
+  body:'The line picked up after your cue. Now the gym is quiet, and Micah is packing his bag.',
+  opts:[["“In serve-receive today, your pace dropped, and the line dropped with you. I noticed and wanted to check in. What's going on?”",'r2'],
+        ["“I need way more effort from you. You're better than this.”",'l22a'],
+        ["“You're our leader. The guys need you up. Don't let them down.”",'l22b']]},
+l22a:{type:'lost', bg:'locker', tag:['SET 2','AFTER PRACTICE'], h:'He nods, and tells you nothing.',
+  body:"“Yeah, Coach.” Micah agrees and heads out. A demand without a question shuts the door on the real reason. Name what you saw and how it affected the team, then ask.", back:'d22'},
+l22b:{type:'lost', bg:'locker', tag:['SET 2','AFTER PRACTICE'], h:"Now he's carrying even more weight.",
+  body:"Micah looks at the floor. Reminding him that everyone depends on him adds pressure he may already be feeling, without finding the cause. Describe the behavior and its impact, then ask an open question.", back:'d22'},
+r2:{type:'reveal', bg:'locker', tag:['SET 2','AFTER PRACTICE'], key:'s2', hdrY:'You called it', hdrN:'What he said', h:"What's really going on",
+  body:"Away from the team, Micah comes back to himself, laughing and joking with you again. Then he apologizes. With practices running long lately, he's had less time for schoolwork, and it's piling up. He's stressed about getting it all done so he can keep playing.",
+  y:"You read it right. Because you asked instead of assuming, you found what was really weighing on him.",
+  n:"Good instinct to look underneath the behavior, but the cause wasn't on the court at all. Asking instead of assuming is what uncovered it.",
+  cta:'Find the fix', next:'d23'},
+d23:{type:'decision', bg:'locker', tag:['SET 2','YOUR CALL'], chip:'Your call · 3 of 3', h:'How do you fix it?',
+  body:"Micah is overwhelmed by schoolwork, and he's worried it could cost him his spot.",
+  opts:[["“Leave school stress at the door. When you're here, you're here.”",'l23a'],
+        ["Ask him, “What would help you stay on top of school and the team?” and build a plan together, like a set study block or a heads-up on heavy test nights.",'w23'],
+        ["Excuse him from practice until he's caught up, without asking what he needs.",'l23b']]},
+l23a:{type:'lost', bg:'locker', tag:['SET 2','YOUR CALL'], h:'He nods, and the stress comes with him anyway.',
+  body:"Micah tries to push it down, but his energy dips again by Friday, and now he won't tell you why. Dismissing the cause doesn't make it go away. Hand the problem back and plan the fix together.", back:'d23'},
+l23b:{type:'lost', bg:'locker', tag:['SET 2','YOUR CALL'], h:"Kind, but it isn't his plan.",
+  body:"Micah sits out and feels like he's let the team down, and his teammates wonder what happened. Fixing it for him takes the ownership away. Ask what would help, and build the plan with him.", back:'d23'},
+w23:{type:'won', bg:'huddle', tag:['SET 2','DEBRIEF'], h:'Your spark is back, on and off the court.',
+  body:"Micah maps out his week with you: a study block before practice and a heads-up on test nights. A few days later, he's laughing in the huddle again and calling out the rotation, and the whole line follows his lead. When players own the fix, they bring their best selves back.", cta:'On to Set 3', next:'k3'},
+
+/* ---------- SET 3 ---------- */
+k3:{type:'kickoff', bg:'match-night', tag:['SET 3','GAME NIGHT'], chip:'Set 3 · Game Night', h:'When the fire turns on the team',
+  body:"It's your first league match, and the gym is packed. The boys' chemistry has grown every week, and the match starts strong. But when Eli's swings stop landing, his frustration starts to show, and everything begins to fall apart.",
+  player:['12','Eli','Short fuse'], cta:'Start Set 3', next:'moment3'},
+moment3:{type:'story', bg:'spike', tag:['SET 3','GAME NIGHT'],
+  body:["Third set, you're down by four. Eli hits into the block twice, then snaps at Austin over a shanked pass. Austin goes quiet, and his next pass is tentative."], next:'ripple3'},
+ripple3:{type:'story', bg:'head-down', tag:['SET 3','GAME NIGHT'],
+  body:["Every miss gets a glare at a teammate. The bench goes silent, Austin stops calling for the ball, and the whole court tightens around Eli's mood.","Your gut says to keep your best hitter on the floor and let him play through it."], next:'to3'},
+to3:{type:'timeout', bg:'head-down', tag:['SET 3','GAME NIGHT'], key:'s3', next:'d31'},
+d31:{type:'decision', bg:'head-down', tag:['SET 3','YOUR CALL'], chip:'Your call · 1 of 3', h:'Keep him in, or take him out?',
+  body:'Eli just glared at Austin again, and the gap is growing.',
+  opts:[["Keep him in. He's your best hitter, and he'll play through it.",'l31a'],
+        ["Call a timeout and tell him in front of everyone, “Fix your attitude or you're sitting.”",'l31b'],
+        ["Pull him and send him to the end of the bench without a word.",'l31c'],
+        ["Sub him out calmly: “Hey, take a break and cool off. I’m going to put Troy in.”",'turn']]},
+l31a:{type:'lost', bg:'head-down', tag:['SET 3','YOUR CALL'], h:'He plays through it, and so does the damage.',
+  body:"Eli forces two more swings into the block and barks at the setter. The gap grows, and his teammates stop calling for the ball. Keeping a frustrated player in protects his pride, not the team. Try a reset.", back:'d31'},
+l31b:{type:'lost', bg:'head-down', tag:['SET 3','YOUR CALL'], h:'A public threat, a public standoff.',
+  body:"Eli rolls his eyes, the huddle tenses, and he plays the rest of the set tight and angry. A threat in front of the team puts his pride on the line. Try a reset that protects him.", back:'d31'},
+l31c:{type:'lost', bg:'head-down', tag:['SET 3','YOUR CALL'], h:'Benched and burning.',
+  body:"The sub helps on the court, but Eli sits at the end of the bench, stewing, with no idea why he was pulled. A reset needs a clear, calm message: this isn't a punishment. Try subbing him out calmly instead.", back:'d31'},
+turn:{type:'won', bg:'celebrate', tag:['SET 3','GAME NIGHT'], chipTxt:'The turn', h:"One player's energy changes the court.",
+  body:"You sub Troy in for Eli. Troy checks in loud and bouncing, and his energy rejuvenates Austin, whose passes settle right away. The bench comes alive, and the team claws back point by point. One player bringing high energy lifted everyone around him, and you win the set and take the match.", cta:'Continue', next:'d32'},
+d32:{type:'decision', bg:'match-night', tag:['SET 3','AFTER THE GAME'], chip:'Your call · 2 of 3', h:'After the win: what do you say to Eli?',
+  body:'The team is celebrating, but Eli is sitting alone at the end of the bench with his headphones in.',
+  opts:[["“See what happens when you check your attitude? We won without you.”",'l32a'],
+        ["Say nothing. He'll cool off on his own.",'l32b'],
+        ["“In the third set, your frustration started landing on your teammates, and the passing got tight. I pulled you to reset, not to punish you. What was going on out there?”",'r3']]},
+l32a:{type:'lost', bg:'match-night', tag:['SET 3','AFTER THE GAME'], h:'The win becomes a wedge.',
+  body:"Eli hears that the team is better without him, and he shuts down. Rubbing in the result turns a reset into a punishment. Name what you saw and why you made the change, then ask.", back:'d32'},
+l32b:{type:'lost', bg:'match-night', tag:['SET 3','AFTER THE GAME'], h:'Silence fills the gap.',
+  body:"Eli goes home thinking you've lost trust in him, and the next practice starts tense. Without a conversation, he writes his own story about the sub. Explain your intent, then ask what happened.", back:'d32'},
+r3:{type:'reveal', bg:'match-night', tag:['SET 3','AFTER THE GAME'], key:'s3', hdrY:'You called it', hdrN:'What he said', h:"What's really going on",
+  body:"Eli exhales. All season, he's felt like he has to win every point himself, and every miss felt like letting the team down. When his swings stopped landing, the frustration came out sideways on his teammates. He knows it, and he finds Austin to apologize before he leaves.",
+  y:"You read it right. Because you named the behavior and your intent before asking, he could tell you the truth.",
+  n:"Good instinct to look underneath the anger, but it wasn't about the refs or his legs. Naming your intent before asking is what opened him up.",
+  cta:'Plan for next time', next:'d33'},
+d33:{type:'decision', bg:'practice', tag:['SET 3','YOUR CALL'], chip:'Your call · 3 of 3', h:'How do you handle the next time?',
+  body:'Eli wants to own it, and your next match is Friday.',
+  opts:[["“Next time you lose your cool, you're sitting the whole game.”",'l33a'],
+        ["Ask him, “What's your signal that the frustration is building, and what should our reset be?” and agree on it together, like a breath at the service line or a quick tap for a sub.",'w33'],
+        ["Tell the team to just ignore Eli when he gets heated.",'l33b']]},
+l33a:{type:'lost', bg:'practice', tag:['SET 3','YOUR CALL'], h:"Now he's playing scared.",
+  body:"Eli spends Friday afraid of one bad reaction, and his game gets smaller. A punishment rule handles the symptom, not the pressure underneath. Build the plan with him.", back:'d33'},
+l33b:{type:'lost', bg:'practice', tag:['SET 3','YOUR CALL'], h:'The team works around him, not with him.',
+  body:"Teammates tiptoe around Eli, and he never learns to manage it. Making the team absorb his frustration lets him off the hook. Hand the ownership back to Eli.", back:'d33'},
+w33:{type:'won', bg:'spike', tag:['SET 3','DEBRIEF'], h:'Same fire, pointed the right way.',
+  body:"On Friday, Eli steps to the service line, takes his breath, and rips a no-touch ace. A few points later, Austin shanks a pass. Instead of a glare, Eli jogs over and pulls the team into a quick huddle, arms around each other: “Shake it off. Next one's yours.” The fire is still there, but now it lifts the team instead of burning it.", cta:'See the season', next:'season'},
+
+/* ---------- SEASON ---------- */
+season:{type:'season', bg:'gym', tag:['SEASON','WRAP-UP'], next:'shift'},
+shift:{type:'shift', bg:'huddle-board', tag:['SEASON','WRAP-UP'], next:'score'},
+score:{type:'score', bg:'celebrate', tag:['SEASON','WRAP-UP'], next:'ramos'},
+ramos:{type:'story', bg:'arena', tag:['SEASON','CHALK TALK'], chip:'One last chalk talk', h:'Back to where it started',
+  body:["After the season, you visit Coach Ramos and tell the whole story: Austin and Troy's long huddle, Micah's quiet week, Eli's fire, and the day your team said, “We got it.”","Coach Ramos listens, smiles, and reaches for a marker."], next:'wisdom'},
+wisdom:{type:'wisdom', bg:'arena', tag:['SEASON','CHALK TALK'], next:'complete'},
+complete:{type:'complete', bg:'match-night', tag:['SEASON','COMPLETE']},
+thanks:{type:'thanks', bg:'match-night', tag:['SEASON','COMPLETE']},
+};
+
+const ORDER = ['title','intro','last','team','reach','notice','convo','chalk','unlock','practice','moment1','react1','to1','d11','r1','d12',
+ 'k2','drill2','ripple2','to2','d21','d22','r2','d23','k3','moment3','ripple3','to3','d31','turn','d32','r3','d33','season','shift','score','ramos','wisdom','complete','thanks'];
+const progressOf = id => { let i = ORDER.indexOf(id); if(i<0){ const s=S[id]; i = ORDER.indexOf(s.back||s.next||'title'); } return Math.max(0,i)/(ORDER.length-1); };
+
+const $ = s => document.querySelector(s);
+const main = $('#main'), bg = $('#bg'), tag = $('#tag'), prog = $('#prog'), clipBtn = $('#clipBtn'), dlg = $('#clipDlg');
+const esc = t => t; // all strings are authored here
+const btn = (label, to, cls='btn') => `<button class="${cls}" type="button" data-go="${to}">${label}</button>`;
+const continueBtn = to => btn('Continue', to);
+
+function setBg(name, mode){
+  bg.style.backgroundImage = `url(${IMG(name)})`;
+  bg.className = 'bg' + (mode ? ' ' + mode : '');
+}
+
+function render(id){
+  const s = S[id];
+  if(!s) return;
+  setBg(s.bg, {lost:'dim',timeout:'blur',decision:'',reveal:'dim',title:''}[s.type] ?? 'dim');
+  if(s.tag){ tag.hidden=false; tag.innerHTML = `<b>${s.tag[0]}</b><i></i>${s.tag[1]}`; } else tag.hidden = true;
+  prog.style.width = (progressOf(id)*100)+'%';
+  clipBtn.classList.toggle('show', state.clip && !['title','complete','thanks','unlock'].includes(id) && s.type!=='timeout');
+  let h = '';
+  switch(s.type){
+    case 'title':
+      h = `<div class="card narrow" style="margin-right:auto"><span class="chip">Set 1 · The Huddle</span>
+        <h1 id="focus" tabindex="-1">Coaching Through Conflict</h1>
+        <p class="lede">Trade control for connection and build a team that leads itself</p>
+        ${btn('Take the court','intro')}</div>`; break;
+    case 'story':
+      h = `<div class="row"><div class="card narrow">${s.chip?`<span class="chip">${s.chip}</span>`:''}${s.h?`<h2 class="plain" id="focus" tabindex="-1">${s.h}</h2>`:''}
+        ${s.body.map((p,i)=>`<p ${!s.h&&i===0?'id="focus" tabindex="-1"':''} class="${i===0?'lede':''}">${p}</p>`).join('')}
+        ${continueBtn(s.next)}</div><div class="side">${s.side||''}</div></div>`; break;
+    case 'team':
+      h = `<div class="row"><div class="card narrow" style="flex-basis:300px"><p class="lede" id="focus" tabindex="-1">Your team has talent, but they struggle to perform consistently. Focus rises and falls with four key players, and when one of them drifts, the rest follow.</p>${continueBtn(s.next)}</div>
+        <div class="card side"><div class="roster">
+          <div class="duo"><span class="lab">THE DUO</span><div class="pair">
+            <div class="player"><div class="jersey">8</div><div class="nm">Austin</div><div class="role">Jokester</div></div>
+            <div class="player"><div class="jersey">14</div><div class="nm">Troy</div><div class="role">Jokester</div></div></div>
+            <p>Best friends since third grade and teammates since sixth. They love joking around, but when they're together, the rest of the team gets distracted.</p></div>
+          <div class="player"><div class="jersey">10</div><div class="nm">Micah</div><div class="role">Team spark</div><p>Your best player and the one who keeps everyone up. Lately, his energy is fading, and you're not sure why.</p></div>
+          <div class="player"><div class="jersey">12</div><div class="nm">Eli</div><div class="role">Short fuse</div><p>Plays with fire. When things go wrong, his anger can boil over, even to his own teammates.</p></div>
+        </div></div></div>`; break;
+    case 'chalk':
+      h = `<div class="row"><div class="card narrow"><p class="lede" id="focus" tabindex="-1">Before you leave, Coach Ramos grabs a marker and sketches three ideas on the whiteboard.</p>
+        <div id="chalkBtn">${'<button class="btn" type="button" id="nextIdea">Next idea</button>'}</div></div>
+        <div class="board side"><h3>3 things to try</h3>
+          ${[['Pause and diagnose.','Behavior is a symptom. Find the cause before you react.'],['Name the behavior, protect the person.','Talk about what happened, not who they are.'],['Hand back ownership.','Let players be part of the solution.']]
+            .map((x,i)=>`<div class="idea ${i===0?'on':'off'}" data-i="${i}"><span class="n">${i+1}</span><div><b>${x[0]}</b><span>${x[1]}</span></div></div>`).join('')}
+        </div></div>`; break;
+    case 'unlock':
+      state.clip = true;
+      h = `<div class="unlock"><div class="card"><span class="chip">New tool unlocked</span><h2 class="plain" id="focus" tabindex="-1">Your game plan, always with you</h2>
+        <p>Before you leave, you snap a photo of the whiteboard. That night, you copy Coach Ramos's three ideas onto the clipboard you carry to every practice.</p>
+        ${btn('Head to practice','practice')}</div>
+        <div class="hint"><b>YOUR GAME PLAN LIVES HERE</b><p>Tap the clipboard anytime to see your three ideas.</p>
+        <button class="btn" type="button" data-clip="1">Open my clipboard</button></div></div>`;
+      clipBtn.classList.add('show','pulse'); break;
+    case 'timeout': {
+      const t = TIMEOUTS[s.key];
+      h = `<div class="breath" id="breath"><div class="ring"><span>Mental timeout</span></div><p>${t.q}</p></div>`;
+      main.innerHTML = `<div class="scene">${h}</div>`;
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setTimeout(()=>{
+        main.innerHTML = `<div class="scene"><div class="card mid"><span class="chip">Mental timeout</span>
+          <p class="lede" id="focus" tabindex="-1">${t.lead}</p><div class="sub">Tap your best guess</div>
+          <div class="choices">${t.opts.map((o,i)=>`<button class="opt" type="button" data-guess="${i}"><span class="k">${i+1}</span><span>${o}</span></button>`).join('')}</div></div></div>`;
+        const f = document.getElementById('focus'); f && f.focus({preventScroll:true});
+        main.querySelectorAll('[data-guess]').forEach(b=>b.onclick=()=>{ state.guess[s.key]=+b.dataset.guess; b.classList.add('picked'); setTimeout(()=>go(s.next),250); });
+      }, reduce?300:1800);
+      return; }
+    case 'decision':
+      h = `<div class="row"><div class="card narrow"><span class="chip">${s.chip}</span><h2 id="focus" tabindex="-1">${s.h}</h2><p>${s.body}</p></div>
+        <div class="choices side">${s.opts.map((o,i)=>`<button class="opt" type="button" data-go="${o[1]}"><span class="k">${'ABCD'[i]}</span><span>${o[0]}</span></button>`).join('')}</div></div>`; break;
+    case 'lost':
+      h = `<div class="card mid"><span class="chip lost">Point lost</span><h2 class="plain" id="focus" tabindex="-1">${s.h}</h2><p>${s.body}</p>${btn('Replay the point',s.back,'btn red')}</div>`; break;
+    case 'won':
+      h = `<div class="card mid"><span class="chip won">${s.chipTxt||'Point won'}</span><h2 class="plain" id="focus" tabindex="-1">${s.h}</h2><p>${s.body}</p>${btn(s.cta,s.next)}</div>`; break;
+    case 'reveal': {
+      const t = TIMEOUTS[s.key], g = state.guess[s.key], ok = g===t.right;
+      const gt = g==null ? 'No guess yet' : t.opts[g];
+      h = `<div class="card mid"><span class="chip ${ok?'won':''}">${ok?s.hdrY:s.hdrN}</span><h2 class="plain" id="focus" tabindex="-1">${s.h}</h2>
+        <div class="guess"><div><span class="lab">Your timeout guess</span><span class="g">${gt}</span></div>
+        <span class="mk ${ok?'y':'n'}" aria-label="${ok?'Correct':'Not quite'}">${ok?'✓':'✗'}</span></div>
+        <p>${s.body}</p><p class="note">${ok?s.y:s.n}</p>${btn(s.cta,s.next)}</div>`; break; }
+    case 'kickoff':
+      h = `<div class="row"><div class="card narrow"><span class="chip">${s.chip}</span><h2 id="focus" tabindex="-1">${s.h}</h2><p>${s.body}</p>${btn(s.cta,s.next)}</div>
+        <div class="side"><div class="card player" style="max-width:240px;margin:0 auto"><div class="jersey">${s.player[0]}</div><div class="nm">${s.player[1]}</div><div class="role">${s.player[2]}</div></div></div></div>`; break;
+    case 'season':
+      h = `<div class="row"><div class="card narrow"><span class="chip">The season</span><h2 class="plain" id="focus" tabindex="-1">Every small moment added up</h2>
+        <p>Week by week, the little things you practiced started to stick. Together, you built a culture that was winning, supportive, and accountable.</p>
+        <p>Attitudes improved, teamwork grew stronger, and the guys started holding each other to the standard without waiting for you.</p>${continueBtn(s.next)}</div>
+        <div class="card side"><div class="sub">Week by week</div><div class="bars"><div class="bar"><i data-h="70"></i></div><div class="bar"><i data-h="84"></i></div><div class="bar"><i data-h="96"></i></div></div>
+        <div class="barlab"><span>Attitude</span><span>Teamwork</span><span>Accountability</span></div></div></div>`; break;
+    case 'shift':
+      h = `<div class="row"><div class="card narrow"><span class="chip">The shift</span>
+        <p class="lede" id="focus" tabindex="-1">Soon, you stopped micromanaging drills. They handled high-pressure moments on their own, and more and more often, you'd see that they knew how to lead their own huddles and talked about the same mistakes that you noticed.</p>
+        <p>And then they followed through.</p>${continueBtn(s.next)}</div>
+        <div class="card side"><p class="quote">“Coach, no, we got it. We got it.”</p><div class="sub">— your team, every week</div></div></div>`; break;
+    case 'score':
+      h = `<div class="row"><div class="card narrow"><span class="chip">The result</span>
+        <p class="lede" id="focus" tabindex="-1">Last season, you finished in last place out of the six schools in your school sports league. This season, you placed third, qualified for the Regional Interscholastic Volleyball Tournament, and made the school's first-ever semifinal appearance, falling only to the eventual division champions.</p>${continueBtn(s.next)}</div>
+        <div class="card side" style="text-align:center"><div class="sub">This season</div><div class="big gold">3RD</div><div class="sub">In league · First semifinal appearance in school history</div></div></div>`; break;
+    case 'wisdom':
+      h = `<div class="row"><div class="card narrow"><p class="lede" id="focus" tabindex="-1">Coach Ramos writes one line on the board, then explains.</p>
+        <p>“Control doesn't come from running every rep. It comes from building players who can run it without you. That's why they told you, ‘We got it.’”</p>${btn('Finish the season','complete')}</div>
+        <div class="board side"><h3>You handed them the ball.</h3><ul class="wis">
+          <li><b>You paused,</b>so you found the real problem.</li>
+          <li><b>You protected the person,</b>so they kept talking to you.</li>
+          <li><b>You handed back ownership,</b>so they stopped needing you to fix it.</li></ul></div></div>`; break;
+    case 'complete':
+      h = `<div class="card mid"><span class="chip">Match point · Module complete</span><h2 id="focus" tabindex="-1">Coaching Through Conflict</h2>
+        <p>This season, you reached for the same three tools again and again:</p>
+        <ul class="tools">
+          <li><span class="n">1</span><div><b>Pause and diagnose</b><span>Austin and Troy's long huddle</span></div></li>
+          <li><span class="n">2</span><div><b>Name the behavior, protect the person</b><span>Micah's quiet week</span></div></li>
+          <li><span class="n">3</span><div><b>Hand back ownership</b><span>Eli's reset plan</span></div></li></ul>
+        ${btn('Finish module','thanks')}${btn('Play again','title','btn ghost')}</div>`; break;
+    case 'thanks':
+      h = `<div class="card mid"><span class="chip">Final whistle</span><h2 id="focus" tabindex="-1">Thanks for coaching</h2>
+        <p>You've finished Coaching Through Conflict. Keep your clipboard close: pause, protect the person, and hand back ownership.</p>
+        ${btn('Play again','title')}<a class="btn ghost" href="../../coaching.html" style="text-decoration:none">Read the case study</a></div>`; break;
+  }
+  main.innerHTML = `<div class="scene">${h}</div>`;
+  wire(s);
+  const f = document.getElementById('focus'); if(f) f.focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+
+function wire(s){
+  main.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+  main.querySelectorAll('[data-clip]').forEach(b=>b.onclick=openClip);
+  if(s.type==='chalk'){
+    let i=0; const nb = document.getElementById('nextIdea');
+    nb.onclick=()=>{
+      i++; main.querySelectorAll('.idea').forEach(el=>{ const k=+el.dataset.i; el.className='idea '+(k<=i?'on':'off'); });
+      if(i>=2){ document.getElementById('chalkBtn').innerHTML = continueBtn(s.next); wire({type:''}); }
+    };
+  }
+  if(s.type==='season') requestAnimationFrame(()=>setTimeout(()=>main.querySelectorAll('.bar i').forEach(b=>b.style.height=b.dataset.h+'%'),60));
+}
+
+function go(id){
+  if(id==='title'){ state.guess={}; state.clip=false; clipBtn.classList.remove('show','pulse'); }
+  history.replaceState(null,'','#'+id);
+  render(id);
+}
+function openClip(){ clipBtn.classList.remove('pulse'); dlg.showModal(); $('#clipClose').focus(); }
+clipBtn.onclick = openClip;
+$('#clipClose').onclick = ()=>dlg.close();
+dlg.addEventListener('click', e=>{ if(e.target===dlg) dlg.close(); });
+
+/* preload images */
+[...new Set(Object.values(S).map(s=>s.bg))].forEach(n=>{ const i=new Image(); i.src=IMG(n); });
+
+const start = location.hash.slice(1);
+if(S[start] && start!=='title'){ state.clip = ORDER.indexOf(start) > ORDER.indexOf('unlock') || !ORDER.includes(start); }
+render(S[start] ? start : 'title');
+</script>
+</body>
+</html>
