@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schedule a Patient Follow-Up · Software Training</title>
+<meta name="description" content="A show me, try me, test me software-training module for new front-desk staff. Portfolio sample by Tshwjxeeb Vaaj. Brightwell Clinic and ScheduleDesk are fictional.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7C7B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14213D; --teal:#0E7C7B; --teal-dark:#0A5F5E; --teal-soft:#E3F2F1; --amber:#F4B942; --amber-soft:#FDF3DC;
+  --bg:#F4F6FA; --line:#DDE2EA; --muted:#5B6577; --ph:#8A93A6; --side:#1F2A44; --white:#fff;
+  --red:#B42318; --red-soft:#FDECEA; --green:#1E7B3C; --green-soft:#E6F4EA;
+  --shadow:0 12px 32px rgba(20,33,61,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.5}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.app{min-height:100%;display:flex;flex-direction:column}
+
+/* header */
+.hdr{background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 32px;flex-wrap:wrap}
+.hdr .k{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--teal)}
+.hdr h1{font-size:17px;margin:0;font-weight:700}
+.track{display:flex;gap:8px;list-style:none;margin:0;padding:0}
+.track li{display:flex;gap:8px;align-items:center;padding:7px 14px;border-radius:999px;background:var(--bg);color:var(--muted);font-weight:600;font-size:14px}
+.track li.cur{background:var(--teal);color:#fff}
+.track li.done{background:var(--teal-soft);color:var(--teal)}
+.step{font-size:14px;color:var(--muted);font-weight:500}
+.prog{height:4px;background:var(--line)}
+.prog i{display:block;height:100%;background:var(--teal);transition:width .3s}
+
+/* body */
+main{flex:1;padding:24px 32px;display:flex;justify-content:center}
+.stage{width:100%;max-width:1240px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:28px;align-items:start}
+.coach .eyebrow{font-size:12px;font-weight:600;color:var(--teal);letter-spacing:.04em;margin:0 0 6px}
+.coach h2{font-size:24px;line-height:1.2;margin:0 0 14px}
+.callout{background:var(--ink);color:#fff;border-radius:12px;padding:16px 18px;display:flex;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,.2);margin-bottom:14px}
+.callout .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-weight:700;font-size:14px}
+.callout b{display:block;font-size:16px;margin-bottom:4px}
+.callout p{margin:0;color:#D7DEEA;font-size:14px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.note .lab{font-size:11px;font-weight:600;color:var(--teal);letter-spacing:.04em;display:block;margin-bottom:4px}
+.note p{margin:0;font-size:14px}
+.note.amber{background:var(--amber-soft);border-color:#F2DFB0}
+.note.amber .lab{color:var(--ink)}
+.task{background:var(--ink);color:#fff;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.task .lab{font-size:11px;font-weight:600;color:var(--amber);letter-spacing:.04em;display:block;margin-top:8px}
+.task .lab:first-child{margin-top:0}
+.task p{margin:2px 0;font-size:15px;font-weight:500}
+.instr{color:var(--muted);font-size:15px}
+.fb{border-radius:12px;padding:16px 18px;margin-bottom:14px;border:1px solid}
+.fb.bad{background:var(--red-soft);border-color:#F4C7C3}
+.fb.good{background:var(--green-soft);border-color:#BFE3CA}
+.fb b{display:block;margin-bottom:4px}
+.fb.bad b{color:var(--red)} .fb.good b{color:var(--green)}
+.fb p{margin:0;font-size:14px}
+
+/* app window */
+.win{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:grid;grid-template-columns:200px minmax(0,1fr);min-height:560px}
+.side{background:var(--side);padding:20px 14px;display:flex;flex-direction:column;gap:4px}
+.brand{display:flex;gap:10px;align-items:center;padding:0 8px 18px;color:#fff}
+.logo{width:28px;height:28px;border-radius:8px;background:var(--teal);display:grid;place-items:center;font-weight:700}
+.brand b{display:block;font-size:15px} .brand small{color:#AEB8CC;font-size:11px}
+.nav{background:none;border:0;text-align:left;color:#C9D1E0;padding:10px 12px;border-radius:8px;font-weight:500;font-size:14px}
+.nav:hover{background:rgba(255,255,255,.06)}
+.nav.on{background:var(--teal);color:#fff;font-weight:600}
+.mainw{background:var(--bg);display:flex;flex-direction:column;min-width:0}
+.top{background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:10px 20px;gap:12px}
+.top .search{background:var(--bg);border-radius:8px;padding:7px 12px;color:var(--muted);font-size:13px;flex:0 1 280px}
+.top .who{font-size:13px;color:var(--muted);font-weight:500;white-space:nowrap}
+.content{padding:20px 24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.content h3{margin:0;font-size:20px}
+.row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:600;color:var(--muted)}
+.inp{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-weight:500;min-height:42px}
+.inp:focus{outline:none;border:2px solid var(--teal);padding:9px 11px}
+.inp::placeholder{color:var(--ph);font-weight:400}
+select.inp{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2314213D'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:32px;cursor:pointer}
+.abtn{border:0;border-radius:8px;padding:10px 16px;font-weight:600;background:var(--teal);color:#fff;min-height:42px}
+.abtn:hover{background:var(--teal-dark)}
+.abtn.sec{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.abtn.sec:hover{background:var(--bg)}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
+.card .lab{font-size:11px;font-weight:600;color:var(--teal);letter-spacing:.04em}
+.plan{background:var(--bg);border-radius:8px;padding:10px 12px;font-weight:500;font-size:14px;margin-top:10px}
+.plan.amber{background:var(--amber-soft)}
+.tabs{display:flex;gap:6px}
+.tabs span{padding:8px 14px;border-radius:8px;background:#fff;color:var(--muted);font-weight:600;font-size:13px}
+.tabs span.on{background:var(--ink);color:#fff}
+.tbl{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tr{display:grid;grid-template-columns:1.4fr 1fr .8fr 1.1fr;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line);align-items:center;width:100%;background:#fff;border-left:0;border-right:0;border-top:0;text-align:left;font-size:14px}
+.tr:last-child{border-bottom:0}
+.tr.head{background:var(--bg);font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.04em;padding:10px 16px}
+button.tr:hover{background:#F9FBFC}
+.tr b{font-weight:600}
+.empty{border:1.5px dashed var(--line);border-radius:12px;background:#fff;padding:28px;text-align:center}
+.empty b{display:block} .empty span{color:var(--muted);font-size:14px}
+.small{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(96px,1fr));gap:10px;overflow-x:auto;padding-bottom:4px}
+.day{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px}
+.day small{color:var(--muted);font-weight:600;font-size:12px}
+.day b{font-size:15px}
+.slot{border:0;border-radius:8px;padding:7px 4px;font-weight:600;font-size:13px;background:var(--teal-soft);color:var(--teal)}
+.slot:hover{background:#CBE7E5}
+.slot.sel{background:var(--teal);color:#fff}
+.slot.booked{background:var(--bg);color:#8A93A6;cursor:not-allowed}
+.sum{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.sum div{display:grid;grid-template-columns:130px 1fr;padding:12px 18px;border-bottom:1px solid var(--line);font-size:14px}
+.sum div:last-child{border-bottom:0}
+.sum span{color:var(--muted);font-weight:500} .sum b{font-weight:600}
+.chk{display:flex;gap:10px;align-items:center;font-weight:500;font-size:14px}
+.chk input{width:18px;height:18px;accent-color:var(--teal)}
+.banner{background:var(--green-soft);border:1px solid #BFE3CA;color:var(--green);border-radius:10px;padding:12px 16px;font-weight:600;font-size:14px}
+
+/* focus ring for show me */
+.ring{position:relative;outline:3px solid var(--amber);outline-offset:4px;border-radius:10px;box-shadow:0 0 0 8px rgba(244,185,66,.25)}
+.badge{position:absolute;top:-16px;right:-14px;width:26px;height:26px;border-radius:50%;background:var(--amber);color:var(--ink);font-weight:700;font-size:13px;display:grid;place-items:center;z-index:2;pointer-events:none}
+
+/* intro / test layouts */
+.intro{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:56px;align-items:center;padding:24px 0}
+.intro h2{font-size:clamp(34px,4.6vw,52px);line-height:1.08;margin:12px 0 16px}
+.lead{font-size:19px;color:var(--muted);margin:0 0 18px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chips span{background:var(--teal-soft);color:var(--teal);font-weight:600;border-radius:999px;padding:8px 16px}
+.panel{background:#fff;border-radius:20px;padding:28px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.panel .lab{font-size:12px;font-weight:600;color:var(--teal);letter-spacing:.04em}
+.panel .it{border-bottom:1px solid var(--line);padding:12px 0}
+.panel .it b{display:block;font-size:17px} .panel .it span{color:var(--muted);font-size:14px}
+.msg{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:22px 24px;margin:14px 0}
+.who2{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.av{width:40px;height:40px;border-radius:50%;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;font-weight:700}
+.obj{display:flex;gap:16px;margin:14px 0}
+.obj .num{font-size:30px;font-weight:700;color:var(--teal);line-height:1}
+.obj b{display:block;font-size:18px}
+.obj span{color:var(--muted)}
+.q{max-width:820px;margin:0 auto}
+.scenario{background:var(--amber-soft);border-radius:10px;padding:12px 16px;font-weight:500;margin:10px 0}
+.q h2{font-size:24px;margin:10px 0 14px}
+.opt{display:flex;gap:16px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px;align-items:flex-start}
+.opt:hover:not(:disabled){border:2px solid var(--teal);padding:15px 19px;background:#F3FAF9}
+.opt .l{flex:0 0 32px;height:32px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-weight:700;font-size:14px}
+.opt .t{font-weight:500;font-size:16px}
+.opt .why{display:block;font-size:14px;color:var(--muted);margin-top:6px;font-weight:400}
+.opt.correct{background:var(--green-soft);border:2px solid var(--green);padding:15px 19px}
+.opt.correct .l{background:var(--green);color:#fff}
+.opt.correct .why{color:var(--green)}
+.opt.picked:not(.correct){border:2px solid var(--red);padding:15px 19px}
+.opt:disabled{cursor:default}
+.wrapup{display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:48px;align-items:start}
+.wrapup h2{font-size:40px;margin:8px 0 12px}
+.ok{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.ok i{flex:0 0 26px;height:26px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px}
+.scale{display:flex;gap:8px;margin-top:8px}
+.scale button{width:44px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--bg);font-weight:600}
+.scale button[aria-pressed="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
+.aid .stepx{display:flex;gap:14px;border-top:1px solid var(--line);padding:10px 0}
+.aid .stepx b{display:block} .aid .stepx span{color:var(--muted);font-size:14px}
+.aid .stepx .num{font-size:22px;font-weight:700;color:var(--teal);line-height:1.1}
+
+/* footer */
+.ftr{background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 32px;position:sticky;bottom:0}
+.ftr .mid{font-size:13px;color:var(--muted);font-weight:500;text-align:center}
+.mbtn{border-radius:8px;padding:12px 22px;font-weight:600;border:1.5px solid var(--teal);background:var(--teal);color:#fff;min-width:80px}
+.mbtn:hover{background:var(--teal-dark)}
+.mbtn.sec{background:#fff;color:var(--ink)}
+.mbtn.sec:hover{background:var(--teal-soft)}
+.mbtn[hidden]{display:inline-block!important;visibility:hidden}
+
+/* toast dialog */
+.veil{position:fixed;inset:0;background:rgba(20,33,61,.35);display:grid;place-items:center;padding:16px;z-index:20}
+.veil[hidden]{display:none}
+.toast{background:var(--ink);color:#fff;border-radius:16px;padding:22px;max-width:400px;width:100%;box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.toast h3{margin:0 0 8px;display:flex;gap:10px;align-items:center;font-size:17px}
+.toast h3 i{width:24px;height:24px;border-radius:50%;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-style:normal;font-size:13px}
+.toast p{margin:0 0 14px;color:#D7DEEA;font-size:14px}
+.toast button{background:#fff;color:var(--ink);border:0;border-radius:8px;padding:10px 18px;font-weight:600}
+.hright{display:flex;align-items:center;gap:14px}
+.backlink{font-size:13px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 12px;text-decoration:none;white-space:nowrap}
+.backlink:hover{color:var(--ink);border-color:var(--ink)}
+.fict{font-size:12px;color:var(--muted)}
+
+@media (max-width:1000px){
+  .split,.intro,.wrapup{grid-template-columns:1fr}
+  .coach{order:-1}
+  .hdr{padding:12px 16px} main{padding:16px} .ftr{padding:12px 16px}
+  .track li{padding:6px 10px;font-size:13px}
+}
+@media (max-width:640px){
+  .win{grid-template-columns:1fr}
+  .side{flex-direction:row;overflow-x:auto;padding:10px;gap:4px}
+  .brand{display:none}
+  .nav{white-space:nowrap;padding:8px 10px}
+  .top .search{display:none}
+  .content{padding:16px}
+  .tr{grid-template-columns:1.3fr 1fr;row-gap:2px}
+  .tr .c3,.tr .c4{display:none}
+  .hdr .step{display:none}
+}
+@media print{
+  body *{visibility:hidden}
+  #jobaid,#jobaid *{visibility:visible}
+  #jobaid{position:absolute;left:0;top:0;width:100%;box-shadow:none}
+  #jobaid .noprint{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hdr">
+    <div><div class="k">SCHEDULEDESK TRAINING</div><h1>Schedule a Patient Follow-Up</h1></div>
+    <ol class="track" id="track" aria-label="Module progress"></ol>
+    <div class="hright"><div class="step" id="stepTxt"></div><a class="backlink" href="../../software-training.html">&larr; Case study</a></div>
+  </header>
+  <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+  <main><div class="stage" id="stage" tabindex="-1"></div></main>
+  <footer class="ftr">
+    <button class="mbtn sec" id="backBtn">Back</button>
+    <div class="mid" id="midTxt" aria-live="polite"></div>
+    <button class="mbtn" id="nextBtn">Next</button>
+  </footer>
+</div>
+<div class="veil" id="veil" hidden>
+  <div class="toast" role="alertdialog" aria-modal="true" aria-labelledby="tTitle" aria-describedby="tBody">
+    <h3><i aria-hidden="true">!</i><span id="tTitle"></span></h3>
+    <p id="tBody"></p>
+    <button id="tOk">Got it</button>
+  </div>
+</div>
+
+<script>
+(function(){
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- data (fictional clinic) ---------- */
+const PATIENTS = [
+  {key:'maria', name:'Lopez, Maria', dob:'03/14/1968', mrn:'204517', phone:'(951) 555-0142'},
+  {key:'mario', name:'Lopez, Mario', dob:'11/02/1990', mrn:'318260', phone:'(951) 555-0187'},
+  {key:'marina', name:'Lopes, Marina', dob:'07/22/1975', mrn:'177943', phone:'(909) 555-0119'}
+];
+const DAYS = [['Mon','Oct 26'],['Tue','Oct 27'],['Wed','Oct 28'],['Thu','Oct 29'],['Fri','Oct 30']];
+// [time, open]
+const GRID_SHOW = [[['8:40 AM',0],['1:20 PM',1],['3:00 PM',0]],[['9:00 AM',0],['10:40 AM',0],['2:20 PM',1]],[['9:20 AM',1],['11:00 AM',1],['4:00 PM',0]],[['8:20 AM',1],['1:40 PM',0],['3:20 PM',1]],[['10:00 AM',0],['11:40 AM',1],['2:00 PM',0]]];
+const GRID_CHEN = GRID_SHOW;
+const GRID_PATEL = [[['8:20 AM',0],['9:40 AM',0],['10:40 AM',1],['1:20 PM',1],['3:00 PM',0]],[['8:00 AM',0],['9:00 AM',0],['11:20 AM',1],['2:20 PM',1],['3:40 PM',0]],[['8:40 AM',0],['9:20 AM',0],['10:00 AM',1],['1:00 PM',0],['4:00 PM',1]],[['8:20 AM',0],['9:00 AM',0],['10:20 AM',1],['1:40 PM',1],['3:20 PM',0]],[['8:00 AM',0],['9:40 AM',1],['11:00 AM',1],['2:00 PM',0],['3:00 PM',1]]];
+const PROVIDERS = ['Dr. Michael Chen','Dr. Anika Patel'];
+const VISITS = ['BP check · 20 min','New patient visit · 40 min','Annual physical · 40 min'];
+const WEEKS = ['Oct 19 – 23, 2026','Oct 26 – 30, 2026','Nov 2 – 6, 2026'];
+const TOASTS = {
+  ring:['Follow the numbered ring','In Show me, select the control with the amber ring (or use Next step). You’ll make your own choices in Try me.'],
+  wrongPatient:['That’s not Maria','Check the date of birth. Maria Lopez was born 03/14/1968. Pick the row that matches both her name and DOB.'],
+  typeLast:['Type a last name first','Click the Last name field and type “Lopez,” then search.'],
+  noName:['No patients found','Check the spelling of the last name against the task card, then search again.'],
+  noDob:['No Lopez with that birthday','Check the date of birth on the task card and type it as MM/DD/YYYY.'],
+  findFirst:['Find the patient first','Start in Patients. Search for Maria and open her record before you schedule.'],
+  visit:['Check the note','Dr. Patel asked for a 20-minute BP check. Keep the visit type on BP check · 20 min.'],
+  week:['Check the date window','Dr. Patel asked for about 2 weeks from Oct 14. That’s the week of Oct 26 – 30.'],
+  pickTime:['Pick a time first','Select an open teal time slot, then Continue.'],
+  booked:['That time is booked','Grey slots are taken. Choose a teal slot instead.'],
+  tooLate:['Too late for Maria','Maria can only come in before 10:00 AM, and 10:00 itself is too late. Keep looking for an open morning slot that week.'],
+  notHere:['Not part of this practice','That button isn’t used in this task. Use the task card to stay on track.']
+};
+const QUESTIONS = [
+  {scenario:'The phone rings: “Hi, this is Mario Lopez. I need to move my appointment.” You search “Lopez” and two Lopez records come up.', q:'What do you do before you open a chart?', correct:1, a:[
+    ['Open the first Lopez record in the list.','The top result is only the first match, not a confirmed one.'],
+    ['Ask for his date of birth and match it to the record.','Right. Name plus date of birth gives you two identifiers. Mario (11/02/1990) and Maria (03/14/1968) look alike in the list.'],
+    ['Ask him to spell his last name, then open the top match.','Spelling helps the search, but it’s still only one identifier.'],
+    ['Transfer the call to the nurse to find his chart.','Finding the right record is a front-desk task. Two identifiers is all it takes.']]},
+  {scenario:'Dr. Patel ordered a 20-minute BP check in about 2 weeks. You open the scheduler, and the Provider field already says Dr. Michael Chen.', q:'What’s the best next step?', correct:1, a:[
+    ['Book with Dr. Chen. Any provider can do a BP check.','The note names Dr. Patel. Switching providers is the provider’s call, not the scheduler’s.'],
+    ['Change the provider to Dr. Patel, then pick a slot in the 2-week window.','Right. ScheduleDesk fills in the last provider you booked for, so check the field before you pick a time.'],
+    ['Pick the earliest open slot now and fix the provider later.','Fixing it later is how follow-ups get missed. Get the provider right first.'],
+    ['Cancel and ask the patient which provider they want.','The plan already says who. Ask the patient about times, not the provider.']]}
+];
+
+/* ---------- state ---------- */
+const ORDER = ['title','scenario','sm1','sm2','sm3','sm4','booked','try','q1','q2','wrap'];
+const META = {
+  title:{phase:0,step:1}, scenario:{phase:0,step:2}, sm1:{phase:1,step:3}, sm2:{phase:1,step:4}, sm3:{phase:1,step:5}, sm4:{phase:1,step:6}, booked:{phase:1,step:6},
+  try:{phase:2,step:7}, q1:{phase:3,step:9}, q2:{phase:3,step:10}, wrap:{phase:4,step:11}
+};
+let S = freshTry();
+let screen = 'title';
+let answers = [null, null]; // first answer index per question
+let readiness = null;
+function freshTry(){ return {view:'search', last:'', dob:'', results:null, provider:'Dr. Michael Chen', visit:VISITS[0], week:WEEKS[1], slot:null, attempts:0, outcome:null, done:false}; }
+
+/* ---------- chrome ---------- */
+function chrome(){
+  const m = META[screen] || {phase:2, step:7};
+  const step = screen === 'try' && S.done ? 8 : m.step;
+  const names = ['Show me','Try me','Test me'];
+  $('track').innerHTML = names.map((n, i) => {
+    const cur = m.phase - 1, st = i < cur ? 'done' : i === cur ? 'cur' : '';
+    return `<li class="${st}"${st === 'cur' ? ' aria-current="step"' : ''}><span aria-hidden="true">${st === 'done' ? '✓' : i + 1}</span>${n}</li>`;
+  }).join('');
+  $('stepTxt').textContent = `Step ${step} of 11`;
+  $('progBar').style.width = (step / 11 * 100) + '%';
+}
+function foot(back, mid, next, nextLabel){
+  const b = $('backBtn'), n = $('nextBtn');
+  b.hidden = !back; b.onclick = back || null;
+  $('midTxt').textContent = mid || '';
+  n.hidden = !next; n.onclick = next || null; n.textContent = nextLabel || 'Next';
+}
+function go(s){ screen = s; render(); window.scrollTo(0, 0); $('stage').focus({preventScroll:true}); }
+let lastFocus = null;
+function toast(k){
+  const t = TOASTS[k]; lastFocus = document.activeElement;
+  $('tTitle').textContent = t[0]; $('tBody').textContent = t[1];
+  $('veil').hidden = false; $('tOk').focus();
+}
+function closeToast(){ $('veil').hidden = true; if(lastFocus && lastFocus.focus) lastFocus.focus(); }
+$('tOk').onclick = closeToast;
+$('veil').addEventListener('click', e => { if(e.target.id === 'veil') closeToast(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && !$('veil').hidden) closeToast(); });
+
+/* ---------- building blocks ---------- */
+function win(active, content){
+  const nav = ['Today','Patients','Schedule','Messages','Reports'];
+  return `<div class="win"><nav class="side" aria-label="ScheduleDesk"><div class="brand"><div class="logo">S</div><div><b>ScheduleDesk</b><small>Brightwell Clinic</small></div></div>${
+    nav.map(n => `<button class="nav${n === active ? ' on' : ''}" data-nav="${n}">${n}</button>`).join('')}</nav>
+    <div class="mainw"><div class="top"><div class="search">Search patients, MRN, phone</div><div class="who">Front desk · J. Rivera</div></div><div class="content">${content}</div></div></div>`;
+}
+function ringed(html, n){ return `<div class="ring">${n ? `<span class="badge">${n}</span>` : ''}${html}</div>`; }
+function patientTable(rows, ringKey){
+  return `<div class="tbl" role="table" aria-label="Search results"><div class="tr head" role="row"><span>NAME</span><span>DATE OF BIRTH</span><span class="c3">MRN</span><span class="c4">PHONE</span></div>${
+    rows.map(p => { const r = `<button class="tr" data-row="${p.key}"><b>${p.name}</b><span>${p.dob}</span><span class="c3">${p.mrn}</span><span class="c4">${p.phone}</span></button>`;
+      return p.key === ringKey ? ringed(r, 1) : r; }).join('')}</div>`;
+}
+function record(ringSched, tryMode){
+  const btn = `<button class="abtn" data-act="schedule">Schedule follow-up</button>`;
+  return `<div class="card"><h3>Maria Lopez</h3><div class="small">DOB 03/14/1968 · MRN 204517 · (951) 555-0142</div></div>
+    <div class="tabs"><span>Summary</span><span class="on">Visits</span><span>Orders</span><span>Messages</span></div>
+    <div class="card"><span class="lab">LAST VISIT</span><h3 style="font-size:17px;margin:6px 0 4px">Oct 14, 2026 · Dr. Anika Patel</h3><div>Reason: Blood pressure check</div>
+    <div class="plan">Plan: Return in 2 weeks for a 20-minute BP check with Dr. Patel.</div>
+    ${tryMode ? '<div class="plan amber">Scheduling note: Patient works afternoons. Mornings only, before 10:00 AM.</div>' : ''}
+    <div class="row" style="margin-top:12px">${ringSched ? ringed(btn, 2) : btn}<button class="abtn sec" data-act="message">New message</button></div></div>`;
+}
+function grid(g, opts){
+  return `<div class="grid" role="group" aria-label="Open times, week of Oct 26">${DAYS.map((d, i) => `<div class="day"><small>${d[0]}</small><b>${d[1]}</b>${
+    g[i].map(([t, open]) => { const id = d[1] + ' ' + t, sel = opts.sel === id;
+      const b = open ? `<button class="slot${sel ? ' sel' : ''}" data-slot="${id}" aria-pressed="${sel}" aria-label="${d[0]} ${d[1]}, ${t}">${t}</button>`
+                     : `<button class="slot booked" data-booked="1" aria-label="${d[0]} ${d[1]}, ${t}, booked">Booked</button>`;
+      return opts.ring === id ? ringed(b, 3) : b; }).join('')}</div>`).join('')}</div><div class="small">Teal = open · Grey = booked</div>`;
+}
+function selectField(label, id, options, value, ring){
+  const f = `<div class="field"><label for="${id}">${label}</label><select class="inp" id="${id}">${options.map(o => `<option${o === value ? ' selected' : ''}>${o}</option>`).join('')}</select></div>`;
+  return ring ? ringed(f, ring) : f;
+}
+function taskCard(){
+  return `<div class="task"><span class="lab">PATIENT</span><p>Maria Lopez · DOB 03/14/1968</p><span class="lab">FROM DR. PATEL’S NOTE</span><p>Provider: Dr. Anika Patel</p><p>Visit: BP check · 20 min</p><p>When: about 2 weeks from Oct 14</p><span class="lab">FROM MARIA</span><p>Mornings only: she has to be seen before 10:00 AM.</p></div>`;
+}
+
+/* ---------- screens ---------- */
+const VIEWS = {
+  title(){
+    foot(null, 'No audio required', () => go('scenario'), 'Start');
+    return `<div class="intro"><div><div class="coach"><p class="eyebrow">SOFTWARE TRAINING · ABOUT 8 MINUTES</p></div><h2>Schedule a Patient Follow-Up</h2>
+      <p class="lead">For new front-desk staff at Brightwell Clinic. Watch the steps once, try them yourself in the practice screen, then show what you know with two quick questions.</p>
+      <div class="chips"><span>1 Show me</span><span>2 Try me</span><span>3 Test me</span></div></div>
+      <div class="panel"><span class="lab">IN THIS MODULE</span>
+        <div class="it"><b>Show me</b><span>4 guided steps: find the patient, open the follow-up, pick the slot, confirm.</span></div>
+        <div class="it"><b>Try me</b><span>Search, open the record and book the follow-up yourself.</span></div>
+        <div class="it"><b>Test me</b><span>2 workplace questions. Feedback after each answer.</span></div>
+        <div class="it" style="border:0"><b>Job aid</b><span>A one-page checklist to keep at the desk.</span></div>
+        <p class="fict">Brightwell Clinic, ScheduleDesk and every patient here are fictional. Portfolio sample.</p></div></div>`;
+  },
+  scenario(){
+    foot(() => go('title'), '', () => go('sm1'), 'Show me how');
+    return `<div class="intro"><div><p class="eyebrow" style="color:var(--teal);font-weight:600;font-size:13px">YOUR SCENARIO</p><h2 style="font-size:34px">A message just landed in your inbox.</h2>
+      <div class="msg"><div class="who2"><div class="av">AP</div><div><b>Dr. Anika Patel</b><div class="small">Internal medicine · 4:12 PM</div></div></div>
+      <p style="margin:0;font-size:17px">Maria Lopez was in today for her blood pressure. Please get her back in about 2 weeks for a 20-minute BP check with me. Heads up: she works afternoons, so she can only come in before 10 AM. Thanks!</p></div>
+      <p class="instr">Your job: find Maria in ScheduleDesk and book that follow-up before the end of your shift.</p></div>
+      <div class="panel"><span class="lab">BY THE END, YOU WILL BE ABLE TO</span>
+        <div class="obj"><span class="num">01</span><div><b>Find the right patient</b><span>using two identifiers: name and date of birth.</span></div></div>
+        <div class="obj"><span class="num">02</span><div><b>Book the follow-up</b><span>with the right provider, visit type and date window, at a time the patient can make.</span></div></div>
+        <div class="obj"><span class="num">03</span><div><b>Confirm before you finish</b><span>by checking the summary and sending the patient a reminder.</span></div></div>
+        <div class="note amber" style="margin:8px 0 0"><span class="lab">WHY IT MATTERS</span><p>Booking the wrong patient or the wrong provider means a missed follow-up and a second call to fix it.</p></div></div></div>`;
+  },
+  sm1(){
+    foot(() => go('scenario'), 'Show me · 1 of 4 · select the ringed row or Next step', () => go('sm2'), 'Next step');
+    return `<div class="split">${win('Patients', `<h3>Find a patient</h3><div class="row"><div class="field"><label>Last name</label><div class="inp" style="width:200px">Lopez</div></div><div class="field"><label>Date of birth</label><div class="inp" style="width:160px">03/14/1968</div></div><button class="abtn" data-act="ring">Search</button></div>${patientTable(PATIENTS, 'maria')}<div class="small">3 results for “Lopez”</div>`)}
+      <aside class="coach"><p class="eyebrow">SHOW ME · STEP 1 OF 4</p><h2>Find Maria’s record</h2><div class="callout"><span class="n">1</span><div><b>Match two identifiers</b><p>Search by last name, then check the date of birth. Two Lopez records come up, and only one has DOB 03/14/1968.</p></div></div><div class="note"><span class="lab">WHY TWO IDENTIFIERS?</span><p>Names repeat. Checking name plus date of birth is a standard patient-safety habit, and it keeps you out of the wrong chart.</p></div></aside></div>`;
+  },
+  sm2(){
+    foot(() => go('sm1'), 'Show me · 2 of 4 · select the ringed button or Next step', () => go('sm3'), 'Next step');
+    return `<div class="split">${win('Patients', record(true, false))}
+      <aside class="coach"><p class="eyebrow">SHOW ME · STEP 2 OF 4</p><h2>Read the plan, then schedule</h2><div class="callout"><span class="n">2</span><div><b>The plan tells you who, what and when</b><p>Dr. Patel, a 20-minute BP check, in about 2 weeks. Keep those three details in mind, then select Schedule follow-up.</p></div></div><div class="note"><span class="lab">TIP</span><p>The plan line in the visit note is your source of truth. If it’s missing or unclear, message the provider before you book.</p></div></aside></div>`;
+  },
+  sm3(){
+    foot(() => go('sm2'), 'Show me · 3 of 4 · select the ringed time or Next step', () => go('sm4'), 'Next step');
+    return `<div class="split">${win('Schedule', `<h3>Schedule follow-up · Maria Lopez</h3><div class="row">${selectField('Provider', 'smProv', ['Dr. Anika Patel'], 'Dr. Anika Patel', 3)}${selectField('Visit type', 'smVisit', [VISITS[0]], VISITS[0])}${selectField('Week', 'smWeek', [WEEKS[1]], WEEKS[1])}</div>${grid(GRID_SHOW, {sel:'Oct 28 9:20 AM', ring:'Oct 28 9:20 AM'})}<div class="row"><button class="abtn" data-act="continue-sm">Continue</button><button class="abtn sec" data-act="ring">Cancel</button></div>`)}
+      <aside class="coach"><p class="eyebrow">SHOW ME · STEP 3 OF 4</p><h2>Check the provider, then pick a slot</h2><div class="callout"><span class="n">3</span><div><b>Provider first, then time</b><p>ScheduleDesk fills in the last provider you booked for, not always the patient’s. Make sure it says Dr. Patel, then choose an open slot that fits the note and the patient.</p></div></div><div class="note"><span class="lab">DO THE MATH</span><p>Two weeks from Oct 14 is the week of Oct 26–30. Maria needs a time before 10 AM, so here we picked Wed, Oct 28 at 9:20 AM.</p></div></aside></div>`;
+  },
+  sm4(){
+    foot(() => go('sm3'), 'Show me · 4 of 4 · select Book appointment', () => go('booked'), 'Next step');
+    return `<div class="split">${win('Schedule', `<h3>Review and confirm</h3>${ringed(`<div class="sum"><div><span>Patient</span><b>Maria Lopez · DOB 03/14/1968</b></div><div><span>Provider</span><b>Dr. Anika Patel</b></div><div><span>Visit type</span><b>BP check · 20 min</b></div><div><span>When</span><b>Wed, Oct 28, 2026 · 9:20 AM</b></div><div><span>Where</span><b>Brightwell Clinic · Suite 200</b></div></div>`, 4)}<label class="chk"><input type="checkbox" checked> Send a text reminder to (951) 555-0142</label><div class="row">${ringed('<button class="abtn" data-act="book">Book appointment</button>')}<button class="abtn sec" data-act="back-sm3">Back</button></div>`)}
+      <aside class="coach"><p class="eyebrow">SHOW ME · STEP 4 OF 4</p><h2>Read it back, then book</h2><div class="callout"><span class="n">4</span><div><b>Check five details</b><p>Patient, provider, visit type, date and place. Compare each one with Dr. Patel’s note, leave the reminder on, then select Book appointment.</p></div></div><div class="note"><span class="lab">GOOD HABIT</span><p>Read the summary out loud if the patient is on the phone. It catches mistakes before they become no-shows.</p></div></aside></div>`;
+  },
+  booked(){
+    foot(() => go('sm4'), 'Show me · complete', () => { S = freshTry(); go('try'); }, 'Try it yourself');
+    return `<div class="split">${win('Schedule', `<div class="banner" role="status">✓ Appointment booked: Wed, Oct 28 at 9:20 AM with Dr. Patel. Text reminder sent.</div><h3>Review and confirm</h3><div class="sum"><div><span>Patient</span><b>Maria Lopez · DOB 03/14/1968</b></div><div><span>Provider</span><b>Dr. Anika Patel</b></div><div><span>Visit type</span><b>BP check · 20 min</b></div><div><span>When</span><b>Wed, Oct 28, 2026 · 9:20 AM</b></div><div><span>Where</span><b>Brightwell Clinic · Suite 200</b></div></div>`)}
+      <aside class="coach"><p class="eyebrow">SHOW ME · DONE</p><h2>That’s the whole task.</h2><div class="note"><span class="lab">UP NEXT</span><p>Now you’ll do it yourself with no callouts, starting from an empty search. Heads up: the scheduler may not be set up the way you expect.</p></div></aside></div>`;
+  },
+  try(){
+    if(S.view === 'search') return trySearch();
+    if(S.view === 'record') return tryRecord();
+    return trySched();
+  },
+  q1(){ return question(0); },
+  q2(){ return question(1); },
+  wrap(){
+    foot(() => go('q2'), 'Module complete', () => { S = freshTry(); answers = [null, null]; readiness = null; go('title'); }, 'Start over');
+    const testScore = answers.filter((a, i) => a === QUESTIONS[i].correct).length;
+    return `<div class="wrapup"><div><p class="eyebrow" style="color:var(--teal);font-weight:600;font-size:13px">MODULE COMPLETE</p><h2>Maria is booked.</h2><p class="instr">You can now:</p>
+      <div class="ok"><i>✓</i><span>Find the right patient with name and date of birth</span></div>
+      <div class="ok"><i>✓</i><span>Book a follow-up with the right provider and date window, at a time the patient can make</span></div>
+      <div class="ok"><i>✓</i><span>Read back the details and send a reminder before you finish</span></div>
+      <div class="note" style="margin-top:16px"><span class="lab">YOUR RESULTS</span><p>Try me: booked on attempt ${Math.max(1, S.attempts)}. Test me: ${testScore} of 2 right on the first try.</p></div>
+      <div class="note"><span class="lab">ONE QUICK QUESTION</span><p>How ready do you feel to book a follow-up on your own? (1 = not yet, 5 = ready)</p><div class="scale">${[1,2,3,4,5].map(n => `<button data-ready="${n}" aria-pressed="${readiness === n}">${n}</button>`).join('')}</div></div></div>
+      <div class="panel aid" id="jobaid"><span class="lab">JOB AID · KEEP AT THE DESK</span><h3 style="font-size:22px;margin:6px 0 10px">Booking a follow-up in ScheduleDesk</h3>
+        ${[['Find the patient','Search last name, then match date of birth. Two identifiers, every time.'],['Read the plan','Open the last visit. The plan line tells you who, what and when.'],['Open the scheduler','Select Schedule follow-up. Check the Provider field first.'],['Pick the slot','Match the visit type and the patient’s time limits, then choose an open slot in the date window.'],['Read back and book','Check all five details, leave the text reminder on, then book.']].map((s, i) => `<div class="stepx"><span class="num">${i + 1}</span><div><b>${s[0]}</b><span>${s[1]}</span></div></div>`).join('')}
+        <button class="mbtn sec noprint" data-act="print" style="margin-top:12px">Print the job aid</button></div></div>`;
+  }
+};
+
+function trySearch(){
+  foot(() => go('booked'), 'Try me · step 1: find the patient', null);
+  const res = S.results;
+  const table = !res ? `<div class="empty"><b>No search yet</b><span>Search by last name and date of birth to find a patient.</span></div>`
+    : patientTable(res === 'both' ? PATIENTS.slice(0, 1) : PATIENTS) + `<div class="small">${res === 'both' ? '1 result for “Lopez” · DOB 03/14/1968' : '3 results for “Lopez”'}</div>`;
+  return `<div class="split">${win('Patients', `<h3>Find a patient</h3><form class="row" id="searchForm" autocomplete="off"><div class="field"><label for="last">Last name</label><input class="inp" id="last" style="width:200px" placeholder="Type last name" value="${esc(S.last)}"></div><div class="field"><label for="dob">Date of birth</label><input class="inp" id="dob" style="width:160px" placeholder="MM/DD/YYYY" inputmode="numeric" maxlength="10" value="${esc(S.dob)}"></div><button class="abtn" type="submit">Search</button></form>${table}`)}
+    <aside class="coach"><p class="eyebrow">TRY ME · YOUR TURN</p><h2>Find Maria, then book her follow-up</h2>${taskCard()}<p class="instr">${res ? (res === 'both' ? 'One match. Open Maria’s record.' : 'Three records match the name. Which one is Maria?') : 'Type her last name and date of birth, then select Search or press Enter.'}</p></aside></div>`;
+}
+function tryRecord(){
+  foot(() => { S.view = 'search'; render(); }, 'Try me · step 2: open the follow-up', null);
+  return `<div class="split">${win('Patients', record(false, true))}<aside class="coach"><p class="eyebrow">TRY ME · YOUR TURN</p><h2>Find Maria, then book her follow-up</h2>${taskCard()}<p class="instr">Found her. Read the plan and the scheduling note, then select Schedule follow-up.</p></aside></div>`;
+}
+function trySched(){
+  const isPatel = S.provider === 'Dr. Anika Patel';
+  const g = isPatel ? GRID_PATEL : GRID_CHEN;
+  let side = `<p class="eyebrow">TRY ME · ${S.outcome ? 'FEEDBACK' : 'YOUR TURN'}</p>`;
+  if(S.outcome === 'provider') side += `<h2>Not quite. Check the provider.</h2><div class="fb bad" role="status"><b>✕ That slot is with Dr. Michael Chen</b><p>Maria’s plan says Dr. Patel. ScheduleDesk kept the last provider you booked for. Change the Provider field to Dr. Anika Patel, then pick an open slot the week of Oct 26.</p></div><div class="note"><span class="lab">WHY THIS MATTERS</span><p>A visit with the wrong provider usually means a reschedule call, and a patient who has to repeat their story.</p></div><div class="row"><button class="mbtn" data-act="tryagain">Try again</button><button class="mbtn sec" data-act="showagain">Show me again</button></div>`;
+  else if(S.outcome === 'late') side += `<h2>Not quite. Check the time.</h2><div class="fb bad" role="status"><b>✕ ${esc(S.lastSlot)} is too late for Maria</b><p>Maria has to be seen before 10:00 AM, and 10:00 itself is too late. Dr. Patel’s mornings are mostly booked, so scan every day for an open slot before 10.</p></div>${taskCard()}`;
+  else if(S.outcome === 'ok') side += `<h2>That’s the one.</h2><div class="fb good" role="status"><b>✓ Dr. Patel · BP check · Fri, Oct 30 · 9:40 AM</b><p>Right provider, right week, and the only open slot before 10:00 AM. Good scanning: 10:00 itself would have been too late.</p></div><div class="note"><span class="lab">BEFORE YOU BOOK FOR REAL</span><p>You’d read the summary back and leave the text reminder on, just like Show me step 4.</p></div>`;
+  else side += `<h2>Book Maria’s follow-up</h2>${taskCard()}<p class="instr">${isPatel ? 'Provider updated. Now scan the week for an open time before 10:00 AM, then Continue.' : 'Check every field, then pick an open time that works for Maria and select Continue.'}</p>`;
+  foot(() => { S.view = 'record'; S.outcome = null; render(); }, S.done ? 'Try me · complete' : `Try me · attempt ${S.attempts + 1}`, S.done ? () => go('q1') : null, 'Test me');
+  return `<div class="split">${win('Schedule', `<h3>Schedule follow-up · Maria Lopez</h3><div class="row">${selectField('Provider', 'prov', PROVIDERS, S.provider)}${selectField('Visit type', 'visit', VISITS, S.visit)}${selectField('Week', 'week', WEEKS, S.week)}</div>${grid(g, {sel:S.slot})}<div class="row"><button class="abtn" data-act="continue"${S.done ? ' disabled' : ''}>Continue</button><button class="abtn sec" data-act="cancel">Cancel</button></div>`)}
+    <aside class="coach" aria-live="polite">${side}</aside></div>`;
+}
+function question(i){
+  const Q = QUESTIONS[i], ans = answers[i];
+  foot(i === 0 ? null : () => go('q1'), ans === null ? 'Select an answer' : 'Feedback for every option', ans === null ? null : () => go(i === 0 ? 'q2' : 'wrap'), i === 0 ? 'Next question' : 'See my results');
+  return `<div class="q"><p class="eyebrow" style="color:var(--teal);font-weight:600;font-size:12px;letter-spacing:.04em">TEST ME · ${ans === null ? '' : 'ANSWER REVIEW · '}QUESTION ${i + 1} OF 2</p><div class="scenario">${Q.scenario}</div><h2>${Q.q}</h2>
+    <div role="group" aria-label="Answers">${Q.a.map((a, j) => { const rev = ans !== null, cor = rev && j === Q.correct, pk = rev && j === ans;
+      return `<button class="opt${cor ? ' correct' : ''}${pk ? ' picked' : ''}" data-ans="${j}"${rev ? ' disabled' : ''}><span class="l">${cor ? '✓' : 'ABCD'[j]}</span><span class="t">${a[0]}${rev ? `<span class="why">${pk && !cor ? 'Your answer. ' : ''}${a[1]}</span>` : ''}</span></button>`; }).join('')}</div></div>`;
+}
+
+/* ---------- render + events ---------- */
+function render(){ chrome(); $('stage').innerHTML = VIEWS[screen](); }
+
+function digits(s){ return (s || '').replace(/\D/g, ''); }
+function doSearch(){
+  S.last = $('last').value; S.dob = $('dob').value;
+  const last = S.last.trim().toLowerCase(), d = digits(S.dob);
+  if(!last){ toast('typeLast'); return; }
+  if(last !== 'lopez'){ S.results = null; render(); toast('noName'); return; }
+  if(!d){ S.results = 'name'; render(); return; }
+  if(d === '03141968'){ S.results = 'both'; S.dob = '03/14/1968'; render(); return; }
+  S.results = null; render(); toast('noDob');
+}
+
+document.addEventListener('submit', e => { if(e.target.id === 'searchForm'){ e.preventDefault(); doSearch(); } });
+document.addEventListener('input', e => {
+  if(e.target.id === 'dob'){ // auto-format MM/DD/YYYY as they type
+    const d = digits(e.target.value).slice(0, 8);
+    e.target.value = d.length > 4 ? `${d.slice(0, 2)}/${d.slice(2, 4)}/${d.slice(4)}` : d.length > 2 ? `${d.slice(0, 2)}/${d.slice(2)}` : d;
+  }
+  if(e.target.id === 'last') S.last = e.target.value;
+  if(e.target.id === 'dob') S.dob = e.target.value;
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if(t.id === 'prov'){ S.provider = t.value; S.slot = null; S.outcome = null; render(); $('prov') && $('prov').focus(); }
+  if(t.id === 'visit'){ if(t.value !== VISITS[0]){ t.value = VISITS[0]; toast('visit'); } }
+  if(t.id === 'week'){ if(t.value !== WEEKS[1]){ t.value = WEEKS[1]; toast('week'); } }
+  if(['smProv','smVisit','smWeek'].includes(t.id)) toast('ring');
+});
+document.addEventListener('click', e => {
+  const el = e.target.closest('button');
+  if(!el || el.closest('.veil') || el.closest('.ftr')) return;
+  const d = el.dataset;
+
+  if(d.nav){
+    if(screen !== 'try') return toast('ring');
+    if(d.nav === 'Patients'){ if(S.view === 'sched'){ S.view = 'record'; S.outcome = null; render(); } else if(S.view === 'record'){ S.view = 'search'; render(); } return; }
+    if(d.nav === 'Schedule'){ if(S.view === 'search') return toast('findFirst'); if(S.view === 'record'){ S.view = 'sched'; render(); } return; }
+    return toast('notHere');
+  }
+  if(d.row){
+    if(screen === 'sm1') return d.row === 'maria' ? go('sm2') : toast('wrongPatient');
+    if(screen === 'try'){ if(d.row === 'maria'){ S.view = 'record'; render(); } else toast('wrongPatient'); }
+    return;
+  }
+  if(d.act === 'ring') return toast('ring');
+  if(d.act === 'schedule'){ if(screen === 'sm2') return go('sm3'); S.view = 'sched'; return render(); }
+  if(d.act === 'message') return toast(screen === 'try' ? 'notHere' : 'ring');
+  if(d.act === 'continue-sm') return go('sm4');
+  if(d.act === 'book') return go('booked');
+  if(d.act === 'back-sm3') return go('sm3');
+  if(d.act === 'cancel') return toast('notHere');
+  if(d.act === 'tryagain'){ S.outcome = null; S.slot = null; return render(); }
+  if(d.act === 'showagain') return go('sm3');
+  if(d.act === 'print') return window.print();
+  if(d.booked) return toast(screen === 'sm3' ? 'ring' : 'booked');
+  if(d.slot){
+    if(screen === 'sm3') return d.slot === 'Oct 28 9:20 AM' ? go('sm4') : toast('ring');
+    if(S.done) return;
+    S.slot = d.slot; S.outcome = null; render();
+    const b = document.querySelector(`[data-slot="${d.slot}"]`); b && b.focus();
+    return;
+  }
+  if(d.act === 'continue'){
+    if(!S.slot) return toast('pickTime');
+    S.attempts++;
+    if(S.provider !== 'Dr. Anika Patel'){ S.outcome = 'provider'; }
+    else if(S.slot !== 'Oct 30 9:40 AM'){ S.outcome = 'late'; S.lastSlot = S.slot.replace(/^(Oct \d+) /, '$1 at '); S.slot = null; }
+    else { S.outcome = 'ok'; S.done = true; }
+    render(); return;
+  }
+  if(d.ans !== undefined){
+    const i = screen === 'q1' ? 0 : 1;
+    if(answers[i] === null){ answers[i] = Number(d.ans); render(); }
+    return;
+  }
+  if(d.ready){ readiness = Number(d.ready); render(); }
+});
+
+render();
+})();
+</script>
+</body>
+</html>
