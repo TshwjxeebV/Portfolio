@@ -11,6 +11,7 @@ RESUME = "#"                               # TODO: link to your résumé PDF (e.
 COACHING_URL = "https://www.figma.com/proto/dQfAXwxr1hTJab9ClCiHmL/Coach-Conflict-Simulation?node-id=8-2&starting-point-node-id=8%3A2&scaling=scale-down"
 PIP_URL = "https://claude.ai/artifact/PaPuKJDkMRTBDFS2QdzKYD"
 TV_URL = "https://www.figma.com/proto/w9wKmXGWE0hztSUz83MSDh?node-id=5-474&starting-point-node-id=5%3A474&scaling=scale-down"
+SW_URL = "https://www.figma.com/proto/Sbr79IbDZx9iKQXk1YxOAg/Software-Training?node-id=2-2&starting-point-node-id=2%3A2&scaling=scale-down"
 # ----------------------------------------------------
 
 e = html.escape
@@ -241,11 +242,24 @@ home += f"""<main>
 <section id="work" aria-labelledby="work-h">
   <div class="wrap">
     <p class="eyebrow reveal">Selected work</p>
-    <h2 class="h-lg reveal" id="work-h">Three projects, three real problems.</h2>
-    <div class="tiles">
+    <h2 class="h-lg reveal" id="work-h">Four projects, four kinds of learners.</h2>
+    <div class="tiles c4">
       <a class="tile reveal" href="coaching.html"><div class="shot"><img src="assets/img/tile-coaching.jpg" alt="Coaching Through Conflict on a laptop at home" loading="lazy"></div><h3>Coaching Through Conflict</h3><span class="role">Scenario-based training →</span></a>
       <a class="tile reveal d1" href="pip.html"><div class="shot"><img src="assets/img/tile-pip.jpg" alt="Pip's Number Garden on a phone on a wooden table" loading="lazy"></div><h3>Pip's Number Garden</h3><span class="role">Game-based learning →</span></a>
       <a class="tile reveal d2" href="tv-wall.html"><div class="shot"><img src="assets/img/tile-tv.jpg" alt="The TV Wall Sales Simulator on a laptop in an office" loading="lazy"></div><h3>The TV Wall Sales Simulator</h3><span class="role">Sales simulation →</span></a>
+      <a class="tile reveal d2" href="software-training.html"><div class="shot"><img src="assets/img/tile-software.jpg" alt="A software-training screen from the Schedule a Patient Follow-Up module" loading="lazy"></div><h3>Schedule a Patient Follow-Up</h3><span class="role">Software training →</span></a>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="fit-h">
+  <div class="wrap">
+    <p class="eyebrow reveal">Who I build for</p>
+    <h2 class="h-lg reveal" id="fit-h">Find the work that fits your team.</h2>
+    <div class="fit">
+      <div class="fit-card glass reveal"><h3>K-12 &amp; EdTech</h3><p>Standards-aligned practice for young learners, from a chemistry teacher with an NGSS classroom background.</p><a href="pip.html">Pip's Number Garden {ARROW}</a></div>
+      <div class="fit-card glass reveal d1"><h3>Corporate L&amp;D &amp; enablement</h3><p>Sales practice and software training that measure what the business cares about: kept sales and correct bookings.</p><a href="tv-wall.html">The TV Wall Sales Simulator {ARROW}</a><a href="software-training.html">Schedule a Patient Follow-Up {ARROW}</a></div>
+      <div class="fit-card glass reveal d2"><h3>Leadership &amp; people development</h3><p>Branching scenarios for leaders who have to handle the hard conversation in the moment.</p><a href="coaching.html">Coaching Through Conflict {ARROW}</a></div>
     </div>
   </div>
 </section>
@@ -304,7 +318,7 @@ about += f"""<main>
     <h2 class="h-lg reveal" id="xp-h" style="margin-bottom:28px">Where I've designed learning.</h2>
     <div class="xp">
       <div class="xp-row reveal"><div><h3>Learning Designer</h3><span class="role">Portfolio projects · about 1 year</span></div>
-        <ul><li>Designed and built three learning experiences end to end: a 68-screen branching simulation, a sales simulator and a game-based math module.</li>
+        <ul><li>Designed and built four learning experiences end to end: a 68-screen branching simulation, a sales simulator, a game-based math module and a software-training module.</li>
         <li>Ran each one from analysis through action mapping, storyboards, style guides, prototyping and an evaluation plan.</li>
         <li>Work in Figma, HTML/CSS/JavaScript and AI tools (Claude, Midjourney, Flora AI).</li></ul></div>
       <div class="xp-row reveal"><div><h3>Program Director &amp; Head Coach</h3><span class="role">High school boys' volleyball · 5 years</span></div>
@@ -512,7 +526,7 @@ c += f"""<section class="cs-intro">
   <p style="margin-top:28px">{pill(C, "Experience the project", external=True)}</p>
 </div></section>
 """
-c += next_prev(("The TV Wall Sales Simulator", "tv-wall.html"), ("Pip's Number Garden", "pip.html"))
+c += next_prev(("Schedule a Patient Follow-Up", "software-training.html"), ("Pip's Number Garden", "pip.html"))
 c += "</main>\n" + footer()
 write("coaching.html", c)
 
@@ -642,8 +656,113 @@ simple_case("tv-wall.html", "The TV Wall Sales Simulator", "A practice-first sal
     "I designed a simulator where new associates can practice a full TV sale with no real-world consequences. Each customer brings a different room, viewing habit, and need, and associates work through D.I.S.C. They must ask at least three discovery questions before moving on, and every recommendation is checked 30 days later: kept or returned. The goal is the one the store cares about most: the right TV the first time, fewer returns, and customers who trust their associate.",
     ["I built the TV Wall as a web-based simulation in HTML, CSS, and JavaScript, then rebuilt the core simulator as a clickable Figma prototype with a corporate showroom theme. Five customers each have their own discovery answers and an ideal panel (LED, QLED, Mini-LED, or OLED). Choices carry forward through the conversation, and a final scorecard totals TVs kept and returned. Building and using the simulator made the D.I.S.C. model second nature for me. I asked better questions, saw each customer's full picture, and became more confident explaining installation and services. My TV unit sales, accessory sales, and service sales all grew, and my customers left knowing they had the right TV."],
     "assets/video/tv-wall-walkthrough.mp4", "assets/img/poster-tv.jpg", "Walkthrough of the TV Wall Sales Simulator",
-    ("Pip's Number Garden", "pip.html"), ("Coaching Through Conflict", "coaching.html"),
+    ("Pip's Number Garden", "pip.html"), ("Schedule a Patient Follow-Up", "software-training.html"),
     "A practice-first sales simulator for new TV associates using the D.I.S.C. model.", TV_EXTRAS)
+
+
+# ======================= SOFTWARE TRAINING =======================
+S = SW_URL
+sw = head("Schedule a Patient Follow-Up · Tshwjxeeb Vaaj",
+          "A show me, try me, test me software-training module for new front-desk staff, built in Figma.")
+sw += nav("work") + '<main class="cs">\n'
+sw += cs_hero("assets/img/tile-software.jpg", "“Check the provider before you pick a time.”",
+              "— The one habit this module is built around", "Try the prototype", S, right=True)
+
+
+def fig(src, alt, cap):
+    return f'<figure class="reveal"><img src="{src}" alt="{e(alt)}" loading="lazy"><figcaption>{e(cap)}</figcaption></figure>'
+
+
+sw += f"""<section class="cs-intro"><div class="wrap reveal">
+  <h1>Schedule a Patient Follow-Up</h1>
+  <p class="sub">A software-training module for new front-desk staff</p>
+  <p>A short, practice-first module that teaches new front-desk staff to book a follow-up visit in a clinic scheduling system. Learners watch the task once with callouts, book it themselves in a practice screen with a built-in trap, then answer two workplace questions. A one-page job aid closes the module.</p>
+  {meta_blocks([("Audience", "New front-desk and scheduling staff at an outpatient clinic, and the supervisors who onboard them."),
+                ("Responsibilities", "Instructional Design, Learning Objectives, Scenario Writing, Show me / Try me / Test me Structure, Feedback Design, UI Mockups, Figma Component Library, Branching Prototype, Job Aid"),
+                ("Tools Used", "Figma, Claude")], cols=True)}
+  <p class="cs-note">Brightwell Clinic, the ScheduleDesk app, and every patient and provider in this module are fictional. It's a portfolio concept built to show how I design software training.</p>
+  {pill(S, "Try the prototype", external=True)}
+</div></section>
+"""
+sw += process_strip([
+    ("Analyze", "Picked a task where a small slip has a real cost: booking the wrong patient or the wrong provider.", "#objectives", None),
+    ("Design", "Wrote three objectives, a Show me / Try me / Test me flow, and feedback for every wrong path.", "#flow", None),
+    ("Develop", "Built a reusable component library in Figma, then 15 screens with branching prototype links.", "#flow", None),
+    ("Evaluate", "First-try data from Try me and Test me, a readiness check, and a supervisor audit plan.", "#evaluation", None),
+])
+sw += """<section><div class="wrap two">
+  <div class="reveal"><h2 class="h-md">The Problem</h2><p>Software training often stops at “click here, then here.” New staff watch a demo, then meet the real system and miss the one detail that matters. In scheduling, that detail is usually the patient or the provider. Two patients share a last name, or the scheduler quietly fills in the last provider someone booked for. Either slip means a missed follow-up and a second phone call to fix it.</p></div>
+  <div class="reveal d1"><h2 class="h-md">The Solution</h2><p>I built the module around the mistakes, not the menus. Show me walks through the task once with numbered callouts on the real screen. Try me hands the learner the same task with no callouts, and the scheduler opens with the wrong provider already selected, just like the real thing might. Test me checks the two habits in new situations, with feedback on every answer. The job aid sums it up in five steps to keep at the desk.</p></div>
+</div></section>
+"""
+sw += objectives(
+    "Given a provider's follow-up note, a new front-desk staff member will:",
+    [("Find the right patient using two identifiers: name and date of birth.",
+      "Measured by: Test me question 1, plus the record they open in Show me step 1."),
+     ("Book the follow-up with the right provider, visit type and date window from the provider's note.",
+      "Mastery: an open slot with Dr. Patel the week of Oct 26 in Try me, with no more than one hint."),
+     ("Read back the five booking details and send a reminder before finishing.",
+      "Practiced in Show me step 4 and kept on the job aid.")],
+    "Each objective maps to a screen in the module and a step on the job aid.")
+sw += f"""<section id="flow"><div class="wrap">
+  <div class="reveal">
+    <h2 class="h-md">Show me</h2>
+    <p>Four guided steps on a realistic app screen. Each step gets an amber focus ring with a number, a matching callout in a coaching column, and one short tip on why the step matters. The learner sees the whole task once before they're asked to do it.</p>
+  </div>
+  <div class="pair">
+    {fig("assets/img/sw-showme-1.jpg", "Show me step 1: the matching patient row is ringed and a callout explains matching two identifiers", "Step 1: match two identifiers")}
+    {fig("assets/img/sw-showme-3.jpg", "Show me step 3: the provider field and a time slot are ringed with a callout about checking the provider first", "Step 3: provider first, then time")}
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="reveal">
+    <h2 class="h-md">Try me, with a built-in trap</h2>
+    <p>The practice screen opens with Dr. Michael Chen already in the Provider field, because that's what the scheduler would carry over from the last booking. Learners who pick a slot without checking get specific feedback and two ways forward: try again, or watch Show me again. A hint unlocks after one miss. Learners who change the provider first get confirmation that any open slot with Dr. Patel that week counts.</p>
+  </div>
+  <div class="pair">
+    {fig("assets/img/sw-tryme-wrong.jpg", "Try me feedback when the learner books with the wrong provider", "Wrong provider: specific, corrective feedback")}
+    {fig("assets/img/sw-tryme-right.jpg", "Try me feedback when the learner books with the right provider", "Right provider: confirm and move on")}
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="reveal">
+    <h2 class="h-md">Test me &amp; job aid</h2>
+    <p>Two scenario questions move the habits into new situations: a phone call from a different Lopez, and a scheduler that opens on the wrong provider. The answer review explains every option, not just the right one. The module ends with a one-question readiness check and a five-step job aid that matches the order of the task.</p>
+  </div>
+  <div class="pair">
+    {fig("assets/img/sw-testme-review.jpg", "Test me answer review with the correct option highlighted and feedback for every option", "Feedback for every option")}
+    {fig("assets/img/sw-jobaid.jpg", "Wrap-up screen with objectives recap, readiness check and five-step job aid", "Wrap-up, readiness check and job aid")}
+  </div>
+</div></section>
+
+<section><div class="wrap reveal">
+  <h2 class="h-md">Full Development</h2>
+  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Prototype links handle the branching: open slots in Try me lead to feedback based on the provider, the Provider field leads to the corrected screen, and every answer in Test me leads to its review. In all, there are 15 screens and 49 interactions.</p>
+  <p style="margin-top:28px">{pill(S, "Try the prototype", external=True)}</p>
+</div></section>
+"""
+sw += access(
+    ["Feedback never relies on color alone: every result has an icon (✓ or ✕) and a plain-language explanation.",
+     "No audio required: every instruction, callout and piece of feedback is on screen as text.",
+     "One hint after a miss, plus “Show me again,” so learners can get support without starting over.",
+     "Focus rings carry a number that matches the callout, so the cue isn't only the amber color.",
+     "A job aid gives learners a way back to the steps after training ends."],
+    ["Check the muted gray text and the amber hint panel against WCAG 2.2 AA contrast.",
+     "Rebuild in an authoring tool with keyboard navigation, a logical focus order and screen-reader labels.",
+     "Add alt text for the app screens and a text-only version of the job aid.",
+     "Publish the job aid as an accessible PDF."])
+sw += evaluation(
+    "Evaluation plan",
+    "The module captures its own learning data, and a short supervisor check closes the loop on the job. Here's how I'd measure it with a real onboarding group, using Kirkpatrick's four levels.",
+    [("1 · Reaction", "New staff feel ready to book on their own.", "The 1–5 readiness check on the wrap-up screen.", "Built into the module"),
+     ("2 · Learning", "Staff check the provider and the date of birth without prompting.", "First-try results in Try me and both Test me questions.", "Built into the prototype"),
+     ("3 · Behavior", "Staff use the habits on real bookings.", "A supervisor reviews each new hire's first 10 bookings for patient and provider accuracy.", "Planned"),
+     ("4 · Results", "Fewer reschedules caused by booking errors.", "Reschedule calls tied to wrong patient or wrong provider, compared with the previous hiring group.", "Planned")])
+sw += next_prev(("The TV Wall Sales Simulator", "tv-wall.html"), ("Coaching Through Conflict", "coaching.html"))
+sw += "</main>\n" + footer()
+write("software-training.html", sw)
 
 
 # ======================= HOW I WORK =======================
