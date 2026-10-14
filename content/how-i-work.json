@@ -1,0 +1,83 @@
+{
+  "roster": {
+    "label": "01 / The team, read it like a roster",
+    "title": "The team I built, and who does what.",
+    "body": "I coach; the rest runs on its own, and nothing leaves without a check. The court below is the same system, drawn the way I'd teach it: one metaphor, labeled positions, and a clear line between what runs by itself and what waits for my call.",
+    "lead": {"name": "Tshwjxeeb Vaaj", "role": "Head coach", "desc": "Sets the direction, makes the judgment calls, and signs off on anything that goes out."},
+    "chief": {"name": "Claude", "role": "Assistant coach", "desc": "Takes each task, runs the right playbook, and drafts, builds and checks so I can focus on decisions."},
+    "players": [
+      {"name": "The Morning Scouts", "role": "Scheduled tasks", "desc": "Runs that go out before I wake up, like my weekday roundup of new learning design roles, and report back."},
+      {"name": "The Line Judge", "role": "Quality check", "desc": "A reusable checklist every draft passes: my real facts, no invented numbers, my voice and my style guide."},
+      {"name": "The Playbook", "role": "Memory & standards", "desc": "One place for my background, decisions, style guides and project details, so nothing gets decided twice."}
+    ],
+    "stop": {"name": "The Timeout Whistle", "role": "Stop switch", "desc": "One pause stops every scheduled run at once. I'm the one who blows it."}
+  },
+  "meta": {
+    "type": "AI-assisted learning design",
+    "status": "In daily use, and still growing.",
+    "stack": "Figma (prototyping, variables, Smart Animate) · Claude (drafting, skills, scheduled tasks, vibe coding) · Midjourney · Flora AI (Nano Banana) · Gemini · HTML/CSS/JavaScript · GitHub Pages"
+  },
+  "overview": {
+    "label": "02 / The overview",
+    "title": "The idea isn't the bottleneck. Everything around it is.",
+    "body": "Good scenario design is slow, and the idea is rarely the hard part. The time goes to everything around it: turning lived experience into clear behaviors, drafting branches, making dozens of consistent images, catching mismatches across screens, and keeping the case study up to date. Done by hand, that work crowds out the judgment calls that decide whether a scenario actually lands for a learner."
+  },
+  "pipeline": {
+    "label": "03 / The pipeline",
+    "title": "A repeatable pipeline, not one prompt at a time.",
+    "body": "Instead of asking AI one question at a time, I run every project through the same stages. Each stage hands its output to the next, and I make the call at every gate.",
+    "steps": ["Real story", "Action map", "Storyboard", "Visuals", "Prototype", "Check", "Case study"],
+    "quote": "AI does the legwork. I make the calls."
+  },
+  "practice": {
+    "label": "04 / In practice",
+    "title": "Where the pipeline shows up in real work.",
+    "items": [
+      ["AI image pipeline", "I set the look in Midjourney, then generate scenes in Flora AI with Nano Banana, keeping the same players, uniforms and gym consistent across all three sets of Coaching Through Conflict."],
+      ["Action maps & storyboards", "Claude helps me draft action maps and storyboard tables from my own experience. I decide which behaviors matter and what every screen says."],
+      ["One source of truth", "My background, project facts and style guides live in one place, so every draft is checked against the same record."],
+      ["Branching prototypes in Figma", "68 connected screens with prototype links, variables that remember a learner's guess, overlays and Smart Animate."],
+      ["Vibe-coded builds", "Pip's Number Garden, the TV Wall Sales Simulator and this website were built by describing what I wanted and refining the code with AI."],
+      ["Morning roundup", "A scheduled task searches new learning design roles every weekday morning and sends me the best matches before I start my day."]
+    ]
+  },
+  "rules": {
+    "label": "05 / The rules",
+    "title": "Six rules I hold every project to.",
+    "items": [
+      ["No invented numbers", "Every claim is checked against my real facts. If I haven't measured it, it doesn't go on the page."],
+      ["Nothing ships without a playthrough", "I walk every branch as a learner would before calling a module done, and fix what feels off."],
+      ["Real people stay protected", "Jersey numbers stand in for student-athletes, AI scenes use no real faces from my teams, and images carry no brand logos."],
+      ["It runs without me, and reports", "Scheduled tasks do the routine searching and send a short summary, so nothing waits for me to remember it."],
+      ["The style guide is the standard", "Colors, type, buttons and spacing come from one style guide, so every screen matches without guesswork."],
+      ["Accessibility is part of done", "Readable sizes, alt text and a reduced-motion setting are built in from the start, not added at the end."]
+    ]
+  },
+  "principle": {
+    "label": "06 / The principle",
+    "title": "Human judgment leads. AI does the legwork.",
+    "body": "AI doesn't decide what's true, what's fair to a learner, or how a moment should feel. It speeds up the busywork so I can spend my time on the parts only a designer should own. I'm open about where AI helps, because being clear about that line is part of designing responsibly."
+  },
+  "why": {
+    "label": "07 / Why it matters",
+    "title": "The question every hiring team is asking.",
+    "body": "Hiring teams keep asking how people actually use AI in learning design, beyond a chatbot. This is my answer in practice. I built my first training module with no formal instructional design training by learning these tools as I went, and every project and visual on this site came out of this pipeline."
+  },
+  "inside": {
+    "label": "08 / Inside the system",
+    "items": [
+      ["AI image pipeline", "The same players across practice and game night, styled in Midjourney and generated in Flora AI with Nano Banana.", "assets/img/coaching-ai-grid.jpg"],
+      ["Style guide: one standard for every screen", "Colors, type, buttons, spacing and the clipboard, defined once and used across all 68 screens.", "assets/img/style-guide.png"],
+      ["From wireframe to final", "Grey boxes first, then the real script, then the finished scene, so layout decisions happen before visuals.", "assets/img/wireframes.png"]
+    ]
+  },
+  "flagship": {
+    "label": "09 / See it in action",
+    "title": "The flagship this system produced: Coaching Through Conflict.",
+    "body": "A scenario-based simulation for new head coaches, built from my own 0–10 to semifinal season with this pipeline."
+  },
+  "contact": {
+    "title": "Let's talk.",
+    "body": "Hiring for a learning design role, or curious how something on this site was built? I'd love to hear from you."
+  }
+}

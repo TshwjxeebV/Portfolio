@@ -48,6 +48,7 @@ def nav(current):
     <a class="brand" href="index.html">Tshwjxeeb Vaaj</a>
     <ul class="nav-links" id="nav-links">
       {link("index.html#work", "Work", "work")}
+      {link("how-i-work.html", "How I work", "how")}
       {link("about.html", "About", "about")}
       {link("index.html#contact", "Contact", "contact")}
     </ul>
@@ -132,7 +133,7 @@ home += f"""<main>
       <p class="eyebrow reveal">Learning Designer · Program Manager</p>
       <h1 class="h-xl reveal d1">I'm Tshwjxeeb.</h1>
       <p class="lead reveal d1">I design training that holds up when the real situation stops following the script.</p>
-      <div class="reveal d2">{pill("coaching.html", "Featured project")}</div>
+      <div class="hero-btns reveal d2">{pill("coaching.html", "Featured project")}{pill("how-i-work.html", "How I work", ghost=True)}</div>
     </div>
   </div>
 </section>
@@ -444,3 +445,101 @@ simple_case("tv-wall.html", "The TV Wall Sales Simulator", "A practice-first sal
     "assets/video/tv-wall-walkthrough.mp4", "assets/img/poster-tv.jpg", "Walkthrough of the TV Wall Sales Simulator",
     ("Pip's Number Garden", "pip.html"), ("Coaching Through Conflict", "coaching.html"),
     "A practice-first sales simulator for new TV associates using the D.I.S.C. model.")
+
+
+# ======================= HOW I WORK =======================
+import json
+H = json.load(open("content/how-i-work.json", encoding="utf-8"))
+court = open("assets/img/court.svg", encoding="utf-8").read()
+
+
+def label(t):
+    return f'<p class="eyebrow tick reveal">{e(t)}</p>'
+
+
+def text_block(sec, cls=""):
+    return f"""<section class="{cls}"><div class="wrap narrow">
+  {label(sec["label"])}
+  <h2 class="h-lg reveal d1">{e(sec["title"])}</h2>
+  <p class="lead reveal d2">{e(sec["body"])}</p>
+</div></section>
+"""
+
+
+R = H["roster"]
+w = head("How I work · Tshwjxeeb Vaaj",
+         "How I design with AI: a repeatable pipeline where AI does the legwork and I make the calls.")
+w += nav("how") + '<main class="hiw">\n'
+players = "".join(f'<div class="player-card"><h3>{e(p["name"])}</h3><span class="role">{e(p["role"])}</span><p>{e(p["desc"])}</p></div>' for p in R["players"])
+w += f"""<section class="hiw-hero"><div class="wrap">
+  {label(R["label"])}
+  <h1 class="h-xl reveal d1">{e(R["title"])}</h1>
+  <p class="lead reveal d2">{e(R["body"])}</p>
+  <div class="roster glass reveal">
+    <div class="r-lead"><h3>{e(R["lead"]["name"])} <span class="role">{e(R["lead"]["role"])}</span></h3><p>{e(R["lead"]["desc"])}</p></div>
+    <div class="r-chief">
+      <h3>{e(R["chief"]["name"])} <span class="role">{e(R["chief"]["role"])}</span></h3><p>{e(R["chief"]["desc"])}</p>
+      <div class="players">{players}</div>
+    </div>
+    <div class="r-stop"><h3>{e(R["stop"]["name"])} <span class="role">{e(R["stop"]["role"])}</span></h3><p>{e(R["stop"]["desc"])}</p></div>
+  </div>
+  <figure class="court reveal">{court}<figcaption class="swipe">Swipe to see the full court →</figcaption></figure>
+  {meta_blocks([("Type", H["meta"]["type"]), ("Status", H["meta"]["status"]), ("Tech stack", H["meta"]["stack"])], cols=True)}
+  <div class="hero-btns reveal">{pill("coaching.html", "View Coaching Through Conflict")}{pill("#contact", "Get in touch", ghost=True)}</div>
+</div></section>
+"""
+w += text_block(H["overview"])
+P_ = H["pipeline"]
+steps = "".join(f'<li><span>{i:02d}</span>{e(s)}</li>' for i, s in enumerate(P_["steps"], 1))
+w += f"""<section><div class="wrap">
+  {label(P_["label"])}
+  <div class="split-even">
+    <h2 class="h-lg reveal d1">{e(P_["title"])}</h2>
+    <div class="reveal d2"><p class="lead">{e(P_["body"])}</p><blockquote class="callout">“{e(P_["quote"])}”</blockquote></div>
+  </div>
+  <ol class="pipeline reveal">{steps}</ol>
+</div></section>
+"""
+
+
+def numbered(sec, cols):
+    items = "".join(f'<div class="num-item reveal{" d1" if i % 2 else ""}"><span class="num">{i+1:02d}</span><h3>{e(h)}</h3><p>{e(b)}</p></div>'
+                    for i, (h, b) in enumerate(sec["items"]))
+    return f"""<section><div class="wrap">
+  {label(sec["label"])}
+  <h2 class="h-lg reveal d1">{e(sec["title"])}</h2>
+  <div class="num-grid c{cols}">{items}</div>
+</div></section>
+"""
+
+
+w += numbered(H["practice"], 3) + numbered(H["rules"], 2)
+w += text_block(H["principle"]) + text_block(H["why"])
+inside = "".join(f"""<div class="inside-row reveal">
+  <img src="{src}" alt="{e(h)}" loading="lazy">
+  <div><h3 class="h-sm copper">{e(h)}</h3><p>{e(b)}</p></div>
+</div>""" for h, b, src in H["inside"]["items"])
+w += f"""<section><div class="wrap">{label(H["inside"]["label"])}{inside}</div></section>
+"""
+F, C = H["flagship"], H["contact"]
+w += f"""<section class="cream" id="contact"><div class="wrap">
+  <div class="center flagship">
+    {label(F["label"])}
+    <h2 class="h-lg reveal d1">{e(F["title"])}</h2>
+    <p class="reveal d2">{e(F["body"])}</p>
+    <div class="hero-btns reveal">{pill(COACHING_URL, "Experience the project", external=True)}{pill("coaching.html", "Read the case study", ghost=True)}</div>
+  </div>
+  <div class="cream-contact">
+    <div class="reveal"><h2 class="h-lg">{e(C["title"])}</h2><p>{e(C["body"])}</p></div>
+    <form class="line-form reveal d1" id="contact-form" data-email="{e(EMAIL)}">
+      <label>Name<input name="first" autocomplete="name" required></label>
+      <label>Email<input name="email" type="email" autocomplete="email" required></label>
+      <label>Message<textarea name="message" required></textarea></label>
+      <button class="pill" type="submit">Send message {ARROW}</button>
+    </form>
+  </div>
+</div></section>
+</main>
+"""
+w += footer()
+write("how-i-work.html", w)
