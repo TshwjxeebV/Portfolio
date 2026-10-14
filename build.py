@@ -718,7 +718,7 @@ sw += f"""<section id="flow"><div class="wrap">
 <section><div class="wrap">
   <div class="reveal">
     <h2 class="h-md">Try me, with a built-in trap</h2>
-    <p>The practice screen opens with Dr. Michael Chen already in the Provider field, because that's what the scheduler would carry over from the last booking. Learners who pick a slot without checking get specific feedback and two ways forward: try again, or watch Show me again. A hint unlocks after one miss. Learners who change the provider first get confirmation that any open slot with Dr. Patel that week counts.</p>
+    <p>The practice screen opens with Dr. Michael Chen already in the Provider field, because that's what the scheduler would carry over from the last booking. Learners can open the Provider dropdown and switch to Dr. Patel, or pick a slot without checking and get specific feedback with two ways forward: try again, or watch Show me again. A hint unlocks after one miss. Learners who change the provider first get confirmation that any open slot with Dr. Patel that week counts.</p>
   </div>
   <div class="pair">
     {fig("assets/img/sw-tryme-wrong.jpg", "Try me feedback when the learner books with the wrong provider", "Wrong provider: specific, corrective feedback")}
@@ -739,7 +739,7 @@ sw += f"""<section id="flow"><div class="wrap">
 
 <section><div class="wrap reveal">
   <h2 class="h-md">Full Development</h2>
-  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Prototype links handle the branching: open slots in Try me lead to feedback based on the provider, the Provider field leads to the corrected screen, and every answer in Test me leads to its review. In all, there are 15 screens and 49 interactions.</p>
+  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Everything the tutorial points at works: learners can select the ringed patient row, the Schedule follow-up button, a time slot or Book appointment, or use Next step. The Provider, Visit type and Week fields open real dropdown menus, and picking the wrong option or a booked time brings up a short pop-up that explains why. Buttons and answers respond on hover. In all, there are 25 screens, 9 feedback pop-ups and more than 200 interactions.</p>
   <p style="margin-top:28px">{pill(S, "Try the prototype", external=True)}</p>
 </div></section>
 """
