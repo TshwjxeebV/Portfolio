@@ -676,7 +676,7 @@ def fig(src, alt, cap):
 sw += f"""<section class="cs-intro"><div class="wrap reveal">
   <h1>Schedule a Patient Follow-Up</h1>
   <p class="sub">A software-training module for new front-desk staff</p>
-  <p>A short, practice-first module that teaches new front-desk staff to book a follow-up visit in a clinic scheduling system. Learners watch the task once with callouts, book it themselves in a practice screen with a built-in trap, then answer two workplace questions. A one-page job aid closes the module.</p>
+  <p>A short, practice-first module that teaches new front-desk staff to book a follow-up visit in a clinic scheduling system. Learners watch the task once with callouts, then do it themselves from a blank patient search, working around a pre-filled wrong provider and a patient who can only come in mornings. Two workplace questions and a one-page job aid close it out.</p>
   {meta_blocks([("Audience", "New front-desk and scheduling staff at an outpatient clinic, and the supervisors who onboard them."),
                 ("Responsibilities", "Instructional Design, Learning Objectives, Scenario Writing, Show me / Try me / Test me Structure, Feedback Design, UI Mockups, Figma Component Library, Branching Prototype, Job Aid"),
                 ("Tools Used", "Figma, Claude")], cols=True)}
@@ -699,8 +699,8 @@ sw += objectives(
     "Given a provider's follow-up note, a new front-desk staff member will:",
     [("Find the right patient using two identifiers: name and date of birth.",
       "Measured by: Test me question 1, plus the record they open in Show me step 1."),
-     ("Book the follow-up with the right provider, visit type and date window from the provider's note.",
-      "Mastery: an open slot with Dr. Patel the week of Oct 26 in Try me, with no more than one hint."),
+     ("Book the follow-up with the right provider and date window from the provider's note, at a time the patient can make.",
+      "Mastery: in Try me, find Maria, switch to Dr. Patel, and book the only open slot before 10:00 AM that week."),
      ("Read back the five booking details and send a reminder before finishing.",
       "Practiced in Show me step 4 and kept on the job aid.")],
     "Each objective maps to a screen in the module and a step on the job aid.")
@@ -717,12 +717,14 @@ sw += f"""<section id="flow"><div class="wrap">
 
 <section><div class="wrap">
   <div class="reveal">
-    <h2 class="h-md">Try me, with a built-in trap</h2>
-    <p>The practice screen opens with Dr. Michael Chen already in the Provider field, because that's what the scheduler would carry over from the last booking. Learners can open the Provider dropdown and switch to Dr. Patel, or pick a slot without checking and get specific feedback with two ways forward: try again, or watch Show me again. A hint unlocks after one miss. Learners who change the provider first get confirmation that any open slot with Dr. Patel that week counts.</p>
+    <h2 class="h-md">Try me, the way the real job works</h2>
+    <p>Try me starts on an empty Patients screen, and scheduling stays locked until the learner finds the patient. They type the last name, add the date of birth and search. A name-only search returns three look-alike records, and opening the wrong one brings up a reminder to check the date of birth.</p>
+    <p>Then come two realistic constraints. The scheduler opens with Dr. Michael Chen already in the Provider field, carried over from the last booking, so learners have to open the dropdown and switch to Dr. Patel. And Maria can only come in before 10:00 AM. Dr. Patel's week is mostly booked, so learners have to scan every day to find the one open morning slot, Friday at 9:40. A 10:00 slot is there as a near miss. Every wrong choice gets specific feedback and a way forward.</p>
   </div>
-  <div class="pair">
+  <div class="trio-figs">
+    {fig("assets/img/sw-tryme-search.jpg", "Try me patient search showing three similar Lopez records after a name-only search", "Find the patient first")}
     {fig("assets/img/sw-tryme-wrong.jpg", "Try me feedback when the learner books with the wrong provider", "Wrong provider: specific, corrective feedback")}
-    {fig("assets/img/sw-tryme-right.jpg", "Try me feedback when the learner books with the right provider", "Right provider: confirm and move on")}
+    {fig("assets/img/sw-tryme-right.jpg", "Try me success with Friday 9:40 AM selected, the only open morning slot", "The only open slot before 10:00 AM")}
   </div>
 </div></section>
 
@@ -739,7 +741,7 @@ sw += f"""<section id="flow"><div class="wrap">
 
 <section><div class="wrap reveal">
   <h2 class="h-md">Full Development</h2>
-  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Everything the tutorial points at works: learners can select the ringed patient row, the Schedule follow-up button, a time slot or Book appointment, or use Next step. The Provider, Visit type and Week fields open real dropdown menus, and picking the wrong option or a booked time brings up a short pop-up that explains why. Buttons and answers respond on hover. In all, there are 25 screens, 9 feedback pop-ups and more than 200 interactions.</p>
+  <p>I built the module in Figma, starting with a small component library: a module header that tracks Show me, Try me and Test me, numbered callouts, an amber focus ring, buttons, answer options with correct and incorrect states, and the app's sidebar and top bar. Every screen is assembled from those pieces, so one change updates the whole module. Everything the tutorial points at works: learners can select the ringed patient row, the Schedule follow-up button, a time slot or Book appointment, or use Next step. In Try me, the patient search, the app's sidebar and the Provider, Visit type and Week dropdowns all respond, and a wrong patient, a booked time or a slot after 10:00 AM brings up a short pop-up that explains why. Buttons and answers respond on hover. In all, there are 31 screens, 12 feedback pop-ups and more than 300 interactions.</p>
   <p style="margin-top:28px">{pill(S, "Try the prototype", external=True)}</p>
 </div></section>
 """

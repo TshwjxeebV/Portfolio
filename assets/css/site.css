@@ -367,3 +367,8 @@ a.step-card:hover { border-color: var(--copper); transform: translateY(-2px); }
 .cs-note { font-size: 15px; color: var(--soft); font-style: italic; border-left: 3px solid var(--copper); padding-left: 14px; }
 @media (max-width: 1080px) { .tiles.c4 { grid-template-columns: repeat(2, 1fr); } .fit { grid-template-columns: 1fr; } }
 @media (max-width: 860px) { .tiles.c4 { grid-template-columns: 1fr; } }
+.trio-figs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 28px; }
+.trio-figs figure { margin: 0; }
+.trio-figs img { border-radius: 16px; }
+.trio-figs figcaption { margin-top: 10px; color: var(--copper); font-size: 15px; font-weight: 500; }
+@media (max-width: 860px) { .trio-figs { grid-template-columns: 1fr; } }
