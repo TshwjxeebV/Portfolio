@@ -115,6 +115,72 @@ def next_prev(prev, nxt):
 """
 
 
+def objectives(intro, items, note=""):
+    """Measurable learning objectives: (behavior, criterion) pairs."""
+    lis = "".join(f'<li><span class="obj-n">{i:02d}</span><div><p class="obj-b">{e(b)}</p><p class="obj-c">{e(c)}</p></div></li>'
+                  for i, (b, c) in enumerate(items, 1))
+    n = f'<p class="obj-note">{e(note)}</p>' if note else ""
+    return f"""<section id="objectives"><div class="wrap reveal">
+  <p class="eyebrow">Learning objectives</p>
+  <h2 class="h-md">What learners will be able to do</h2>
+  <p class="lead">{e(intro)}</p>
+  <ol class="objectives">{lis}</ol>
+  {n}
+</div></section>
+"""
+
+
+def process_strip(steps):
+    """ADDIE strip: (phase, what I did, href or None, thumb or None)."""
+    cards = []
+    for i, (phase, did, href, thumb) in enumerate(steps):
+        img = f'<img src="{thumb}" alt="" loading="lazy">' if thumb else ""
+        inner = f'{img}<span class="ph">{e(phase)}</span><p>{e(did)}</p>'
+        if href:
+            inner += f'<span class="see">See it {ARROW}</span>'
+            cards.append(f'<a class="step-card{" has-img" if thumb else ""}" href="{href}">{inner}</a>')
+        else:
+            cards.append(f'<div class="step-card{" has-img" if thumb else ""}">{inner}</div>')
+    return f"""<section class="process" aria-labelledby="process-h"><div class="wrap reveal">
+  <p class="eyebrow">My process</p>
+  <h2 class="h-md" id="process-h">From problem to prototype</h2>
+  <div class="steps-row c{len(steps)}">{"".join(cards)}</div>
+</div></section>
+"""
+
+
+def evaluation(heading, intro, levels, extra=""):
+    """Kirkpatrick-style table: (level, what we look for, how measured, status)."""
+    rows = "".join(f'<div class="ev-row"><span class="ev-l">{e(l)}</span><p class="ev-w">{e(w)}</p><p class="ev-h">{e(h)}</p>'
+                   f'<span class="tag {"done" if s.lower().startswith(("done", "observed", "built")) else "plan"}">{e(s)}</span></div>'
+                   for l, w, h, s in levels)
+    return f"""<section id="evaluation"><div class="wrap reveal">
+  <h2 class="h-md">{e(heading)}</h2>
+  <p>{e(intro)}</p>
+  <div class="ev-table" role="table" aria-label="Evaluation plan">
+    <div class="ev-row ev-head" role="row"><span>Level</span><span>What I look for</span><span>How it's measured</span><span>Status</span></div>
+    {rows}
+  </div>
+  {extra}
+</div></section>
+"""
+
+
+def access(built, nxt):
+    """Accessibility & UDL: what's built in, and the next pass."""
+    b = "".join(f"<li>{e(x)}</li>" for x in built)
+    n = "".join(f"<li>{e(x)}</li>" for x in nxt)
+    return f"""<section id="accessibility"><div class="wrap reveal">
+  <p class="eyebrow">Accessibility &amp; UDL</p>
+  <h2 class="h-md">Designed so more learners can get in</h2>
+  <div class="two acc">
+    <div><h3 class="h-sm">Built in</h3><ul class="checks">{b}</ul></div>
+    <div><h3 class="h-sm">Next accessibility pass</h3><ul class="checks todo">{n}</ul></div>
+  </div>
+</div></section>
+"""
+
+
 def write(name, content):
     with open(name, "w", encoding="utf-8") as f:
         f.write(content)
@@ -214,7 +280,7 @@ about += f"""<main>
     <div>
       <p class="eyebrow reveal">About me</p>
       <h1 class="h-xl reveal d1" style="margin-bottom:22px">I'm Tshwjxeeb Vaaj.</h1>
-      <p class="lead reveal d1">Hi, I'm Tshwjxeeb, a learning designer with a background in chemistry education, program leadership and coaching. I hold a degree in chemistry, a master's in chemistry education and a teaching credential in chemistry.</p>
+      <p class="lead reveal d1">Hi, I'm Tshwjxeeb, a learning designer with five years of designing and leading training as a program director and head coach, and a background in chemistry education. I hold a degree in chemistry, a master's in chemistry education and a teaching credential in chemistry.</p>
       <p class="pull reveal d2">I help people build skills they can use right away by designing practice that feels like the real moment.</p>
     </div>
     <div class="headshot reveal"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj"></div>
@@ -228,6 +294,30 @@ about += f"""<main>
     <div class="two">
       <p class="reveal">As program director and head coach of a boys' volleyball program, I designed learning well beyond the classroom. In the classroom, I taught chemistry curriculum aligned to the Next Generation Science Standards (NGSS) adopted by California. On the court, I taught motor skills, breaking complex movements into steps athletes could practice and master. I worked with learners from kindergarten through high school graduation, and I trained and mentored the coaches on my staff so they could lead on their own with confidence.</p>
       <p class="reveal d1">Instructional design brings both sides of my experience together. I understand how learning works from my time in the classroom and my graduate study, and I've applied Universal Design for Learning (UDL) principles on the court as well as in a lab. That foundation lets me partner with subject matter experts in any field: they bring the expertise, and I bring the strategies and tools that turn it into training people can actually apply. I'm a creative at heart, and I'm excited to build learning that helps teams and organizations perform. Let's connect and explore what we can create together.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="xp-h">
+  <div class="wrap">
+    <p class="eyebrow reveal">Experience at a glance</p>
+    <h2 class="h-lg reveal" id="xp-h" style="margin-bottom:28px">Where I've designed learning.</h2>
+    <div class="xp">
+      <div class="xp-row reveal"><div><h3>Learning Designer</h3><span class="role">Portfolio projects · about 1 year</span></div>
+        <ul><li>Designed and built three learning experiences end to end: a 68-screen branching simulation, a sales simulator and a game-based math module.</li>
+        <li>Ran each one from analysis through action mapping, storyboards, style guides, prototyping and an evaluation plan.</li>
+        <li>Work in Figma, HTML/CSS/JavaScript and AI tools (Claude, Midjourney, Flora AI).</li></ul></div>
+      <div class="xp-row reveal"><div><h3>Program Director &amp; Head Coach</h3><span class="role">High school boys' volleyball · 5 years</span></div>
+        <ul><li>Designed the program's coaching materials and practice plans, breaking complex motor skills into steps athletes could practice and master.</li>
+        <li>Trained and mentored the coaches on my staff so they could lead on their own with confidence.</li>
+        <li>Led the program from 0–10 and last in the league to 6–3 and the school's first-ever semifinal.</li></ul></div>
+      <div class="xp-row reveal"><div><h3>Chemistry Teacher</h3><span class="role">Credentialed in chemistry</span></div>
+        <ul><li>Taught chemistry curriculum aligned to the Next Generation Science Standards (NGSS).</li>
+        <li>Applied Universal Design for Learning (UDL) to give every student more than one way in.</li></ul></div>
+      <div class="xp-row reveal"><div><h3>Sales Associate</h3><span class="role">Best Buy</span></div>
+        <ul><li>Turned my own onboarding gap into the TV Wall Sales Simulator, and grew my TV unit, accessory and service sales.</li></ul></div>
+      <div class="xp-row reveal"><div><h3>Education</h3><span class="role">Chemistry &amp; education</span></div>
+        <ul><li>Degree in chemistry · Master's in chemistry education · Teaching credential in chemistry</li></ul></div>
     </div>
   </div>
 </section>
@@ -262,6 +352,38 @@ write("about.html", about)
 
 # ======================= COACHING =======================
 C = COACHING_URL
+COACH_PROCESS = process_strip([
+    ("Analyze", "Used my own 0–10 season as the needs analysis, then action-mapped the goal down to on-court behaviors.", "#action-map", "assets/img/action-map.png"),
+    ("Design", "Wrote a text-based storyboard for every screen and built a style guide so all 68 screens stay consistent.", "#storyboard", "assets/img/storyboard.png"),
+    ("Develop", "Went from grey-box wireframes to a 68-screen branching prototype in Figma.", "#wireframes", "assets/img/wireframes.png"),
+    ("Evaluate", "Planned a pilot with other high school volleyball coaches, measured at all four Kirkpatrick levels.", "#evaluation", "assets/img/coaching-decision.jpg"),
+])
+COACH_OBJ = objectives(
+    "Given a player-conflict moment in practice or a match (a distracted huddle, a disengaged star, a teammate's frustration boiling over), a new head coach will:",
+    [("Pause and name a likely cause behind the behavior before reacting.",
+      "Measured by: the learner's mental-timeout guess, shown beside the real cause on the next screen."),
+     ("Address the player with an SBI (Situation–Behavior–Impact) and “I” statement instead of a public correction.",
+      "Measured by: choosing the SBI-based response at each decision point."),
+     ("Ask an open question that makes the player part of the solution.",
+      "Mastery: reaching the success screen in all three sets.")],
+    "Each objective comes straight from a highlighted sub-action on the action map.")
+COACH_ACCESS = access(
+    ["Feedback never relies on color alone: every outcome carries a written label like “Point lost” and a plain explanation of why.",
+     "Story text sits on solid, light cards over the photos, so it stays readable against busy gym scenes.",
+     "The “My clipboard” memory aid keeps the three core ideas one click away on every decision, which lowers the load on working memory.",
+     "Multiple means of representation (UDL): the ideas are taught on a whiteboard, written onto the clipboard, then practiced in scenes.",
+     "“Replay the point” lets learners retry any decision without restarting, so mistakes become practice."],
+    ["Check every card and button against WCAG 2.2 AA contrast (4.5:1 for body text).",
+     "Add alt text and screen-reader descriptions for each scene in the final build.",
+     "Rebuild in an authoring tool with full keyboard navigation and a logical focus order (Figma prototypes are mouse-first).",
+     "Offer narrated chalk talks with captions as an option."])
+COACH_EVAL = evaluation(
+    "Evaluation plan",
+    "The method is proven on my own team. The module is the next test, so I've planned how I'll measure it with a pilot group of high school volleyball coaches, using Kirkpatrick's four levels.",
+    [("1 · Reaction", "Coaches find the scenarios realistic and useful.", "Short survey after the module: realism, relevance and confidence (1–5).", "Planned"),
+     ("2 · Learning", "Coaches spot the cause and pick the SBI and open-question responses.", "First-try choices at each decision; mental-timeout guess vs. the real cause.", "Built into the prototype"),
+     ("3 · Behavior", "Coaches use the habits at real practices.", "Two-week self-check against the clipboard habits, plus an assistant coach's observation.", "Planned"),
+     ("4 · Results", "Calmer huddles and players who own the fix.", "Program director check-in at season's end, compared with my own 0–10 → 6–3 baseline.", "Observed on my team")])
 c = head("Coaching Through Conflict · Tshwjxeeb Vaaj", "A scenario-based simulation for new head coaches, built from a real 0–10 to semifinal turnaround.")
 c += nav("work")
 c += "<main class=\"cs\">\n"
@@ -284,18 +406,20 @@ c += f"""<section class="cs-intro">
   </div>
 </section>
 
+{COACH_PROCESS}
 <section><div class="wrap reveal">
   <h2 class="h-md">The Problem</h2>
   {paras("This isn't a hypothetical. I'm the program director and head coach it's based on. In one year my high school boys' program went from 0–10 and last in our league to 6–3, third place, and the first semifinal appearance in our school's history. The turnaround came from one change in how I coached, and this module turns that change into something other coaches can practice. (The module itself is a concept I'm still testing; the method behind it is proven on the court.)")}
 </div></section>
 
+{COACH_OBJ}
 <section><div class="wrap reveal">
   <h2 class="h-md">The Process</h2>
   {paras("I followed the ADDIE model (Analyze, Design, Develop, Implement, and Evaluate). My analysis wasn't a survey; it was my own season. My first year, I had a talented group, many of them just up from JV, but the way I coached held them back: I micromanaged every rep, got angry, and my assistants and I piled pressure on kids who mostly lacked varsity experience. We went 0–10. Then I sat in on a friend's college practice and watched him give his athletes real autonomy, and I rebuilt how I coached around that. The next season we went 6–3 and reached the semifinals. I distilled what changed into three principles (backed by the SBI and GROW frameworks), then designed a storyboard, built a clickable prototype, and refined it.",
          "Each phase stayed anchored to one question: what does a coach need to do in the moment, not just know? I learned the answer the hard way, and the module exists so other coaches don't have to.")}
 </div></section>
 
-<section><div class="wrap split">
+<section id="action-map"><div class="wrap split">
   <div class="reveal">
     <h2 class="h-md">Action Map</h2>
     {paras("I served as my own subject matter expert, drawing on five years as a head coach and program director and on what I saw sitting in on a friend's college men's volleyball practices. Using Cathy Moore's Action Mapping model, I started with the goal instead of the content: new head coaches handling player conflict in ways that protect both the player and the team's energy. From there, I mapped the on-court behaviors coaches need to do to reach that goal, rather than what they need to know about conflict theory.",
@@ -305,7 +429,7 @@ c += f"""<section class="cs-intro">
   <div class="visual reveal d1"><img src="assets/img/action-map.png" alt="Action map: the goal branches into three behaviors and their sub-actions, with the highest-leverage actions highlighted in yellow" loading="lazy"></div>
 </div></section>
 
-<section><div class="wrap split">
+<section id="storyboard"><div class="wrap split">
   <div class="reveal">
     <h2 class="h-md">Text-Based Storyboard</h2>
     {paras("Once the action map was set, I wrote a text-based storyboard to plan the whole module, from the visuals and interactions to the exact text on every screen. Every piece was designed to put the learner on the court as the coach, showing consequences through the natural story of a season rather than right-or-wrong pop-ups. Each scenario was built around the core habits from the action map, and the scenarios themselves came from real moments in my own seasons as a head coach: two players laughing in the back of a huddle, a star player whose energy was fading, and a teammate's anger boiling over during a match.",
@@ -322,7 +446,7 @@ c += f"""<section class="cs-intro">
   <div class="visual reveal d1"><img src="assets/img/style-guide.png" alt="Style guide with colors, text styles, buttons, spacing and the clipboard" loading="lazy"></div>
 </div></section>
 
-<section><div class="wrap">
+<section id="wireframes"><div class="wrap">
   <div class="reveal">
     <h2 class="h-md">Wireframe Progression</h2>
     {paras("Next, I built wireframes and mockups to dial in the layout before adding any visuals. I started with grey boxes to place the story card, the four choices, the scoreboard and the clipboard, then moved to a mid-fidelity version with the real script to check reading length and flow. For the final screens, I set the look and mood in Midjourney, then generated the photorealistic gym scenes in Flora AI with Nano Banana, finished with a warm gold tint and a soft dark fade so the cards stay easy to read.")}
@@ -363,7 +487,7 @@ c += f"""<section class="cs-intro">
   </div>
 </div></section>
 
-<section><div class="wrap">
+<section id="development"><div class="wrap">
   <div class="reveal">
     <h2 class="h-md">Full Development</h2>
     {paras("After several rounds of iteration, I developed the full module as a clickable prototype: 68 screens that move from a story-driven opening through three sets of decisions and a closing season wrap-up with Coach Ramos, each wrong choice with its own aftermath, and a success screen for each set. Each round of changes came from walking through the flow as a learner would. For example, I replaced a text-message exchange with a whiteboard chalk talk, so the mentor teaches the principles directly instead of just encouraging the learner.",
@@ -373,12 +497,14 @@ c += f"""<section class="cs-intro">
   <p style="margin-top:28px" class="reveal">{pill(C, "Experience the project", external=True)}</p>
 </div></section>
 
-<section><div class="wrap reveal">
+{COACH_ACCESS}
+<section id="results"><div class="wrap reveal">
   <h2 class="h-md">Results</h2>
   {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–3 season and our school's first-ever semifinal appearance. The module that teaches it is still a concept, so the next step is to add final artwork and test the full prototype with other high school volleyball coaches.",
          "My biggest takeaway is that the shift had to start with me before it could reach the players: trading control for ownership changed the team only once I changed how I coached. The module is built to pass that lesson on, in the learner's own world of the gym, the whiteboard, and the huddle. These insights will shape how I design future scenario-based training for coaches, teachers, and teams.")}
 </div></section>
 
+{COACH_EVAL}
 <section><div class="wrap reveal">
   <h2 class="h-md">Lessons Learned</h2>
   {paras("This was my first training module, and I built it with no formal instructional design training. What made it possible was learning to build alongside AI. Through vibe coding and AI tools, I turned the ideas in my head into working drafts quickly: Claude helped me shape the script and structure, Midjourney helped me find the visual style, and Flora AI with Nano Banana generated the scenes.",
@@ -392,7 +518,7 @@ write("coaching.html", c)
 
 
 # ======================= PIP / TV (shared layout) =======================
-def simple_case(file, title, sub, desc, meta, quote, by, hero_img, cta, url, problem, solution, dev, vid, poster, vid_label, prev, nxt, page_desc):
+def simple_case(file, title, sub, desc, meta, quote, by, hero_img, cta, url, problem, solution, dev, vid, poster, vid_label, prev, nxt, page_desc, extras):
     p = head(f"{title} · Tshwjxeeb Vaaj", page_desc) + nav("work") + '<main class="cs">\n'
     p += cs_hero(hero_img, quote, by, cta, url, right=True)
     p += f"""<section class="cs-intro"><div class="wrap reveal">
@@ -402,23 +528,96 @@ def simple_case(file, title, sub, desc, meta, quote, by, hero_img, cta, url, pro
   {meta_blocks(meta, cols=True)}
   {pill(url, cta, external=True)}
 </div></section>
-
+{extras["process"]}
 <section><div class="wrap two">
   <div class="reveal"><h2 class="h-md">The Problem</h2><p>{e(problem)}</p></div>
   <div class="reveal d1"><h2 class="h-md">The Solution</h2><p>{e(solution)}</p></div>
 </div></section>
-
-<section><div class="wrap">
+{extras["objectives"]}
+<section id="development"><div class="wrap">
   <div class="reveal"><h2 class="h-md">Full Development</h2>{paras(*dev)}</div>
   <div class="wide-visual reveal d1">{video(vid, poster, vid_label)}</div>
   <p style="margin-top:28px" class="reveal">{pill(url, cta, external=True)}</p>
 </div></section>
+{extras["access"]}
+{extras["evaluation"]}
 """
     p += next_prev(prev, nxt) + "</main>\n" + footer()
     write(file, p)
 
 
-simple_case("pip.html", "Pip's Number Garden", "A game-based learning garden for 2nd grade math",
+PIP_EXTRAS = {
+    "process": process_strip([
+        ("Analyze", "Coached a student teacher through a small-group place-value lesson and saw where students got stuck: mixing up places and guessing which way the sign points.", None, None),
+        ("Design", "Mapped the 2nd grade comparison standard (2.NBT.A.4) to a three-step routine, with a color, block and label for each place.", "#objectives", None),
+        ("Develop", "Built a single-page game with Claude AI in HTML, CSS and JavaScript: four levels, hint feedback and a For grown-ups page.", "#development", None),
+        ("Evaluate", "A 2nd grade student teacher played it and gave feedback, and first-try accuracy gates every level.", "#evaluation", None),
+    ]),
+    "objectives": objectives(
+        "Given two 2- or 3-digit numbers, a 2nd grade student will:",
+        [("Compare the numbers starting from the greatest place: hundreds, then tens, then ones.",
+          "Practiced as step one of every round: check the biggest place first."),
+         ("Decide which number is greater, or whether the two are equal.",
+          "Practiced as step two, with a hint from Pip after a wrong answer."),
+         ("Choose the correct sign: >, < or =.",
+          "Mastery: 4 of 5 correct on the first try unlocks the next level, from Sprout to Sunflower.")],
+        "Aligned to Common Core 2.NBT.A.4, part of California's math standards."),
+    "access": access(
+        ["Place value never relies on color alone: hundreds, tens and ones each get their own block, color and written label.",
+         "A hint after every wrong answer, then another try, so mistakes turn into practice instead of a dead end.",
+         "Short, kid-friendly prompts and a friendly guide keep the reading load low for young readers.",
+         "Self-paced levels that unlock on mastery, not on time.",
+         "A For grown-ups page explains the design, so teachers can use the game in their own small groups."],
+        ["Add a read-aloud option for prompts, for early and emerging readers.",
+         "Check every color pair against WCAG 2.2 AA contrast.",
+         "Support full keyboard play and screen-reader labels for the number blocks.",
+         "Add a switch to turn off sounds and sparkles for students who are sensitive to them."]),
+    # TODO(Tshwjxeeb): add one line on what your wife flagged in the playtest and what you changed because of it.
+    "evaluation": evaluation(
+        "Testing & evaluation",
+        "The game already collects the most honest learning signal for 2nd graders: whether they get it right on the first try. Seeds are only earned on a first-try answer, so the garden itself is the progress report.",
+        [("1 · Reaction", "Students want to keep playing.", "Teacher notes on engagement during independent practice.", "Planned"),
+         ("2 · Learning", "Students compare by place value, not by guessing.", "First-try accuracy on each level; 4 of 5 unlocks the next.", "Built into the game"),
+         ("3 · Behavior", "Students use the place-by-place routine in class.", "A short paper comparison task in small group.", "Planned"),
+         ("4 · Results", "Fewer place-value mix-ups across the class.", "Pre- and post- exit ticket on comparing three-digit numbers.", "Planned")],
+        '<p class="ev-extra"><strong>Playtest.</strong> My wife, a 2nd grade student teacher, played through the game and gave feedback on it from a classroom point of view.</p>'),
+}
+
+TV_EXTRAS = {
+    "process": process_strip([
+        ("Analyze", "Turned my own first weeks on the Best Buy sales floor into a learning need: knowing the tech wasn't the same as matching a TV to a customer.", None, None),
+        ("Design", "Mapped D.I.S.C. into a practice loop and wrote five customer personas, each with their own room, habits and ideal panel.", "#objectives", None),
+        ("Develop", "Built it in HTML, CSS and JavaScript, then rebuilt the core loop as a clickable Figma prototype.", "#development", None),
+        ("Evaluate", "Every recommendation is checked 30 days later: kept or returned. Then I tracked my own sales.", "#evaluation", None),
+    ]),
+    "objectives": objectives(
+        "Given a customer on the sales floor, a new TV associate will:",
+        [("Ask at least three discovery questions about the customer's room and viewing habits before recommending a TV.",
+          "Built into the simulator: associates can't move on until they've asked three."),
+         ("Recommend the panel type (LED, QLED, Mini-LED or OLED) that fits the customer's room and habits.",
+          "Mastery target: at least 4 of 5 customers keep their TV at the 30-day check."),
+         ("Explain installation and add-on services in terms of what the customer shared in discovery.",
+          "Measured by: the choices made in the Solve and Close steps.")]),
+    "access": access(
+        ["Every customer answer and every choice is written on screen, so nothing depends on audio.",
+         "Low-stakes practice: associates can make a wrong match and see the 30-day return without a real customer paying for it.",
+         "A required discovery step builds the habit of asking before telling.",
+         "Five personas with different rooms and habits give varied examples of the same skill (UDL: multiple means of representation)."],
+        ["Check every color pair against WCAG 2.2 AA contrast.",
+         "Add full keyboard navigation and visible focus states to the HTML version.",
+         "Add screen-reader labels to the TV wall and customer cards.",
+         "Add a plain-language glossary for panel types and room terms."]),
+    "evaluation": evaluation(
+        "Results & evaluation",
+        "The simulator already measures what the store cares about most: whether the TV stays sold. Here's how I'd evaluate it with a real onboarding class, using Kirkpatrick's four levels.",
+        [("1 · Reaction", "Associates feel ready for their first sale.", "Confidence rating before and after (1–5).", "Planned"),
+         ("2 · Learning", "Associates match the right panel to each customer.", "Kept vs. returned on the final scorecard.", "Built into the simulator"),
+         ("3 · Behavior", "Associates run D.I.S.C. on the real floor.", "A lead observes one live sale with a D.I.S.C. checklist.", "Planned"),
+         ("4 · Results", "Fewer returns and more attached services.", "Return rate and service attach rate vs. the previous new-hire class.", "Planned")],
+        '<p class="ev-extra"><strong>What I saw myself.</strong> After building and practicing with the simulator, my TV unit sales, accessory sales and service sales all grew.</p>'),
+}
+
+simple_case("pip.html","Pip's Number Garden", "A game-based learning garden for 2nd grade math",
     "A cozy, self-paced garden game that helps 2nd graders compare numbers with >, <, and = by reading place value one place at a time. Students compare two numbers in three focused steps: check the biggest place first, decide which number is greater, then pick the sign. Every first-try answer earns a seed, and five seeds grow a new plant in their garden.",
     [("Audience", "2nd grade students practicing number comparison on their own, and the teachers who run small-group place-value lessons."),
      ("Responsibilities", "Instructional Design Tasks (Coaching a student teacher through her small-group place-value lesson, Identifying where students got stuck, Mapping the 2nd grade standard for comparing numbers, Designing place-value visuals and hint feedback, Writing kid-friendly prompts), Game Development, Teacher Feedback Review."),
@@ -430,7 +629,7 @@ simple_case("pip.html", "Pip's Number Garden", "A game-based learning garden for
     ["I built Pip's Number Garden with Claude AI as a single web page in HTML, CSS, and JavaScript. Pip, a friendly garden guide, gives a short hint after a wrong answer and lets students try again, while seeds are only earned on the first try so the garden reflects real understanding. Sparkles, a hopping Pip, and soft chimes celebrate correct answers, progress saves in the browser, and a For grown-ups page explains the design choices to teachers. My wife, a 2nd grade student teacher, played through the game and gave feedback on it."],
     "assets/video/pip-gameplay.mp4", "assets/img/poster-pip.jpg", "Gameplay of Pip's Number Garden on a phone",
     ("Coaching Through Conflict", "coaching.html"), ("The TV Wall Sales Simulator", "tv-wall.html"),
-    "A cozy, self-paced garden game that helps 2nd graders compare numbers using place value.")
+    "A cozy, self-paced garden game that helps 2nd graders compare numbers using place value.", PIP_EXTRAS)
 
 simple_case("tv-wall.html", "The TV Wall Sales Simulator", "A practice-first sales simulation for new associates",
     "A practice-first sales simulator that helps new associates sell TVs with confidence using the D.I.S.C. model: Discover, Inspire, Solve, and Close. Associates help five customers on a virtual sales floor. They ask discovery questions to learn about each customer's room and habits, inspire a vision, recommend the right panel, and close the sale. Thirty days later, each customer either keeps the TV or returns it.",
@@ -444,7 +643,7 @@ simple_case("tv-wall.html", "The TV Wall Sales Simulator", "A practice-first sal
     ["I built the TV Wall as a web-based simulation in HTML, CSS, and JavaScript, then rebuilt the core simulator as a clickable Figma prototype with a corporate showroom theme. Five customers each have their own discovery answers and an ideal panel (LED, QLED, Mini-LED, or OLED). Choices carry forward through the conversation, and a final scorecard totals TVs kept and returned. Building and using the simulator made the D.I.S.C. model second nature for me. I asked better questions, saw each customer's full picture, and became more confident explaining installation and services. My TV unit sales, accessory sales, and service sales all grew, and my customers left knowing they had the right TV."],
     "assets/video/tv-wall-walkthrough.mp4", "assets/img/poster-tv.jpg", "Walkthrough of the TV Wall Sales Simulator",
     ("Pip's Number Garden", "pip.html"), ("Coaching Through Conflict", "coaching.html"),
-    "A practice-first sales simulator for new TV associates using the D.I.S.C. model.")
+    "A practice-first sales simulator for new TV associates using the D.I.S.C. model.", TV_EXTRAS)
 
 
 # ======================= HOW I WORK =======================
