@@ -327,7 +327,7 @@ about += f"""<main>
       <div class="xp-row reveal"><div><h3>Learning Designer</h3><span class="role">Portfolio projects · about 1 year</span></div>
         <ul><li>Designed and built four learning experiences end to end: a 68-screen branching simulation, a sales simulator, a game-based math module and a software-training module.</li>
         <li>Ran each one from analysis through action mapping, storyboards, style guides, prototyping and an evaluation plan.</li>
-        <li>Work in Figma, HTML/CSS/JavaScript and AI tools (Claude, Midjourney, Flora AI).</li></ul></div>
+        <li>Work in Figma, Articulate Storyline 360, HTML/CSS/JavaScript and AI tools (Claude, Midjourney, Flora AI).</li></ul></div>
       <div class="xp-row reveal"><div><h3>Program Director &amp; Head Coach</h3><span class="role">High school boys' volleyball · 5 years</span></div>
         <ul><li>Designed the program's coaching materials and practice plans, breaking complex motor skills into steps athletes could practice and master.</li>
         <li>Trained and mentored the coaches on my staff so they could lead on their own with confidence.</li>
@@ -370,7 +370,7 @@ C = COACHING_URL
 COACH_PROCESS = process_strip([
     ("Analyze", "Used my own 0–10 season as the needs analysis, then action-mapped the goal down to on-court behaviors.", "#action-map", "assets/img/action-map.png"),
     ("Design", "Wrote a text-based storyboard for every screen and built a style guide so all 68 screens stay consistent.", "#storyboard", "assets/img/storyboard.png"),
-    ("Develop", "Went from grey-box wireframes to a 68-screen branching prototype in Figma.", "#wireframes", "assets/img/wireframes.png"),
+    ("Develop", "Went from grey-box wireframes to a 68-screen branching prototype in Figma, then started the build in Articulate Storyline 360.", "#wireframes", "assets/img/wireframes.png"),
     ("Evaluate", "Planned a pilot with other high school volleyball coaches, measured at all four Kirkpatrick levels.", "#evaluation", "assets/img/coaching-decision.jpg"),
 ])
 COACH_OBJ = objectives(
@@ -390,7 +390,7 @@ COACH_ACCESS = access(
      "“Replay the point” lets learners retry any decision without restarting, so mistakes become practice."],
     ["Check every card and button against WCAG 2.2 AA contrast (4.5:1 for body text).",
      "Add alt text and screen-reader descriptions for each scene in the final build.",
-     "Rebuild in an authoring tool with full keyboard navigation and a logical focus order (Figma prototypes are mouse-first).",
+     "Finish the Storyline 360 build with full keyboard navigation and a logical focus order (Figma prototypes are mouse-first).",
      "Offer narrated chalk talks with captions as an option."])
 COACH_EVAL = evaluation(
     "Evaluation plan",
@@ -411,8 +411,8 @@ c += f"""<section class="cs-intro">
       <p class="sub">A scenario-based simulation for new head coaches</p>
       <p>Coaching Through Conflict is a scenario-based training module that teaches new varsity volleyball head coaches to handle the moments that test every coach: a distracted huddle, a disengaged star, a match on the line. Learners choose how to respond and see how each choice affects the team, without real players paying the price.</p>
       {meta_blocks([("Audience", "New varsity volleyball head coaches, assistants stepping into a head role, and the program directors who train them to handle player conflict with confidence."),
-                    ("Responsibilities", "Instructional Design, Action Mapping, Text-Based Storyboard, Scriptwriting, Visual Design, AI Image Generation, Figma Prototyping"),
-                    ("Tools Used", "Figma, Midjourney, Flora AI (Nano Banana), Gemini, Claude")])}
+                    ("Responsibilities", "Instructional Design, Action Mapping, Text-Based Storyboard, Scriptwriting, Visual Design, AI Image Generation, Figma Prototyping, Storyline Development"),
+                    ("Tools Used", "Figma, Articulate Storyline 360, Midjourney, Flora AI (Nano Banana), Gemini, Claude")])}
     </div>
     <div class="visual reveal d1">
       <img src="assets/img/coaching-desk.jpg" alt="A coach at a home desk with the module's title screen on the monitor">
@@ -507,7 +507,8 @@ c += f"""<section class="cs-intro">
     <h2 class="h-md">Full Development</h2>
     {paras("After several rounds of iteration, I developed the full module as a clickable prototype: 68 screens that move from a story-driven opening through three sets of decisions and a closing season wrap-up with Coach Ramos, each wrong choice with its own aftermath, and a success screen for each set. Each round of changes came from walking through the flow as a learner would. For example, I replaced a text-message exchange with a whiteboard chalk talk, so the mentor teaches the principles directly instead of just encouraging the learner.",
            "I also used Figma's prototyping features to make the experience feel responsive. Prototype links handle the branching, so each choice leads to its own consequence and every “Replay the point” button returns learners to the decision. Smart Animate reveals the whiteboard ideas one at a time, a “mental timeout” screen lets learners tap their best guess about what is behind the behavior, and dissolve transitions carry the story from scene to scene. The clipboard opens as an overlay on top of the current screen and closes right back to the same moment, so checking notes never breaks the flow. A prototype variable also remembers the learner's mental-timeout guess, so the follow-up screen shows that guess beside the real cause.",
-           "Once the Figma prototype was final, I rebuilt the module as a web page in HTML, CSS and JavaScript, using the same script, images and branching, so anyone can play it in a browser on a computer or a phone.")}
+           "Once the Figma prototype was final, I rebuilt the module as a web page in HTML, CSS and JavaScript, using the same script, images and branching, so anyone can play it in a browser on a computer or a phone.",
+           "I've also started rebuilding the module in Articulate Storyline 360, the authoring tool many L&D teams use. So far I've built the opening story and Coach Ramos's chalk talk in Storyline, using the same script, scene images and style guide. Next, I'll build the three sets of decisions with their aftermaths and Replay the point branching, so the finished module can be published for an LMS.")}
   </div>
   <div class="wide-visual reveal d1">{video("assets/video/coaching-walkthrough.mp4", "assets/img/poster-coaching.jpg", "Walkthrough of the Coaching Through Conflict module", "player wide")}</div>
   <p style="margin-top:28px" class="reveal">{pill(C, "Experience the project", external=True)}</p>
@@ -516,7 +517,7 @@ c += f"""<section class="cs-intro">
 {COACH_ACCESS}
 <section id="results"><div class="wrap reveal">
   <h2 class="h-md">Results</h2>
-  {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–3 season and our school's first-ever semifinal appearance. The module that teaches it is still a concept, so the next step is to add final artwork and test the full prototype with other high school volleyball coaches.",
+  {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–3 season and our school's first-ever semifinal appearance. The module that teaches it is still a concept, so the next steps are to finish the Storyline 360 build and test the full module with other high school volleyball coaches.",
          "My biggest takeaway is that the shift had to start with me before it could reach the players: trading control for ownership changed the team only once I changed how I coached. The module is built to pass that lesson on, in the learner's own world of the gym, the whiteboard, and the huddle. These insights will shape how I design future scenario-based training for coaches, teachers, and teams.")}
 </div></section>
 
