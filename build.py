@@ -9,7 +9,7 @@ EMAIL = "TshwjxeebKVaaj@gmail.com"
 LINKEDIN = "https://www.linkedin.com/in/tshwjxeebvaaj/"
 RESUME = "#"                               # TODO: link to your résumé PDF (e.g. assets/resume.pdf)
 COACHING_URL = "https://www.figma.com/proto/dQfAXwxr1hTJab9ClCiHmL/Coach-Conflict-Simulation?node-id=8-2&starting-point-node-id=8%3A2&scaling=scale-down"
-PIP_URL = "https://claude.ai/artifact/PaPuKJDkMRTBDFS2QdzKYD"
+PIP_URL = "play/pip/"
 TV_URL = "https://www.figma.com/proto/w9wKmXGWE0hztSUz83MSDh?node-id=5-474&starting-point-node-id=5%3A474&scaling=scale-down"
 SW_URL = "https://www.figma.com/proto/Sbr79IbDZx9iKQXk1YxOAg/Software-Training?node-id=2-2&starting-point-node-id=2%3A2&scaling=scale-down"
 # ----------------------------------------------------
