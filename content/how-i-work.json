@@ -1,69 +1,93 @@
 {
-  "roster": {
-    "label": "01 / The team, read it like a roster",
-    "title": "The team I built, and who does what.",
-    "body": "I coach; the rest runs on its own, and nothing leaves without a check. The court below is the same system, drawn the way I'd teach it: one metaphor, labeled positions, and a clear line between what runs by itself and what waits for my call.",
-    "lead": {
+  "hero": {
+    "label": "How I work",
+    "title": "I direct the vision. AI is my crew.",
+    "body": "Think of how a film gets made. One director holds the vision, and a crew of specialists helps bring it to life. That's how I build learning experiences: I direct a crew of AI agents, and I'm also the designer, so I own the creative flow and give every piece its final human touch.",
+    "slate": [
+      ["Production", "Every project on this site"],
+      ["Director & designer", "Tshwjxeeb Vaaj"],
+      ["Crew", "Claude and a team of AI agents"],
+      ["Final cut", "Mine, every time"]
+    ]
+  },
+  "crew": {
+    "label": "Scene 1 · The crew",
+    "title": "Everyone on set has one clear job.",
+    "body": "When every role is clear, the work moves fast and nothing slips through. Here's who does what, listed the way the credits would roll.",
+    "director": {
+      "role": "Director & designer",
       "name": "Tshwjxeeb Vaaj",
-      "role": "Head coach",
-      "desc": "Sets the direction, makes the judgment calls, and signs off on anything that goes out."
+      "desc": "Holds the vision and owns the creative flow. I make the design calls, review every take, and add the human touch that makes it feel right for a real learner."
     },
-    "chief": {
-      "name": "Claude",
-      "role": "Assistant coach",
-      "desc": "Takes each task, runs the right playbook, and drafts, builds and checks so I can focus on decisions."
-    },
-    "players": [
+    "credits": [
       {
-        "name": "The Morning Scouts",
-        "role": "Scheduled tasks",
-        "desc": "Runs that go out before I wake up, like my weekday roundup of new learning design roles, and report back."
+        "role": "Production lead",
+        "name": "Claude",
+        "desc": "Takes each task from me, runs the right playbook, and drafts, builds and checks, so I can stay focused on the decisions."
       },
       {
-        "name": "The Line Judge",
-        "role": "Quality check",
-        "desc": "A reusable checklist every draft passes: my real facts, no invented numbers, my voice and my style guide."
+        "role": "Script supervisor",
+        "name": "The Quality Check",
+        "desc": "Watches every take for mistakes. Each draft passes the same checklist: my real facts, no invented numbers, my voice and my style guide."
       },
       {
+        "role": "Advisor",
+        "name": "The Second Opinion",
+        "desc": "Brings research and a different point of view before I commit to a direction, so my choices are grounded, not guesses."
+      },
+      {
+        "role": "Second unit",
+        "name": "The Morning Crew",
+        "desc": "Scheduled runs that go out before I wake up, like my weekday roundup of new learning design roles, and report back."
+      },
+      {
+        "role": "Art department",
+        "name": "Midjourney & Flora AI",
+        "desc": "Sets the look and generates the scenes, keeping the same people, places and style consistent from screen to screen."
+      },
+      {
+        "role": "Production bible",
         "name": "The Playbook",
-        "role": "Memory & standards",
         "desc": "One place for my background, decisions, style guides and project details, so nothing gets decided twice."
       }
     ],
-    "stop": {
-      "name": "The Timeout Whistle",
-      "role": "Stop switch",
-      "desc": "One pause stops every scheduled run at once. I'm the one who blows it."
-    }
+    "cut": {
+      "role": "Calling cut",
+      "name": "The Stop Switch",
+      "desc": "One command pauses every scheduled run at once. When a take isn't right, I call cut."
+    },
+    "kit": "Figma (prototyping, variables, Smart Animate) · Articulate Storyline 360 · Claude (drafting, skills, scheduled tasks, vibe coding) · Midjourney · Flora AI (Nano Banana) · Gemini · HTML/CSS/JavaScript · GitHub Pages"
   },
-  "meta": {
-    "type": "AI-assisted learning design",
-    "status": "In daily use, and still growing.",
-    "stack": "Figma (prototyping, variables, Smart Animate) · Articulate Storyline 360 · Claude (drafting, skills, scheduled tasks, vibe coding) · Midjourney · Flora AI (Nano Banana) · Gemini · HTML/CSS/JavaScript · GitHub Pages"
+  "director": {
+    "label": "Scene 2 · Why a director",
+    "title": "Directing a crew is designing for learning.",
+    "body": "A good director doesn't do every job. They make the vision clear, give each person a role they can own, cue them at the right moment, and check the take before moving on. That's the same work as designing training that moves a whole team toward one outcome. To direct the crew, I have to understand each job well enough to teach it, and that's exactly what instructional design asks of me.",
+    "pairs": [
+      ["One clear vision", "One clear learning goal"],
+      ["A role each person can own", "Behaviors each learner can practice"],
+      ["Cues at the right moment", "Feedback at the right moment"],
+      ["Check the take before moving on", "Test the module before it ships"]
+    ]
   },
   "overview": {
-    "label": "02 / The overview",
+    "label": "Scene 3 · The problem",
     "title": "The idea isn't the bottleneck. Everything around it is.",
     "body": "Good scenario design is slow, and the idea is rarely the hard part. The time goes to everything around it: turning lived experience into clear behaviors, drafting branches, making dozens of consistent images, catching mismatches across screens, and keeping the case study up to date. Done by hand, that work crowds out the judgment calls that decide whether a scenario actually lands for a learner."
   },
   "pipeline": {
-    "label": "03 / The pipeline",
-    "title": "A repeatable pipeline, not one prompt at a time.",
-    "body": "Instead of asking AI one question at a time, I run every project through the same stages. Each stage hands its output to the next, and I make the call at every gate.",
-    "steps": [
-      "Real story",
-      "Action map",
-      "Storyboard",
-      "Visuals",
-      "Prototype",
-      "Check",
-      "Case study"
+    "label": "Scene 4 · From script to screen",
+    "title": "Every project goes through the same production.",
+    "body": "Instead of asking AI one question at a time, every project moves through the same three phases. Each step hands off to the next, and I review the take before it moves on.",
+    "phases": [
+      ["Pre-production", ["Real story", "Action map", "Storyboard"]],
+      ["Production", ["Visuals", "Prototype"]],
+      ["Post-production", ["Check", "Case study"]]
     ],
-    "quote": "AI does the legwork. I make the calls."
+    "quote": "The crew does the legwork. I call every cut."
   },
   "practice": {
-    "label": "04 / In practice",
-    "title": "Where the pipeline shows up in real work.",
+    "label": "Scene 5 · On set",
+    "title": "Where the crew shows up in real work.",
     "items": [
       [
         "AI image pipeline",
@@ -92,8 +116,8 @@
     ]
   },
   "rules": {
-    "label": "05 / The rules",
-    "title": "Six rules I hold every project to.",
+    "label": "Scene 6 · Rules on set",
+    "title": "Six rules every production follows.",
     "items": [
       [
         "No invented numbers",
@@ -122,17 +146,13 @@
     ]
   },
   "principle": {
-    "label": "06 / The principle",
-    "title": "I own the judgment calls.",
-    "body": "AI doesn't decide what's true, what's fair to a learner, or how a moment should feel. It speeds up the busywork so I can spend my time on the parts only a designer should own. I'm open about where AI helps, because being clear about that line is part of designing responsibly."
-  },
-  "why": {
-    "label": "07 / Why it matters",
-    "title": "The question every hiring team is asking.",
-    "body": "Hiring teams keep asking how people actually use AI in learning design, beyond a chatbot. This is my answer in practice: every project and visual on this site came out of this pipeline."
+    "label": "Final cut",
+    "title": "The final cut is always mine.",
+    "body": "AI doesn't decide what's true, what's fair to a learner, or how a moment should feel. My crew speeds up the busywork so I can spend my time on the parts only a designer should own. I'm open about where AI helps, because being clear about that line is part of designing responsibly.",
+    "why": "Hiring teams keep asking how people actually use AI in learning design, beyond a chatbot. This is my answer in practice: every project and visual on this site came out of this production."
   },
   "inside": {
-    "label": "08 / Inside the system",
+    "label": "Behind the scenes",
     "items": [
       [
         "Same players, every scene",
@@ -152,9 +172,9 @@
     ]
   },
   "flagship": {
-    "label": "09 / The result",
-    "title": "The flagship this system produced: Coaching Through Conflict.",
-    "body": "A scenario-based simulation for new head coaches, built with this pipeline from my own season as a head coach."
+    "label": "Now showing",
+    "title": "The flagship this crew produced: Coaching Through Conflict.",
+    "body": "A scenario-based simulation for new head coaches, built with this production process from my own season as a head coach."
   },
   "contact": {
     "title": "Let's talk.",

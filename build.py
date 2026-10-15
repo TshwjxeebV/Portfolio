@@ -829,11 +829,8 @@ write("software-training.html", sw)
 # ======================= HOW I WORK =======================
 import json
 H = json.load(open("content/how-i-work.json", encoding="utf-8"))
-court = open("assets/img/court.svg", encoding="utf-8").read()
-
-
 def label(t):
-    return f'<p class="eyebrow tick reveal">{e(t)}</p>'
+    return f'<p class="scene-label reveal">{e(t)}</p>'
 
 
 def text_block(sec, cls=""):
@@ -845,55 +842,120 @@ def text_block(sec, cls=""):
 """
 
 
-R = H["roster"]
 w = head("How I work · Tshwjxeeb Vaaj",
-         "How I design with AI: a repeatable pipeline where AI does the legwork and I make the calls.")
+         "How I design with AI: like a film director, I hold the vision and direct a crew of AI agents, and as the designer I give every piece its final human touch.")
 w += nav("how") + '<main class="hiw">\n'
-players = "".join(f'<div class="player-card"><h3>{e(p["name"])}</h3><span class="role">{e(p["role"])}</span><p>{e(p["desc"])}</p></div>' for p in R["players"])
-w += f"""<section class="hiw-hero"><div class="wrap">
-  {label(R["label"])}
-  <h1 class="h-xl reveal d1">{e(R["title"])}</h1>
-  <p class="lead reveal d2">{e(R["body"])}</p>
-  <div class="roster glass reveal">
-    <div class="r-lead"><h3>{e(R["lead"]["name"])} <span class="role">{e(R["lead"]["role"])}</span></h3><p>{e(R["lead"]["desc"])}</p></div>
-    <div class="r-chief">
-      <h3>{e(R["chief"]["name"])} <span class="role">{e(R["chief"]["role"])}</span></h3><p>{e(R["chief"]["desc"])}</p>
-      <div class="players">{players}</div>
-    </div>
-    <div class="r-stop"><h3>{e(R["stop"]["name"])} <span class="role">{e(R["stop"]["role"])}</span></h3><p>{e(R["stop"]["desc"])}</p></div>
+
+# --- Hero: the director's slate ---
+HE = H["hero"]
+slate = "".join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k, v in HE["slate"])
+w += f"""<section class="hiw-hero"><div class="wrap hero-split">
+  <div>
+    {label(HE["label"])}
+    <h1 class="h-xl reveal d1">{e(HE["title"])}</h1>
+    <p class="lead reveal d2">{e(HE["body"])}</p>
+    <div class="hero-btns reveal">{pill("#crew", "Meet the crew")}{pill("coaching.html", "See the flagship project", ghost=True)}</div>
   </div>
-  <figure class="court reveal">{court}<figcaption class="swipe">Swipe to see the full court →</figcaption></figure>
-  {meta_blocks([("Type", H["meta"]["type"]), ("Status", H["meta"]["status"]), ("Tech stack", H["meta"]["stack"])], cols=True)}
-  <div class="hero-btns reveal">{pill("coaching.html", "View Coaching Through Conflict")}{pill("#contact", "Get in touch", ghost=True)}</div>
+  <div class="slate reveal d2" aria-label="Production slate">
+    <div class="slate-bar" aria-hidden="true"></div>
+    <dl>{slate}</dl>
+  </div>
 </div></section>
 """
+
+# --- Scene 1: the crew, as rolling credits ---
+CR = H["crew"]
+D = CR["director"]
+
+
+def credit(c, cls=""):
+    return f"""<li class="credit {cls} reveal">
+  <span class="c-role">{e(c["role"])}</span>
+  <span class="c-body"><strong>{e(c["name"])}</strong><span>{e(c["desc"])}</span></span>
+</li>"""
+
+
+credits = credit(D, "is-director") + "".join(credit(c) for c in CR["credits"]) + credit(CR["cut"], "cut")
+w += f"""<section id="crew"><div class="wrap">
+  <div class="center-head">
+    {label(CR["label"])}
+    <h2 class="h-lg reveal d1">{e(CR["title"])}</h2>
+    <p class="lead reveal d2">{e(CR["body"])}</p>
+  </div>
+  <ol class="credits">{credits}</ol>
+  <p class="kit reveal"><span>The kit</span>{e(CR["kit"])}</p>
+</div></section>
+"""
+
+# --- Scene 2: why a director (the instructional-design link) ---
+DI = H["director"]
+pairs = "".join(f'<div class="pair reveal"><span class="on-set">{e(a)}</span><span class="to" aria-hidden="true">→</span><span class="in-ld">{e(b)}</span></div>'
+                for a, b in DI["pairs"])
+w += f"""<section class="director"><div class="wrap split-even">
+  <div>
+    {label(DI["label"])}
+    <h2 class="h-lg reveal d1">{e(DI["title"])}</h2>
+    <p class="lead reveal d2">{e(DI["body"])}</p>
+  </div>
+  <div class="pairs" role="table" aria-label="On set compared with learning design">
+    <div class="pair head" role="row"><span class="on-set">On set</span><span class="to"></span><span class="in-ld">In learning design</span></div>
+    {pairs}
+  </div>
+</div></section>
+"""
+
 w += text_block(H["overview"])
+
+# --- Scene 4: three production phases on a film strip ---
 P_ = H["pipeline"]
-steps = "".join(f'<li><span>{i:02d}</span>{e(s)}</li>' for i, s in enumerate(P_["steps"], 1))
+n = 0
+phases = ""
+for name, steps in P_["phases"]:
+    lis = ""
+    for s in steps:
+        n += 1
+        lis += f'<li><span>{n:02d}</span>{e(s)}</li>'
+    phases += f'<div class="frame reveal"><h3>{e(name)}</h3><ol>{lis}</ol></div>'
 w += f"""<section><div class="wrap">
-  {label(P_["label"])}
   <div class="split-even">
-    <h2 class="h-lg reveal d1">{e(P_["title"])}</h2>
+    <div>{label(P_["label"])}<h2 class="h-lg reveal d1">{e(P_["title"])}</h2></div>
     <div class="reveal d2"><p class="lead">{e(P_["body"])}</p><blockquote class="callout">“{e(P_["quote"])}”</blockquote></div>
   </div>
-  <ol class="pipeline reveal">{steps}</ol>
+  <div class="filmstrip">{phases}</div>
 </div></section>
 """
 
 
-def numbered(sec, cols):
-    items = "".join(f'<div class="num-item reveal{" d1" if i % 2 else ""}"><span class="num">{i+1:02d}</span><h3>{e(h)}</h3><p>{e(b)}</p></div>'
+def takes(sec, cls):
+    items = "".join(f'<div class="take reveal{" d1" if i % 2 else ""}"><span class="tk">Take {i+1}</span><h3>{e(h)}</h3><p>{e(b)}</p></div>'
                     for i, (h, b) in enumerate(sec["items"]))
     return f"""<section><div class="wrap">
   {label(sec["label"])}
   <h2 class="h-lg reveal d1">{e(sec["title"])}</h2>
-  <div class="num-grid c{cols}">{items}</div>
+  <div class="takes {cls}">{items}</div>
 </div></section>
 """
 
 
-w += numbered(H["practice"], 3) + numbered(H["rules"], 2)
-w += text_block(H["principle"]) + text_block(H["why"])
+def rules(sec):
+    items = "".join(f'<li class="reveal"><h3>{e(h)}</h3><p>{e(b)}</p></li>' for h, b in sec["items"])
+    return f"""<section><div class="wrap">
+  {label(sec["label"])}
+  <h2 class="h-lg reveal d1">{e(sec["title"])}</h2>
+  <ol class="set-rules">{items}</ol>
+</div></section>
+"""
+
+
+w += takes(H["practice"], "c3") + rules(H["rules"])
+PR = H["principle"]
+w += f"""<section class="final-cut"><div class="wrap narrow">
+  {label(PR["label"])}
+  <h2 class="h-lg reveal d1">{e(PR["title"])}</h2>
+  <p class="lead reveal d2">{e(PR["body"])}</p>
+  <p class="reveal d2">{e(PR["why"])}</p>
+</div></section>
+"""
 inside = "".join(f"""<div class="inside-row reveal">
   <img src="{src}" alt="{e(h)}" loading="lazy">
   <div><h3 class="h-sm copper">{e(h)}</h3><p>{e(b)}</p></div>
