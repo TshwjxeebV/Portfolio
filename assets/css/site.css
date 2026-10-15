@@ -377,8 +377,7 @@ a.step-card:hover { border-color: var(--copper); transform: translateY(-2px); }
 
 /* ---------- Testimonials ---------- */
 .testimonials { position: relative; }
-.testimonials .wrap { width: min(1600px, 100% - 40px); }
-.t-carousel { position: relative; margin-top: 36px; }
+.t-carousel { position: relative; margin-top: 36px; width: min(1600px, 100vw - 40px); margin-left: calc((100% - min(1600px, 100vw - 40px)) / 2); }
 .t-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 3); gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; align-items: start; padding: 4px; scroll-padding: 4px; outline-offset: 6px; }
 .t-track::-webkit-scrollbar { display: none; }
 .t-card { margin: 0; scroll-snap-align: start; background: #f3efe6; color: #141a2c; border-radius: 6px; padding: 30px 34px 26px; display: flex; flex-direction: column; box-shadow: 0 24px 50px rgba(0,0,0,.35); }
