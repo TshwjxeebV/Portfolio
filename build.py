@@ -193,17 +193,32 @@ def write(name, content):
 # Quotes are word for word from each recommendation. "pull" is an exact excerpt.
 TESTIMONIALS = [
     {"name": "Chong Shrock", "role": "Science Department Chair · Mentor teacher", "img": "assets/img/testimonials/chong-shrock.jpg",
+     "bold": ["mastery of incorporating technology", "lessons were engaging", "worked cooperatively", "manage his time effectively"],
      "pull": "Because of his enthusiasm for the subject, his lessons were engaging and students enjoyed his lessons.",
      "full": ["…When Mr. Vaaj took responsibility for planning and implementing lesson in chemistry, he demonstrated mastery of incorporating technology in many of his lessons. He used a variety of applications to deliver his agenda, standards, lessons, and assessments. Because of his enthusiasm for the subject, his lessons were engaging and students enjoyed his lessons. The student’s also showed understanding in the content and standards through their grades on quizzes, labs, exit tickets, and tests.",
               "Mr. Vaaj displayed many personal and professional qualities to become an outstanding teacher. He was very responsible and dependable taking his responsibilities as a teacher seriously. He worked cooperatively with me as his mentor teacher but also engaged with other teachers and professionals at our school to observe and ask advise. Even with his busy schedule coaching volleyball, he attended both school, department, chemistry team, and district meetings with me whenever he could to get the overall experience of a teacher. His ability to manage his time effectively as a student teacher and coach shows his dedication to the profession."]},
     {"name": "John Harney", "role": "Athletics Director", "img": "assets/img/testimonials/john-harney.jpg",
+     "bold": ["helped grow the boys' volleyball program significantly", "more than 20 student-athletes", "communicates effectively with athletes, parents, referees, and administrators", "calm presence and ability to manage challenging situations"],
      "pull": "His calm presence and ability to manage challenging situations make him a respected mentor and role model for students.",
      "full": ["Coach Vaaj has demonstrated a strong commitment to our athletic program and to the athletes he serves. Through his leadership and dedication, he has helped grow the boys' volleyball program significantly. One of his most notable accomplishments has been the development of a successful JVR developmental program that consistently attracts more than 20 student-athletes, creating opportunities for growth and participation at multiple levels.",
               "Beyond his success in building the program, Coach Vaaj has an exceptional ability to connect with students. He maintains a positive and professional demeanor, communicates effectively with athletes, parents, referees, and administrators, and consistently models strong character and leadership. His calm presence and ability to manage challenging situations make him a respected mentor and role model for students."]},
     {"name": "Joe Schnake", "role": "Head Coach, La Sierra Men's Volleyball", "img": "assets/img/testimonials/joe-schnake.jpg",
+     "bold": ["exceptional quick learner", "adapt to new situations and challenges", "work within a team environment", "strong ability to communicate"],
      "pull": "He is an exceptional quick learner and has a keen ability to adapt to new situations and challenges.",
      "full": ["Vaaj has consistently demonstrated a strong work ethic and a high level of commitment to his academic and professional pursuits. He is an exceptional quick learner and has a keen ability to adapt to new situations and challenges. Apart from his academic and professional skills, Vaaj possesses excellent interpersonal skills and can work within a team environment and excel. He is a born natural leader and will inspire and motivate others to give their very best. Another great trait is Vaaj’s superb positive attitude and strong ability to communicate which is instrumental in every situation that he encounters."]},
 ]
+
+
+def _bolded(t):
+    out = []
+    for para in t["full"]:
+        h = e(para)
+        for phrase in t.get("bold", []):
+            ph = e(phrase)
+            if ph in h:
+                h = h.replace(ph, f"<strong>{ph}</strong>", 1)
+        out.append(f"<p>{h}</p>")
+    return "\n".join(out)
 
 
 def testimonials():
@@ -211,7 +226,7 @@ def testimonials():
     for t in TESTIMONIALS:
         cards.append(f"""<figure class="t-card" role="group" aria-label="{e(t['name'])}">
           <img class="t-photo" src="{t['img']}" alt="Portrait of {e(t['name'])}" loading="lazy" width="240" height="240">
-          <blockquote>{paras(*t['full'])}</blockquote>
+          <blockquote>{_bolded(t)}</blockquote>
           <figcaption><strong>{e(t['name'])}</strong><span>{e(t['role'])}</span></figcaption>
         </figure>""")
     return f"""<section id="testimonials" class="testimonials" aria-labelledby="testimonials-h">
@@ -259,14 +274,6 @@ home += f"""<main>
         {pill("coaching.html", "Learn more", ghost=True)}
       </div>
     </div>
-  </div>
-</section>
-
-<section class="center">
-  <div class="wrap">
-    <h2 class="h-lg reveal">See it in action.</h2>
-    <p class="lead reveal">A learner moves through Set 1: the moment, a breath, the mental timeout, and a decision.</p>
-    <div class="reveal d1">{video("assets/video/coaching-walkthrough.mp4", "assets/img/poster-coaching.jpg", "Walkthrough of the Coaching Through Conflict module", "player wide")}</div>
   </div>
 </section>
 

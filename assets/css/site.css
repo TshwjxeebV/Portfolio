@@ -403,3 +403,4 @@ a.step-card:hover { border-color: var(--copper); transform: translateY(-2px); }
   .t-arrow { top: 90px; width: 44px; height: 44px; }
   .t-arrow.prev { left: -8px; } .t-arrow.next { right: -8px; }
 }
+.t-card blockquote strong { color: #141a2c; font-weight: 700; }
