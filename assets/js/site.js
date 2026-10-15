@@ -44,3 +44,31 @@
   var y = document.querySelector('#year');
   if (y) y.textContent = new Date().getFullYear();
 })();
+
+
+/* Testimonials carousel arrows */
+(function () {
+  var track = document.getElementById("t-track");
+  if (!track) return;
+  var prev = document.querySelector(".t-arrow.prev"), next = document.querySelector(".t-arrow.next");
+  function cards() { return Array.prototype.slice.call(track.querySelectorAll(".t-card")); }
+  function go(dir) {
+    var x = track.scrollLeft, base = track.firstElementChild ? track.firstElementChild.offsetLeft : 0, target = null;
+    var list = cards().map(function (c) { return c.offsetLeft - base; });
+    if (dir > 0) { for (var i = 0; i < list.length; i++) if (list[i] > x + 8) { target = list[i]; break; } }
+    else { for (var k = list.length - 1; k >= 0; k--) if (list[k] < x - 8) { target = list[k]; break; } }
+    if (target === null) target = dir > 0 ? track.scrollWidth : 0;
+    track.scrollTo({ left: target, behavior: "smooth" });
+  }
+  function sync() {
+    var max = track.scrollWidth - track.clientWidth - 8;
+    prev.disabled = track.scrollLeft <= 8;
+    next.disabled = track.scrollLeft >= max;
+  }
+  prev.addEventListener("click", function () { go(-1); });
+  next.addEventListener("click", function () { go(1); });
+  track.addEventListener("scroll", sync, { passive: true });
+  window.addEventListener("resize", sync);
+  window.addEventListener("load", sync);
+  sync();
+})();

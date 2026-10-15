@@ -208,24 +208,27 @@ TESTIMONIALS = [
 
 def testimonials():
     cards = []
-    for i, t in enumerate(TESTIMONIALS):
-        d = ["", " d1", " d2"][i % 3]
-        cards.append(f"""<figure class="quote-card glass reveal{d}">
-        <img class="q-photo" src="{t['img']}" alt="Portrait of {e(t['name'])}" loading="lazy" width="96" height="96">
-        <blockquote><p>“{e(t['pull'])}”</p></blockquote>
-        <figcaption><strong>{e(t['name'])}</strong><span>{e(t['role'])}</span></figcaption>
-        <details><summary>Read the full recommendation</summary>{paras(*t['full'])}</details>
-      </figure>""")
-    return f"""<section id="testimonials" aria-labelledby="testimonials-h">
+    for t in TESTIMONIALS:
+        cards.append(f"""<figure class="t-card" role="group" aria-label="{e(t['name'])}">
+          <img class="t-photo" src="{t['img']}" alt="Portrait of {e(t['name'])}" loading="lazy" width="200" height="200">
+          <blockquote>{paras(*t['full'])}</blockquote>
+          <figcaption><strong>{e(t['name'])}</strong><span>{e(t['role'])}</span></figcaption>
+        </figure>""")
+    return f"""<section id="testimonials" class="testimonials" aria-labelledby="testimonials-h">
   <div class="wrap">
     <p class="eyebrow reveal">Testimonials</p>
-    <h2 class="h-lg reveal" id="testimonials-h">What the people I've worked with say.</h2>
-    <div class="quotes">
-      {"".join(cards)}
+    <h2 class="h-lg reveal" id="testimonials-h">What people are saying.</h2>
+    <div class="t-carousel reveal">
+      <button class="t-arrow prev" type="button" aria-label="Previous testimonial" aria-controls="t-track">{ARROW}</button>
+      <div class="t-track" id="t-track" tabindex="0" aria-label="Testimonials, scroll for more">
+        {"".join(cards)}
+      </div>
+      <button class="t-arrow next" type="button" aria-label="Next testimonial" aria-controls="t-track">{ARROW}</button>
     </div>
   </div>
 </section>
 """
+
 
 # ======================= HOME =======================
 home = head("Tshwjxeeb Vaaj · Learning Designer",
