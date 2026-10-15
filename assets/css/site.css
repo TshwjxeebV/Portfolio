@@ -89,11 +89,24 @@ p:last-child { margin-bottom: 0; }
 section { padding: 72px 0; }
 
 /* ---------- Home hero ---------- */
-.home-hero .wrap { display: grid; grid-template-columns: 420px 1fr; gap: 80px; align-items: center; padding-block: 60px 40px; }
+/* Home hero: the first screen is just me */
+section.home-hero { position: relative; min-height: calc(100vh - 76px); min-height: calc(100svh - 76px); display: flex; align-items: center; padding-block: 40px 72px; }
+.home-hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
+.portrait { position: relative; margin: 0; justify-self: end; width: min(100%, 540px, calc((100svh - 220px) * 680 / 760)); aspect-ratio: 680 / 760; animation: portrait-in .9s cubic-bezier(.2,.7,.2,1) both; }
+.portrait::before { content: ""; position: absolute; inset: 18px -18px -18px 18px; border: 1.5px solid rgba(224,166,114,.55); border-radius: 30px; z-index: -1; }
+.portrait img { width: 100%; height: 100%; object-fit: cover; border-radius: 30px; box-shadow: 0 50px 120px -40px rgba(0,0,0,.85); }
+.hero-text { max-width: 560px; animation: hero-text-in .9s .15s cubic-bezier(.2,.7,.2,1) both; }
+.home-hero h1 { margin: 8px 0 22px; font-size: clamp(56px, 7vw, 104px); line-height: .95; }
+.home-hero .lead { margin-bottom: 18px; max-width: 30ch; font-size: clamp(20px, 1.7vw, 24px); color: var(--ink); }
+.hero-bio { color: var(--muted); max-width: 46ch; margin: 0 0 32px; }
+.scroll-cue { position: absolute; left: 50%; bottom: 22px; width: 26px; height: 42px; margin-left: -13px; border: 1.5px solid rgba(224,166,114,.6); border-radius: 14px; }
+.scroll-cue span { position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: var(--copper); animation: cue 1.8s ease-in-out infinite; }
+@keyframes cue { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
+@keyframes portrait-in { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes hero-text-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .portrait, .hero-text, .scroll-cue span { animation: none; } }
 .headshot { position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; padding: 16px; border: 1.5px solid rgba(224,166,114,.6); }
 .headshot img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 25%; border-radius: 50%; }
-.home-hero h1 { margin: 6px 0 22px; }
-.home-hero .lead { margin-bottom: 30px; max-width: 34ch; }
 
 /* ---------- Glass cards ---------- */
 .glass { background: var(--card); border: 1px solid var(--card-line); border-radius: 36px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); }
@@ -343,6 +356,7 @@ section { padding: 72px 0; }
   .menu-btn { display: block; }
   .nav .talk { display: none; }
   .home-hero .wrap, .about-intro .wrap, .life { grid-template-columns: 1fr; gap: 36px; text-align: left; }
+  .portrait { justify-self: start; }
   .headshot { max-width: 260px; margin-inline: auto; }
   .about-intro .headshot { order: -1; }
   .spotlight { padding: 22px; gap: 26px; border-radius: 28px; }
@@ -466,15 +480,21 @@ a.step-card:hover { border-color: var(--copper); transform: translateY(-2px); }
 
 /* Phone hero: less dead space, smaller portrait, buttons above the fold */
 @media (max-width: 700px) {
-  section.home-hero { padding-top: 20px; }
-  .home-hero .wrap { padding-block: 8px 24px; gap: 22px; }
-  .home-hero .headshot { max-width: 200px; padding: 10px; }
   .home-hero .eyebrow { letter-spacing: .1em; font-size: 12px; }
-  .home-hero h1 { font-size: 52px; margin: 4px 0 14px; }
-  .home-hero .lead { font-size: 18px; margin-bottom: 22px; }
+  section.home-hero { min-height: calc(100svh - 64px); padding-block: 12px 64px; align-items: flex-start; }
+  .home-hero .wrap { grid-template-columns: 1fr; gap: 22px; }
+  .portrait { justify-self: center; width: min(100%, calc((100svh - 400px) * 680 / 760)); min-width: 220px; }
+  .portrait::before { inset: 10px -10px -10px 10px; border-radius: 22px; }
+  .portrait img { border-radius: 22px; }
+  .home-hero h1 { font-size: 48px; margin: 2px 0 10px; }
+  .home-hero .lead { font-size: 18px; margin-bottom: 10px; }
+  .hero-bio { font-size: 15px; margin-bottom: 18px; }
+  .scroll-cue { display: none; }
+  section.home-hero { padding-bottom: 28px; }
   .about-intro .headshot { max-width: 200px; padding: 10px; }
 }
 @media (max-width: 700px) {
   .home-hero .hero-btns { display: flex; flex-wrap: wrap; gap: 10px; }
   .home-hero .hero-btns .pill { padding: 12px 18px; font-size: 15px; margin: 0; }
 }
+@media (max-width: 700px) and (max-height: 720px) { .hero-bio { display: none; } }

@@ -258,17 +258,19 @@ home += nav("work")
 home += f"""<main>
 <section class="home-hero">
   <div class="wrap">
-    <div class="headshot reveal"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj in a navy blazer"></div>
-    <div>
-      <p class="eyebrow reveal">Learning Designer · Program Manager</p>
-      <h1 class="h-xl reveal d1">I'm Tshwjxeeb.</h1>
-      <p class="lead reveal d1">I design training that holds up when the real situation stops following the script.</p>
-      <div class="hero-btns reveal d2">{pill("coaching.html", "Featured project")}{pill("how-i-work.html", "How I work", ghost=True)}</div>
+    <figure class="portrait"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj in a navy blazer" fetchpriority="high"></figure>
+    <div class="hero-text">
+      <p class="eyebrow">Learning Designer · Program Manager</p>
+      <h1 class="h-xl">I'm Tshwjxeeb.</h1>
+      <p class="lead">I design training that holds up when the real situation stops following the script.</p>
+      <p class="hero-bio">A chemistry teacher and head coach turned learning designer. I build simulations, scenarios and learning games from moments I've lived, so people practice the real thing before it counts.</p>
+      <div class="hero-btns">{pill("#work", "See my work")}{pill("about.html", "About me", ghost=True)}</div>
     </div>
   </div>
+  <a class="scroll-cue" href="#featured-sec" aria-label="Scroll to my work"><span></span></a>
 </section>
 
-<section aria-labelledby="featured">
+<section aria-labelledby="featured" id="featured-sec">
   <div class="wrap">
     <div class="spotlight glass reveal">
       <img src="assets/img/tile-coaching.jpg" alt="A coach at home using the Coaching Through Conflict module on a laptop">
