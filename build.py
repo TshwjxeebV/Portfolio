@@ -356,7 +356,7 @@ about += f"""<main>
     <div>
       <p class="eyebrow reveal">About me</p>
       <h1 class="h-xl reveal d1" style="margin-bottom:22px">I'm Tshwjxeeb Vaaj.</h1>
-      <p class="lead reveal d1">Hi, I'm Tshwjxeeb, a learning designer with five years of designing and leading training as a program director and head coach, and a background in chemistry education.</p>
+      <p class="lead reveal d1">Hi, I'm Tshwjxeeb, a learning designer who comes from both the classroom and the court. I'm a credentialed chemistry teacher, and for five years I was also program director and head coach of a boys' volleyball program, often doing both full-time at once.</p>
       <p class="pull reveal d2">I help people build skills they can use right away by designing practice that feels like the real moment.</p>
     </div>
     <div class="headshot reveal"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj"></div>
@@ -366,36 +366,12 @@ about += f"""<main>
 <section>
   <div class="wrap">
     <p class="eyebrow reveal">My background</p>
-    <h2 class="h-lg reveal" style="margin-bottom:28px">From the court to the training room.</h2>
+    <h2 class="h-lg reveal" style="margin-bottom:28px">The classroom and the court, side by side.</h2>
     <div class="two">
-      <p class="reveal">As program director and head coach of a boys' volleyball program, I designed learning well beyond the classroom. I've taught chemistry to high schoolers and motor skills to athletes, and mentored both the coaches on my staff and a 2nd grade student teacher. My learners have ranged from kindergarten through high school graduation, plus the adults who teach them.</p>
-      <p class="reveal d1">Instructional design brings both sides of my experience together. I understand how learning works from my time in the classroom and my graduate study, and I've applied Universal Design for Learning (UDL) on the court as well as in the lab. That foundation lets me partner with subject matter experts in any field: they bring the expertise, and I bring the strategies and tools that turn it into training people can actually apply. I'm a creative at heart, and I'm excited to build learning that helps teams and organizations perform. Let's connect and explore what we can create together.</p>
+      <p class="reveal">I didn't choose between teaching and coaching. I did both at the same time. During my years as a full-time substitute teacher and as a chemistry student teacher, I was also running a boys' volleyball program as its program director and head coach. My days were in the classroom teaching high school chemistry aligned to California's science standards, and my afternoons were in the gym breaking complex motor skills into steps athletes could practice and master.</p>
+      <p class="reveal d1">The two roles worked hand in hand. Both came down to the same skills: planning a clear lesson, breaking hard ideas into steps, and checking whether learners could actually do it. Along the way I mentored the coaches on my staff and a 2nd grade student teacher, so my learners have ranged from kindergarten through high school graduation, plus the adults who teach them.</p>
     </div>
-  </div>
-</section>
-
-<section aria-labelledby="xp-h">
-  <div class="wrap">
-    <p class="eyebrow reveal">Experience at a glance</p>
-    <h2 class="h-lg reveal" id="xp-h" style="margin-bottom:28px">Where I've designed learning.</h2>
-    <div class="xp">
-      <div class="xp-row reveal"><div><h3>Learning Designer</h3><span class="role">Portfolio projects · about 1 year</span></div>
-        <ul><li>Designed and built four learning experiences end to end: a 68-screen branching simulation, a sales simulator, a game-based math module and a software-training module.</li>
-        <li>Ran each one from analysis through action mapping, storyboards, style guides, prototyping and an evaluation plan.</li>
-        <li>Mentored a 2nd grade student teacher through her small-group place-value lessons, which led to Pip's Number Garden.</li>
-        <li>Work in Figma, Articulate Storyline 360, HTML/CSS/JavaScript and AI tools (Claude, Midjourney, Flora AI).</li></ul></div>
-      <div class="xp-row reveal"><div><h3>Program Director &amp; Head Coach</h3><span class="role">High school boys' volleyball · 5 years</span></div>
-        <ul><li>Designed the program's coaching materials and practice plans, breaking complex motor skills into steps athletes could practice and master.</li>
-        <li>Trained and mentored the coaches on my staff so they could lead on their own with confidence.</li>
-        <li>Led the program from 0–10 and last in the league to 6–4 and the school's first-ever semifinal.</li></ul></div>
-      <div class="xp-row reveal"><div><h3>Chemistry Teacher</h3><span class="role">Credentialed in chemistry</span></div>
-        <ul><li>Taught chemistry curriculum aligned to the Next Generation Science Standards (NGSS) adopted by California.</li>
-        <li>Gave every student more than one way into the content, from labs and models to simulations.</li></ul></div>
-      <div class="xp-row reveal"><div><h3>Sales Associate</h3><span class="role">Best Buy</span></div>
-        <ul><li>Turned my own onboarding gap into the TV Wall Sales Simulator, and grew my TV unit, accessory and service sales.</li></ul></div>
-      <div class="xp-row reveal"><div><h3>Education</h3><span class="role">Chemistry &amp; education</span></div>
-        <ul><li>Degree in chemistry · Master's in chemistry education · Teaching credential in chemistry</li></ul></div>
-    </div>
+    <p class="reveal bg-close">Instructional design brings both sides of my experience together. I understand how learning works from my time in the classroom and my graduate study, and I've applied Universal Design for Learning (UDL) in the lab as well as on the court. That foundation lets me partner with subject matter experts in any field: they bring the expertise, and I bring the strategies and tools that turn it into training people can actually apply. I'm a creative at heart, and I'm excited to build learning that helps teams and organizations perform. Let's connect and explore what we can create together.</p>
   </div>
 </section>
 
