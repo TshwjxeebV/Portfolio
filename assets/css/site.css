@@ -374,3 +374,20 @@ a.step-card:hover { border-color: var(--copper); transform: translateY(-2px); }
 @media (max-width: 860px) { .trio-figs { grid-template-columns: 1fr; } }
 .life.solo { grid-template-columns: 1fr; max-width: 760px; }
 .about-photo { width: 100%; border-radius: 28px; object-fit: cover; min-height: 340px; }
+
+/* ---------- Testimonials ---------- */
+.quotes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 36px; align-items: start; }
+.quote-card { margin: 0; padding: 30px 28px; border-radius: var(--radius); display: flex; flex-direction: column; gap: 18px; }
+.q-photo { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 2px solid var(--copper); }
+.quote-card blockquote { margin: 0; }
+.quote-card blockquote p { margin: 0; font-family: var(--serif); font-size: 26px; line-height: 1.3; color: var(--ink); }
+.quote-card figcaption { display: grid; gap: 2px; }
+.quote-card figcaption strong { font-size: 18px; }
+.quote-card figcaption span { color: var(--soft); font-size: 15px; }
+.quote-card details { border-top: 1px solid var(--card-line); padding-top: 14px; }
+.quote-card summary { cursor: pointer; color: var(--copper); font-weight: 600; font-size: 15px; list-style: none; }
+.quote-card summary::-webkit-details-marker { display: none; }
+.quote-card summary::after { content: " +"; }
+.quote-card details[open] summary::after { content: " −"; }
+.quote-card details p { color: var(--muted); font-size: 16px; margin: 12px 0 0; }
+@media (max-width: 960px) { .quotes { grid-template-columns: 1fr; max-width: 640px; } }
