@@ -260,11 +260,11 @@ section.home-hero { position: relative; min-height: calc(100vh - 76px); min-heig
 /* on set -> in learning design */
 .director .lead { margin-top: 22px; }
 .pairs { border: 1px solid var(--card-line); border-radius: 20px; overflow: hidden; background: var(--card); }
-.pair { display: grid; grid-template-columns: 1fr 28px 1fr; gap: 10px; align-items: center; padding: 18px 22px; border-top: 1px solid var(--card-line); font-size: 17px; }
-.pair.head { border-top: 0; color: var(--soft); font: 600 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 14px 22px; background: rgba(255,255,255,.03); }
-.pair .to { color: var(--copper); text-align: center; }
-.pair .in-ld { color: var(--ink); font-weight: 600; }
-.pair:not(.head) .on-set { color: var(--muted); }
+.set-row { display: grid; grid-template-columns: 1fr 28px 1fr; gap: 10px; align-items: center; padding: 18px 22px; border-top: 1px solid var(--card-line); font-size: 17px; }
+.set-row.head { border-top: 0; color: var(--soft); font: 600 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 14px 22px; background: rgba(255,255,255,.03); }
+.set-row .to { color: var(--copper); text-align: center; }
+.set-row .in-ld { color: var(--ink); font-weight: 600; }
+.set-row:not(.head) .on-set { color: var(--muted); }
 
 /* production phases on a film strip */
 .callout { margin: 24px 0 0; padding-left: 22px; border-left: 3px solid var(--copper); font-family: var(--serif); font-size: clamp(26px, 2.6vw, 34px); line-height: 1.2; color: var(--copper); }
@@ -325,12 +325,12 @@ section.home-hero { position: relative; min-height: calc(100vh - 76px); min-heig
   .c-body strong { font-size: 26px; }
   .credit.is-director { padding: 20px; }
   .credit.is-director .c-body strong { font-size: 32px; }
-  .pair { grid-template-columns: 1fr; gap: 2px; padding: 14px 18px; }
-  .pair .to { display: none; }
-  .pair.head { display: none; }
-  .pair.head + .pair { border-top: 0; }
-  .pair .on-set::before { content: "On set: "; color: var(--soft); }
-  .pair .in-ld::before { content: "In learning design: "; color: var(--copper); font-weight: 500; }
+  .set-row { grid-template-columns: 1fr; gap: 2px; padding: 14px 18px; }
+  .set-row .to { display: none; }
+  .set-row.head { display: none; }
+  .set-row.head + .set-row { border-top: 0; }
+  .set-row .on-set::before { content: "On set: "; color: var(--soft); }
+  .set-row .in-ld::before { content: "In instructional design: "; color: var(--copper); font-weight: 500; }
   .filmstrip { grid-template-columns: 1fr; padding: 22px 6px; }
   .final-cut .wrap { padding-left: 20px; }
   .inside-row { gap: 20px; }
@@ -509,3 +509,5 @@ a.step-card:hover .see .arrow, a.step-card:focus-visible .see .arrow { transform
   .home-hero .hero-btns .pill { padding: 12px 18px; font-size: 15px; margin: 0; }
 }
 @media (max-width: 700px) and (max-height: 720px) { .hero-bio { display: none; } }
+.objective-callout { margin-top: 28px; padding: 20px 24px; border-left: 3px solid var(--copper); background: rgba(224,166,114,.07); border-radius: 0 14px 14px 0; max-width: 900px; color: var(--ink); }
+.objective-callout strong { color: var(--copper); }

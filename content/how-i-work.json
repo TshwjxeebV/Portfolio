@@ -50,7 +50,7 @@
       {
         "role": "Second unit",
         "name": "The Morning Crew",
-        "desc": "Scheduled runs that go out before I wake up, like my weekday roundup of new learning design roles, and report back."
+        "desc": "Scheduled runs that go out before I wake up, like my weekday roundup of new instructional design roles, and report back."
       },
       {
         "role": "Art department",
@@ -154,7 +154,7 @@
       ],
       [
         "Morning roundup",
-        "A scheduled task searches new learning design roles every weekday morning and sends me the best matches before I start my day."
+        "A scheduled task searches new instructional design roles every weekday morning and sends me the best matches before I start my day."
       ]
     ]
   },
@@ -192,7 +192,7 @@
     "label": "Final cut",
     "title": "The final cut is always mine.",
     "body": "AI doesn't decide what's true, what's fair to a learner, or how a moment should feel. My crew speeds up the busywork so I can spend my time on the parts only a designer should own. I'm open about where AI helps, because being clear about that line is part of designing responsibly.",
-    "why": "Hiring teams keep asking how people actually use AI in learning design, beyond a chatbot. This is my answer in practice: every project and visual on this site came out of this production."
+    "why": "Hiring teams keep asking how people actually use AI in instructional design, beyond a chatbot. This is my answer in practice: every project and visual on this site came out of this production."
   },
   "inside": {
     "label": "Behind the scenes",
@@ -221,6 +221,6 @@
   },
   "contact": {
     "title": "Let's talk.",
-    "body": "Hiring for a learning design role, or curious how something on this site was built? I'd love to hear from you."
+    "body": "Hiring for an instructional design role, or curious how something on this site was built? I'd love to hear from you."
   }
 }

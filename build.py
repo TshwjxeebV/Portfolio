@@ -252,18 +252,18 @@ def testimonials():
 
 
 # ======================= HOME =======================
-home = head("Tshwjxeeb Vaaj · Learning Designer",
-            "Learning designer and program manager. I design training that holds up when the real situation stops following the script.")
+home = head("Tshwjxeeb Vaaj · Instructional Designer",
+            "Instructional designer and program manager. I design training that holds up when the real situation stops following the script.")
 home += nav("work")
 home += f"""<main>
 <section class="home-hero">
   <div class="wrap">
     <figure class="portrait"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj in a navy blazer" fetchpriority="high"></figure>
     <div class="hero-text">
-      <p class="eyebrow">Learning Designer · Program Manager</p>
+      <p class="eyebrow">Instructional Designer · Program Manager</p>
       <h1 class="h-xl">I'm Tshwjxeeb.</h1>
       <p class="lead">I design training that holds up when the real situation stops following the script.</p>
-      <p class="hero-bio">A chemistry teacher and head coach turned learning designer. I build simulations, scenarios and learning games from moments I've lived, so people practice the real thing before it counts.</p>
+      <p class="hero-bio">A chemistry teacher and head coach turned instructional designer. I build simulations, scenarios and learning games from moments I've lived, so people practice the real thing before it counts.</p>
       <div class="hero-btns">{pill("#work", "See my work")}{pill("about.html", "About me", ghost=True)}</div>
     </div>
   </div>
@@ -290,7 +290,7 @@ home += f"""<main>
     <div class="box reveal">
       <p class="eyebrow">My approach</p>
       <h2 class="h-md">Built from real moments, not theory.</h2>
-      <p>Every module starts with something I lived: a team that turned a winless season into a semifinal run, a 2nd grade student teacher I mentored through her place-value lessons, and a sales floor where the training never let me practice. I turn those moments into safe practice that feels real.</p>
+      <p>Every module starts with something I lived: a team that turned a winless season into a semifinal run, a 2nd grade student teacher leading a place-value lesson, and a sales floor where the training never let me practice. I turn those moments into safe practice that feels real.</p>
       <div class="steps"><span>01 Read</span><span>02 Adapt</span><span>03 Execute</span></div>
     </div>
   </div>
@@ -350,7 +350,7 @@ def _photo(path, alt, cls="reveal d1"):
 ABOUT_MAIN = _photo("assets/img/about-main.jpg", "Tshwjxeeb Vaaj outside of work")
 _trio = [_photo("assets/img/about-volleyball.jpg", "Volleyball", "reveal"), _photo("assets/img/about-hobbies.jpg", "Gaming and mechanical keyboards"), _photo("assets/img/about-travel.jpg", "Travel and nature", "reveal d2")]
 ABOUT_TRIO = f'<div class="trio">{"".join(_trio)}</div>' if any(_trio) else ""
-about = head("About · Tshwjxeeb Vaaj", "Learning designer with a background in chemistry education, program leadership and coaching.")
+about = head("About · Tshwjxeeb Vaaj", "Instructional designer with a background in chemistry education, program leadership and coaching.")
 about += nav("about")
 about += f"""<main>
 <section class="about-intro">
@@ -358,7 +358,7 @@ about += f"""<main>
     <div>
       <p class="eyebrow reveal">About me</p>
       <h1 class="h-xl reveal d1" style="margin-bottom:22px">I'm Tshwjxeeb Vaaj.</h1>
-      <p class="lead reveal d1">Hi, I'm Tshwjxeeb, a learning designer who comes from both the classroom and the court. I'm a credentialed chemistry teacher, and for five years I was also program director and head coach of a boys' volleyball program, often doing both full-time at once.</p>
+      <p class="lead reveal d1">Hi, I'm Tshwjxeeb, an instructional designer who comes from both the classroom and the court. I'm a credentialed chemistry teacher, and for five years I was also program director and head coach of a boys' volleyball program, often doing both full-time at once.</p>
       <p class="pull reveal d2">I help people build skills they can use right away by designing practice that feels like the real moment.</p>
     </div>
     <div class="headshot reveal"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj"></div>
@@ -408,12 +408,12 @@ COACH_PROCESS = process_strip([
     ("Evaluate", "Planned a pilot with other high school volleyball coaches, measured at all four Kirkpatrick levels.", "#evaluation", "assets/img/coaching-decision.jpg"),
 ])
 COACH_OBJ = objectives(
-    "Given a player-conflict moment in practice or a match (a distracted huddle, a disengaged star, a teammate's frustration boiling over), a new head coach will:",
-    [("Pause and name a likely cause behind the behavior before reacting.",
+    "Given a player-conflict moment in practice or a match (a distracted huddle, a disengaged star, a teammate's frustration boiling over), a new head coach will be able to protect the player and the team's energy by:",
+    [("Pausing and naming a likely cause behind the behavior before reacting.",
       "Measured by: the learner's mental-timeout guess, shown beside the real cause on the next screen."),
-     ("Address the player with an SBI (Situation–Behavior–Impact) and “I” statement instead of a public correction.",
+     ("Addressing the player with an SBI (Situation–Behavior–Impact) and “I” statement instead of a public correction.",
       "Measured by: choosing the SBI-based response at each decision point."),
-     ("Ask an open question that makes the player part of the solution.",
+     ("Asking an open question that makes the player part of the solution.",
       "Mastery: reaching the success screen in all three sets.")],
     "Each objective comes straight from a highlighted sub-action on the action map.")
 COACH_ACCESS = access(
@@ -458,7 +458,12 @@ c += f"""<section class="cs-intro">
 {COACH_PROCESS}
 <section><div class="wrap reveal">
   <h2 class="h-md">The Problem</h2>
-  {paras("This isn't a hypothetical. I'm the program director and head coach it's based on. In one year, my high school boys' program went from 0 wins and 10 losses, placing last in our league, to 6 wins and 4 losses, third place, and the first semifinal appearance in our school's history. The turnaround came from one change in how I coached, and this module turns that change into something other coaches can practice.")}
+  {paras("This isn't a hypothetical. I'm the program director and head coach it's based on. In one year, my high school boys' program placed last in our league with 0 wins and 10 losses. The year after, we placed third with 6 wins and 4 losses, then competed our way to a historic spot among the top four teams in our divisional playoffs.",
+         "What I discovered in my own experience is that a coach has to protect two things at once: the player and the team's energy. In that first season, I failed to do both. I got angry, micromanaged every rep and piled pressure on my players, and the whole team's energy drained with them.",
+         "The realization came when I saw how the two work hand in hand. You can't have one without the other, because each feeds directly off the other. A player who feels protected gives energy back to the team, and a team with good energy lifts every player in it.",
+         "We're in a new time of coaching, one that's moving away from old-fashioned yelling and reprimands and toward empowerment: giving athletes an identity they can carry with them off the court. As coaches, we help define who they are as people. They define who they are as a team. But we can only push them so far. In an environment that demands results, pushing is often all we know how to do, and we push our athletes until they break.",
+         "It's in that moment that we need to know how to lift our athletes and get them ready for harder things. We can't pull athletes to where we want them, and we can't force them to be great. But we can empower them to achieve great things on their own, and when we do that well, they accomplish great things without our push.")}
+  <p class="lead objective-callout"><strong>Learning objective:</strong> By the end of this module, coaches will be able to handle player conflict in ways that protect the player and the team's energy.</p>
 </div></section>
 
 {COACH_OBJ}
@@ -557,7 +562,7 @@ c += f"""<section class="cs-intro">
 <section><div class="wrap reveal">
   <h2 class="h-md">Lessons Learned</h2>
   {paras("This was my first training module, and I built it with no formal instructional design training. What made it possible was learning to build alongside AI. Through vibe coding and AI tools, I turned the ideas in my head into working drafts quickly, then spent my own time on the decisions: what each coach should do, and how each consequence should feel.",
-         "The biggest lesson was that I didn't need to know everything before I started. I needed a clear goal, a real story, and a willingness to learn the tools as I built. Each round of feedback from the AI taught me something new about learning design, and I could test those ideas right away. I'm excited to keep growing this skill set as AI keeps expanding what's possible in scenario-based learning.")}
+         "The biggest lesson was that I didn't need to know everything before I started. I needed a clear goal, a real story, and a willingness to learn the tools as I built. Each round of feedback from the AI taught me something new about instructional design, and I could test those ideas right away. I'm excited to keep growing this skill set as AI keeps expanding what's possible in scenario-based learning.")}
   <p style="margin-top:28px">{pill(C, "Experience the project", external=True)}</p>
 </div></section>
 """
@@ -867,7 +872,7 @@ w += f"""<section id="crew"><div class="wrap">
 
 # --- Scene 2: why a director (the instructional-design link) ---
 DI = H["director"]
-pairs = "".join(f'<div class="pair reveal"><span class="on-set">{e(a)}</span><span class="to" aria-hidden="true">→</span><span class="in-ld">{e(b)}</span></div>'
+pairs = "".join(f'<div class="set-row reveal"><span class="on-set">{e(a)}</span><span class="to" aria-hidden="true">→</span><span class="in-ld">{e(b)}</span></div>'
                 for a, b in DI["pairs"])
 w += f"""<section class="director"><div class="wrap split-even">
   <div>
@@ -875,8 +880,8 @@ w += f"""<section class="director"><div class="wrap split-even">
     <h2 class="h-lg reveal d1">{e(DI["title"])}</h2>
     <p class="lead reveal d2">{e(DI["body"])}</p>
   </div>
-  <div class="pairs" role="table" aria-label="On set compared with learning design">
-    <div class="pair head" role="row"><span class="on-set">On set</span><span class="to"></span><span class="in-ld">In learning design</span></div>
+  <div class="pairs" role="table" aria-label="On set compared with instructional design">
+    <div class="set-row head" role="row"><span class="on-set">On set</span><span class="to"></span><span class="in-ld">In instructional design</span></div>
     {pairs}
   </div>
 </div></section>
