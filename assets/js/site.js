@@ -1,3 +1,12 @@
+/* Always open a page at the top (unless a link points to a section) */
+(function () {
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  function top() { if (!location.hash) window.scrollTo(0, 0); }
+  top();
+  window.addEventListener("load", top);
+  window.addEventListener("pageshow", function (e) { if (e.persisted) top(); });
+})();
+
 // Scroll reveal: elements with .reveal fade up once as they enter the screen.
 (function () {
   var els = document.querySelectorAll('.reveal');
