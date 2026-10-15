@@ -68,7 +68,7 @@
       "name": "The Stop Switch",
       "desc": "One command pauses every scheduled run at once. When a take isn't right, I call cut."
     },
-    "kit": "Figma (prototyping, variables, Smart Animate) · Articulate Storyline 360 · Claude (drafting, skills, scheduled tasks, vibe coding) · Midjourney · Flora AI (Nano Banana) · Gemini · HTML/CSS/JavaScript · GitHub Pages"
+    "kit": "Figma (prototyping, variables, Smart Animate) · Articulate 360 and Storyline 360 (prototyping, interactive modules) · Claude (drafting, skills, scheduled tasks, vibe coding) · Midjourney · Flora AI (Nano Banana) · Gemini · HTML/CSS/JavaScript · GitHub Pages"
   },
   "director": {
     "label": "Scene 2 · Why a director",
@@ -142,7 +142,7 @@
       ],
       [
         "One design, any platform",
-        "The same script and images move from a Figma prototype to a web build to Articulate Storyline 360, so the module can run wherever learners are."
+        "The same script and images move from a Figma prototype to a web build to Storyline 360 in Articulate 360, so the module can run wherever learners are."
       ],
       [
         "Branching prototypes in Figma",
