@@ -392,8 +392,8 @@ a.step-card:hover { border-color: var(--copper); transform: translateY(-2px); }
 .t-arrow { position: absolute; top: 150px; z-index: 2; width: 52px; height: 52px; border-radius: 50%; border: 0; background: var(--copper); color: #141a2c; display: grid; place-items: center; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,.35); transition: transform .2s, opacity .2s, background .2s; }
 .t-arrow:hover { background: #ecbb8e; transform: scale(1.06); }
 .t-arrow .arrow { font-size: 24px; line-height: 1; display: inline-block; }
-.t-arrow.prev { left: -26px; } .t-arrow.prev .arrow { transform: scaleX(-1); }
-.t-arrow.next { right: -26px; }
+.t-arrow.prev { left: -12px; } .t-arrow.prev .arrow { transform: scaleX(-1); }
+.t-arrow.next { right: -12px; }
 .t-arrow[disabled] { opacity: 0; pointer-events: none; }
 @media (max-width: 1100px) { .t-track { grid-auto-columns: calc((100% - 24px) / 2); } .t-arrow.prev { left: -8px; } .t-arrow.next { right: -8px; } }
 @media (max-width: 700px) {
