@@ -76,7 +76,24 @@ h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;margin:0}
 .notes .lab{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
 .notes ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:#C9CFDB}
 
+.pagebar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.pagebar .pg{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.pagebar .pg b{color:var(--text)}
+.dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.done{background:#3a4252}
+.dots i.cur{background:var(--gold);box-shadow:0 0 0 3px rgba(217,178,111,.25)}
+.page{animation:turn .35s ease both}
+@keyframes turn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.page{animation:none}}
 .log{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.hist{margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+.hist summary{cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);list-style:none}
+.hist summary::-webkit-details-marker{display:none}
+.hist summary::before{content:"\25B8  "}
+.hist[open] summary::before{content:"\25BE  "}
+.hist .log{margin:12px 0 0;opacity:.75}
+.hist .pgl{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-top:6px}
 .msg{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;scroll-margin-top:16px}
 .msg.new{animation:pop .3s ease both}
 @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -238,7 +255,7 @@ const C = [
        ["RETURNED (LAWSUIT)","The static scoreboards caused severe burn-in in just two weeks."]]},
 ];
 
-const st = { i:0, kept:0, ret:0, asked:[], phase:0, log:[], results:[], shown:0 };
+const st = { i:0, kept:0, ret:0, asked:[], phase:0, pages:[], results:[] };
 const $ = s => document.querySelector(s);
 const main = $('#main');
 
@@ -265,14 +282,16 @@ function welcome(){
 }
 
 function startCustomer(i){
-  Object.assign(st,{i, asked:[], phase:0, log:[], shown:0});
+  Object.assign(st,{i, asked:[], phase:0, pages:[]});
   const c = C[i];
-  st.log.push(['sys','System',`A customer is approaching the TV wall. ${c.nm} looks around at the screens.`]);
+  newPage(['sys','System',`A customer is approaching the TV wall. ${c.nm} looks around at the screens.`]);
   renderSim('greet');
 }
 
-function msgHTML([cls,who,body],idx){
-  return `<div class="msg ${cls}${idx>=st.shown?' new':''}"><span class="who">${who}</span>${body.startsWith('<')?body:`<p>${body}</p>`}</div>`;
+// Each learner action starts a new page, so the conversation moves forward instead of growing down one screen.
+function newPage(...msgs){ st.pages.push(msgs); }
+function msgHTML([cls,who,body],fresh){
+  return `<div class="msg ${cls}${fresh?' new':''}"><span class="who">${who}</span>${body.startsWith('<')?body:`<p>${body}</p>`}</div>`;
 }
 
 function renderSim(step){
@@ -294,47 +313,47 @@ function renderSim(step){
     ctl = `<div class="prompt">Close the sale · recommend a TV</div><div class="choices">${TVS.map((t,k)=>`<button class="ch rec" data-tv="${k}" type="button"><span class="k">RECOMMEND</span><span>${t}</span></button>`).join('')}</div>`;
   }
   const notes = st.asked.length ? `<div class="notes"><span class="lab">What you've learned</span><ul>${st.asked.map(k=>`<li>${c.sum[k]}</li>`).join('')}</ul></div>` : '';
+  const n = st.pages.length, cur = st.pages[n-1], earlier = st.pages.slice(0,-1);
+  const dots = st.pages.map((_,k)=>`<i class="${k===n-1?'cur':'done'}"></i>`).join('');
+  const hist = earlier.length ? `<details class="hist"><summary>Earlier in this conversation (${earlier.length} ${earlier.length===1?'page':'pages'})</summary>
+      ${earlier.map((pg,k)=>`<div class="pgl">Page ${k+1}</div><div class="log">${pg.map(m=>msgHTML(m,false)).join('')}</div>`).join('')}</details>` : '';
   main.innerHTML = `<div class="sim">
     <aside class="prof" aria-label="Customer profile"><div class="av" aria-hidden="true">${c.ini}</div><div><h2>${c.nm}</h2><div class="role">${c.role}</div></div>
       <div class="tags">${c.tags.map(t=>`<span>${t}</span>`).join('')}</div>${notes}</aside>
-    <section><div class="log">${st.log.map((m,i)=>msgHTML(m,i)).join('')}</div><div id="ctl">${ctl}</div></section></div>`;
+    <section class="page" aria-label="Conversation page ${n}">
+      <div class="pagebar"><span class="pg" tabindex="-1" id="pgh">Conversation · Page <b>${n}</b></span><span class="dots" aria-hidden="true">${dots}</span></div>
+      <div class="log">${cur.map(m=>msgHTML(m,true)).join('')}</div><div id="ctl">${ctl}</div>${hist}</section></div>`;
   wire();
+  window.scrollTo({top:0,behavior:'auto'});
   const first = main.querySelector('#ctl .ch:not([disabled])');
   if(first) first.focus({preventScroll:true});
-  const fresh = main.querySelector('.log .msg.new');
-  if(fresh && step!=='greet' && st.shown>0) fresh.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-  st.shown = st.log.length;
 }
 
 function wire(){
   const c = C[st.i];
   main.querySelectorAll('[data-a="greet"]').forEach(b=>b.onclick=()=>{
-    st.log.push(['cust',c.nm,"Hi, I need some help deciding what TV I should buy. I'm looking for a new TV and need some guidance on what technology makes sense for me."]);
+    newPage(['cust',c.nm,"Hi, I need some help deciding what TV I should buy. I'm looking for a new TV and need some guidance on what technology makes sense for me."]);
     renderSim('discover');
   });
   main.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{
     const k=+b.dataset.q; st.asked.push(k);
-    st.log.push(['you','You',QUESTIONS[k]]);
-    st.log.push(['cust ans',c.nm,`${c.nm}: “${c.ans[k]}”`]);
+    newPage(['you','You',QUESTIONS[k]], ['cust ans',c.nm,`${c.nm}: “${c.ans[k]}”`]);
     renderSim('discover');
   });
   main.querySelectorAll('[data-a="toInspire"]').forEach(b=>b.onclick=()=>{
     st.phase=1;
     const items = [...st.asked].sort().map(k=>`<li>${c.sum[k]}</li>`).join('');
-    st.log.push(['you','You',`<p>Okay, so I understand that:</p><ul>${items}</ul><p>Is that correct?</p>`]);
-    st.log.push(['cust',c.nm,"Yes, exactly! That's exactly what I'm dealing with."]);
+    newPage(['you','You',`<p>Okay, so I understand that:</p><ul>${items}</ul><p>Is that correct?</p>`], ['cust',c.nm,"Yes, exactly! That's exactly what I'm dealing with."]);
     renderSim('inspire');
   });
   main.querySelectorAll('[data-in]').forEach(b=>b.onclick=()=>{
     st.phase=2;
-    st.log.push(['you','You',"Awesome, based on your environment, I want to recommend a viewing experience that "+INSPIRE[+b.dataset.in].slice(3)]);
-    st.log.push(['cust',c.nm,c.solveR]);
+    newPage(['you','You',"Awesome, based on your environment, I want to recommend a viewing experience that "+INSPIRE[+b.dataset.in].slice(3)], ['cust',c.nm,c.solveR]);
     renderSim('solve');
   });
   main.querySelectorAll('[data-so]').forEach(b=>b.onclick=()=>{
     st.phase=3;
-    st.log.push(['you','You',SOLVE[+b.dataset.so]]);
-    st.log.push(['cust',c.nm,c.closeR]);
+    newPage(['you','You',SOLVE[+b.dataset.so]], ['cust',c.nm,c.closeR]);
     renderSim('close');
   });
   main.querySelectorAll('[data-tv]').forEach(b=>b.onclick=()=>outcome(+b.dataset.tv));
@@ -352,6 +371,7 @@ function outcome(k){
     <h2 tabindex="-1" id="h">You recommended the ${TVS[k]}.</h2><p>${text}</p>
     ${last?`<p class="done">Shift complete. You've helped every customer on the floor today. Excellent work applying the D.I.S.C. framework.</p>`:''}
     <div class="acts">${last?'':`<button class="btn" id="next" type="button">Take next customer</button>`}<button class="btn ${last?'':'ghost'}" id="fin" type="button">Finish module</button></div></section>`;
+  window.scrollTo({top:0,behavior:'auto'});
   if(!last) $('#next').onclick=()=>startCustomer(st.i+1);
   $('#fin').onclick=final;
   focusFirst('#h');
