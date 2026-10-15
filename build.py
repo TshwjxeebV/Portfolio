@@ -296,7 +296,7 @@ home += f"""<main>
       <a class="tile reveal" href="coaching.html"><div class="shot"><img src="assets/img/tile-coaching.jpg" alt="Coaching Through Conflict on a laptop at home" loading="lazy"></div><h3>Coaching Through Conflict</h3><span class="role">Scenario-based training →</span></a>
       <a class="tile reveal d1" href="pip.html"><div class="shot"><img src="assets/img/tile-pip.jpg" alt="Pip's Number Garden on a phone on a wooden table" loading="lazy"></div><h3>Pip's Number Garden</h3><span class="role">Game-based learning →</span></a>
       <a class="tile reveal d2" href="tv-wall.html"><div class="shot"><img src="assets/img/tile-tv.jpg" alt="The TV Wall Sales Simulator on a laptop in an office" loading="lazy"></div><h3>The TV Wall Sales Simulator</h3><span class="role">Sales simulation →</span></a>
-      <a class="tile reveal d2" href="software-training.html"><div class="shot"><img src="assets/img/tile-software.jpg" alt="A software-training screen from the Schedule a Patient Follow-Up module" loading="lazy"></div><h3>Schedule a Patient Follow-Up</h3><span class="role">Software training →</span></a>
+      <a class="tile reveal d2" href="software-training.html"><div class="shot"><img src="assets/img/tile-software-ipad.jpg" style="object-position:43% 50%" alt="The Schedule a Patient Follow-Up training on an iPad at a hospital front desk" loading="lazy"></div><h3>Schedule a Patient Follow-Up</h3><span class="role">Software training →</span></a>
     </div>
   </div>
 </section>
@@ -718,7 +718,7 @@ S = SW_URL
 sw = head("Schedule a Patient Follow-Up · Tshwjxeeb Vaaj",
           "A show me, try me, test me software-training module for new front-desk staff, built in Figma.")
 sw += nav("work") + '<main class="cs">\n'
-sw += cs_hero("assets/img/tile-software.jpg", "“Check the provider before you pick a time.”",
+sw += cs_hero("assets/img/sw-ipad-hospital.jpg", "“Check the provider before you pick a time.”",
               "— The one habit this module is built around", "Try the prototype", S, right=True)
 
 
