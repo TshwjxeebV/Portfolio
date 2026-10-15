@@ -210,7 +210,7 @@ def testimonials():
     cards = []
     for t in TESTIMONIALS:
         cards.append(f"""<figure class="t-card" role="group" aria-label="{e(t['name'])}">
-          <img class="t-photo" src="{t['img']}" alt="Portrait of {e(t['name'])}" loading="lazy" width="200" height="200">
+          <img class="t-photo" src="{t['img']}" alt="Portrait of {e(t['name'])}" loading="lazy" width="240" height="240">
           <blockquote>{paras(*t['full'])}</blockquote>
           <figcaption><strong>{e(t['name'])}</strong><span>{e(t['role'])}</span></figcaption>
         </figure>""")
