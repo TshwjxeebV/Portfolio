@@ -90,12 +90,18 @@ def paras(*ps):
     return "\n".join(f"<p>{e(p)}</p>" for p in ps)
 
 
-def cs_hero(img, quote, by, cta, url, right=False):
+def cs_hero(img, quote, by, cta, url, right=False, title=None, sub=None):
     cls = "photo right" if right else "photo"
+    if title:
+        card = f'<div class="quote title-card reveal"><h1>{e(title)}</h1>' + (f'<p class="sub">{e(sub)}</p>' if sub else "") + '</div>'
+    else:
+        long = " long" if len(quote) > 140 else ""
+        cite = by if "<a " in by else e(by)
+        card = f'<div class="quote{long} reveal"><blockquote>{e(quote)}</blockquote><cite>{cite}</cite></div>'
     return f"""<section class="cs-hero" aria-label="Project hero">
   <div class="{cls}" style="background-image:url('{img}')" role="img" aria-label="Project scene"></div>
   <div class="wrap">
-    <div class="quote reveal"><blockquote>{e(quote)}</blockquote><cite>{e(by)}</cite></div>
+    {card}
     <div class="reveal d1">{pill(url, cta, external=True)}</div>
   </div>
 </section>
@@ -270,7 +276,7 @@ home += f"""<main>
         <p class="eyebrow">Featured · Scenario-based training</p>
         <h2 class="h-md" id="featured">Coaching Through Conflict</h2>
         <p>A branching simulation built from my own season as a head coach: from 0–10 and last in the league to my school's first-ever semifinal. New coaches practice pausing, reading the moment, and letting players own the fix.</p>
-        <ul class="chips"><li>0–10 → 6–3</li><li>First-ever semifinal</li><li>68 screens</li></ul>
+        <ul class="chips"><li>0–10 → 6–4</li><li>First-ever semifinal</li><li>68 screens</li></ul>
         {pill("coaching.html", "Learn more", ghost=True)}
       </div>
     </div>
@@ -381,7 +387,7 @@ about += f"""<main>
       <div class="xp-row reveal"><div><h3>Program Director &amp; Head Coach</h3><span class="role">High school boys' volleyball · 5 years</span></div>
         <ul><li>Designed the program's coaching materials and practice plans, breaking complex motor skills into steps athletes could practice and master.</li>
         <li>Trained and mentored the coaches on my staff so they could lead on their own with confidence.</li>
-        <li>Led the program from 0–10 and last in the league to 6–3 and the school's first-ever semifinal.</li></ul></div>
+        <li>Led the program from 0–10 and last in the league to 6–4 and the school's first-ever semifinal.</li></ul></div>
       <div class="xp-row reveal"><div><h3>Chemistry Teacher</h3><span class="role">Credentialed in chemistry</span></div>
         <ul><li>Taught chemistry curriculum aligned to the Next Generation Science Standards (NGSS) adopted by California.</li>
         <li>Gave every student more than one way into the content, from labs and models to simulations.</li></ul></div>
@@ -448,12 +454,12 @@ COACH_EVAL = evaluation(
     [("1 · Reaction", "Coaches find the scenarios realistic and useful.", "Short survey after the module: realism, relevance and confidence (1–5).", "Planned"),
      ("2 · Learning", "Coaches spot the cause and pick the SBI and open-question responses.", "First-try choices at each decision; mental-timeout guess vs. the real cause.", "Built into the prototype"),
      ("3 · Behavior", "Coaches use the habits at real practices.", "Two-week self-check against the clipboard habits, plus an assistant coach's observation.", "Planned"),
-     ("4 · Results", "Calmer huddles and players who own the fix.", "Program director check-in at season's end, compared with my own 0–10 → 6–3 baseline.", "Observed on my team")])
+     ("4 · Results", "Calmer huddles and players who own the fix.", "Program director check-in at season's end, compared with my own 0–10 → 6–4 baseline.", "Observed on my team")])
 c = head("Coaching Through Conflict · Tshwjxeeb Vaaj", "A scenario-based simulation for new head coaches, built from a real 0–10 to semifinal turnaround.")
 c += nav("work")
 c += "<main class=\"cs\">\n"
-c += cs_hero("assets/img/coaching-hero.jpg", "“Control doesn't come from running every rep. It comes from building players who can run it without you.”",
-             "— Coach Ramos, Coaching Through Conflict", "Experience the project", C)
+c += cs_hero("assets/img/coaching-hero.jpg", "“In good teams, coaches hold players accountable. In great teams, players hold players accountable.”",
+             "— Roy Keane", "Experience the project", C)
 c += f"""<section class="cs-intro">
   <div class="wrap split">
     <div class="reveal">
@@ -474,13 +480,13 @@ c += f"""<section class="cs-intro">
 {COACH_PROCESS}
 <section><div class="wrap reveal">
   <h2 class="h-md">The Problem</h2>
-  {paras("This isn't a hypothetical. I'm the program director and head coach it's based on. In one year my high school boys' program went from 0–10 and last in our league to 6–3, third place, and the first semifinal appearance in our school's history. The turnaround came from one change in how I coached, and this module turns that change into something other coaches can practice.")}
+  {paras("This isn't a hypothetical. I'm the program director and head coach it's based on. In one year, my high school boys' program went from 0 wins and 10 losses, placing last in our league, to 6 wins and 4 losses, third place, and the first semifinal appearance in our school's history. The turnaround came from one change in how I coached, and this module turns that change into something other coaches can practice.")}
 </div></section>
 
 {COACH_OBJ}
 <section><div class="wrap reveal">
   <h2 class="h-md">The Process</h2>
-  {paras("I followed the ADDIE model (Analyze, Design, Develop, Implement, and Evaluate). My analysis wasn't a survey; it was my own season. My first year, I had a talented group, many of them just up from JV, but the way I coached held them back: I micromanaged every rep, got angry, and my assistants and I piled pressure on kids who mostly lacked varsity experience. We went 0–10. Then I sat in on a friend's college practice and watched him give his athletes real autonomy, and I rebuilt how I coached around that. The next season we went 6–3 and reached the semifinals. I distilled what changed into three principles (backed by the SBI and GROW frameworks), then designed a storyboard, built a clickable prototype, and refined it.",
+  {paras("I followed the ADDIE model (Analyze, Design, Develop, Implement, and Evaluate). My analysis wasn't a survey; it was my own season. My first year, I had a talented group, many of them just up from JV, but the way I coached held them back: I micromanaged every rep, got angry, and my assistants and I piled pressure on kids who mostly lacked varsity experience. We went 0–10. Then I sat in on a friend's college practice and watched him give his athletes real autonomy, and I rebuilt how I coached around that. The next season we went 6–4 and reached the semifinals. I distilled what changed into three principles (backed by the SBI and GROW frameworks), then designed a storyboard, built a clickable prototype, and refined it.",
          "Each phase stayed anchored to one question: what does a coach need to do in the moment, not just know? I learned the answer the hard way, and the module exists so other coaches don't have to.")}
 </div></section>
 
@@ -565,7 +571,7 @@ c += f"""<section class="cs-intro">
 {COACH_ACCESS}
 <section id="results"><div class="wrap reveal">
   <h2 class="h-md">Results</h2>
-  {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–3 season and our school's first-ever semifinal appearance. The module that teaches it is still a concept, so the next steps are to finish the Storyline 360 build and test the full module with other high school volleyball coaches.",
+  {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–4 season and our school's first-ever semifinal appearance. The module that teaches it is still a concept, so the next steps are to finish the Storyline 360 build and test the full module with other high school volleyball coaches.",
          "My biggest takeaway is that the shift had to start with me before it could reach the players: trading control for ownership changed the team only once I changed how I coached. The module is built to pass that lesson on, in the learner's own world of the gym, the whiteboard, and the huddle. These insights will shape how I design future scenario-based training for coaches, teachers, and teams.")}
 </div></section>
 
@@ -585,10 +591,14 @@ write("coaching.html", c)
 # ======================= PIP / TV (shared layout) =======================
 def simple_case(file, title, sub, desc, meta, quote, by, hero_img, cta, url, problem, solution, dev, vid, poster, vid_label, prev, nxt, page_desc, extras):
     p = head(f"{title} · Tshwjxeeb Vaaj", page_desc) + nav("work") + '<main class="cs">\n'
-    p += cs_hero(hero_img, quote, by, cta, url, right=True)
+    if quote:
+        p += cs_hero(hero_img, quote, by, cta, url, right=True)
+        heading = f"<h1>{e(title)}</h1>\n  <p class=\"sub\">{e(sub)}</p>"
+    else:
+        p += cs_hero(hero_img, None, None, cta, url, right=True, title=title, sub=sub)
+        heading = ""
     p += f"""<section class="cs-intro"><div class="wrap reveal">
-  <h1>{e(title)}</h1>
-  <p class="sub">{e(sub)}</p>
+  {heading}
   <p>{e(desc)}</p>
   {meta_blocks(meta, cols=True)}
   {pill(url, cta, external=True)}
@@ -687,7 +697,7 @@ simple_case("pip.html","Pip's Number Garden", "A game-based learning garden for 
     [("Audience", "2nd grade students practicing number comparison on their own, and the teachers who run small-group place-value lessons."),
      ("Responsibilities", "Instructional Design Tasks (Mentoring a 2nd grade student teacher through her small-group place-value lesson, Identifying where students got stuck, Mapping the 2nd grade standard for comparing numbers, Designing place-value visuals and hint feedback, Writing kid-friendly prompts), Game Development, Teacher Feedback Review."),
      ("Tools Used", "Claude, HTML, CSS, JavaScript")],
-    "“The open mouth always faces the bigger number.”", "— Pip, Pip's Number Garden",
+    "“UDL is a way to provide children with choices for what they are learning, how they are learning, and how they are showing what they know, as well as a variety of ways to be motivated and challenged.”", '— <a href="https://products.brookespublishing.com/Engaging-Young-Engineers-P1537.aspx" target="_blank" rel="noopener"><em>Engaging Young Engineers</em>, Second Edition</a>, by Angi Stone-MacDonald, Kristen B. Wendell, Anne Douglass, Mary Lu Love &amp; Amanda Wiehe Lopes',
     "assets/img/tile-pip.jpg", "Play the game", PIP_URL,
     "In a 2nd grade small-group lesson, students could read two- and three-digit numbers but struggled to compare them. They mixed up the places, skipped straight to the ones, or guessed which way the > and < signs should point. One small-group session wasn't enough practice to make the comparison order stick.",
     "I designed a game students can play on their own. Hundreds, tens, and ones each get their own block, color, and label, and students compare one place at a time before choosing the sign. Four levels build from two-digit numbers (Sprout) to three-digit numbers with tricky ties (Sunflower), and getting 4 of 5 right on the first try unlocks the next level.",
@@ -701,7 +711,7 @@ simple_case("tv-wall.html", "The TV Wall Sales Simulator", "A practice-first sal
     [("Audience", "New sales associates in the TV department of a big-box electronics store, and the leads who onboard them."),
      ("Responsibilities", "Instructional Design Tasks (Turning my own first weeks on the sales floor into a learning need, Mapping the D.I.S.C. sales model into a practice loop, Writing five customer personas with realistic needs, Designing feedback that shows whether a TV was kept or returned), Simulation Development, Figma Prototyping."),
      ("Tools Used", "HTML, CSS, JavaScript, Figma.")],
-    "“Knowledge is only half the battle.”", "— Welcome to the Floor, The TV Wall Sales Simulator",
+    None, None,
     "assets/img/tile-tv.jpg", "Play the simulation", TV_URL,
     "When I started as a sales associate at Best Buy, I completed the training modules and learned the details of every TV technology, but I never got to practice selling one. On the sales floor there was too much to sort out in my head: panel types, room conditions, installation, and add-on services. Even though I was comfortable with technology, I struggled to match the right TV to the right customer. A wrong match leads to a return, which costs the store and frustrates a customer who trusted my advice.",
     "I designed a simulator where new associates can practice a full TV sale with no real-world consequences. Each customer brings a different room, viewing habit, and need, and associates work through D.I.S.C. They must ask at least three discovery questions before moving on, and every recommendation is checked 30 days later: kept or returned. The goal is the one the store cares about most: the right TV the first time, fewer returns, and customers who trust their associate.",
@@ -716,8 +726,8 @@ S = SW_URL
 sw = head("Schedule a Patient Follow-Up · Tshwjxeeb Vaaj",
           "A show me, try me, test me software-training module for new front-desk staff, built in Figma.")
 sw += nav("work") + '<main class="cs">\n'
-sw += cs_hero("assets/img/sw-ipad-hospital.jpg", "“Check the provider before you pick a time.”",
-              "— The one habit this module is built around", "Try the prototype", S, right=True)
+sw += cs_hero("assets/img/sw-ipad-hospital.jpg", None, None, "Try the prototype", S, right=True,
+              title="Schedule a Patient Follow-Up", sub="A software-training module for new front-desk staff")
 
 
 def fig(src, alt, cap):
@@ -725,8 +735,6 @@ def fig(src, alt, cap):
 
 
 sw += f"""<section class="cs-intro"><div class="wrap reveal">
-  <h1>Schedule a Patient Follow-Up</h1>
-  <p class="sub">A software-training module for new front-desk staff</p>
   <p>A short, practice-first module that teaches new front-desk staff to book a follow-up visit in a clinic scheduling system. Learners watch the task once with callouts, then do it themselves from a blank patient search, working around a pre-filled wrong provider and a patient who can only come in mornings. Two workplace questions and a one-page job aid close it out.</p>
   {meta_blocks([("Audience", "New front-desk and scheduling staff at an outpatient clinic, and the supervisors who onboard them."),
                 ("Responsibilities", "Instructional Design, Learning Objectives, Scenario Writing, Show me / Try me / Test me Structure, Feedback Design, UI Mockups, Figma Component Library, Branching Prototype, Job Aid"),
