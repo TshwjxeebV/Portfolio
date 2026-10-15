@@ -739,7 +739,7 @@ sw += objectives(
      ("Book the follow-up with the right provider and date window from the provider's note, at a time the patient can make.",
       "Mastery: in Try me, find Maria, switch to Dr. Patel, and book the only open slot before 10:00 AM that week."),
      ("Read back the five booking details and send a reminder before finishing.",
-      "Practiced in Show me step 4 and kept on the job aid.")],
+      "Modeled in Show me step 4, then done hands-on in Try me: learners check the reminder box and book it themselves before Test me unlocks.")],
     "Each objective maps to a screen in the module and a step on the job aid.")
 sw += f"""<section id="flow"><div class="wrap">
   <div class="reveal">

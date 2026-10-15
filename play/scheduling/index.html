@@ -268,6 +268,7 @@ const TOASTS = {
   pickTime:['Pick a time first','Select an open teal time slot, then Continue.'],
   booked:['That time is booked','Grey slots are taken. Choose a teal slot instead.'],
   tooLate:['Too late for Maria','Maria can only come in before 10:00 AM, and 10:00 itself is too late. Keep looking for an open morning slot that week.'],
+  remind:['Send the reminder first','Check the box to text Maria a reminder at (951) 555-0142, then select Book appointment.'],
   notHere:['Not part of this practice','That button isn’t used in this task. Use the task card to stay on track.']
 };
 const QUESTIONS = [
@@ -293,12 +294,12 @@ let S = freshTry();
 let screen = 'title';
 let answers = [null, null]; // first answer index per question
 let readiness = null;
-function freshTry(){ return {view:'search', last:'', dob:'', results:null, provider:'Dr. Michael Chen', visit:VISITS[0], week:WEEKS[1], slot:null, attempts:0, outcome:null, done:false}; }
+function freshTry(){ return {view:'search', last:'', dob:'', results:null, provider:'Dr. Michael Chen', visit:VISITS[0], week:WEEKS[1], slot:null, attempts:0, outcome:null, done:false, remind:false}; }
 
 /* ---------- chrome ---------- */
 function chrome(){
   const m = META[screen] || {phase:2, step:7};
-  const step = screen === 'try' && S.done ? 8 : m.step;
+  const step = screen === 'try' && (S.done || S.view === 'review') ? 8 : m.step;
   const names = ['Show me','Try me','Test me'];
   $('track').innerHTML = names.map((n, i) => {
     const cur = m.phase - 1, st = i < cur ? 'done' : i === cur ? 'cur' : '';
@@ -371,7 +372,7 @@ const VIEWS = {
       <div class="chips"><span>1 Show me</span><span>2 Try me</span><span>3 Test me</span></div></div>
       <div class="panel"><span class="lab">IN THIS MODULE</span>
         <div class="it"><b>Show me</b><span>4 guided steps: find the patient, open the follow-up, pick the slot, confirm.</span></div>
-        <div class="it"><b>Try me</b><span>Search, open the record and book the follow-up yourself.</span></div>
+        <div class="it"><b>Try me</b><span>Search, open the record, book the follow-up, then confirm it and send the reminder yourself.</span></div>
         <div class="it"><b>Test me</b><span>2 workplace questions. Feedback after each answer.</span></div>
         <div class="it" style="border:0"><b>Job aid</b><span>A one-page checklist to keep at the desk.</span></div>
         <p class="fict">Brightwell Clinic, ScheduleDesk and every patient here are fictional. Portfolio sample.</p></div></div>`;
@@ -416,6 +417,7 @@ const VIEWS = {
   try(){
     if(S.view === 'search') return trySearch();
     if(S.view === 'record') return tryRecord();
+    if(S.view === 'review') return tryReview();
     return trySched();
   },
   q1(){ return question(0); },
@@ -453,11 +455,20 @@ function trySched(){
   let side = `<p class="eyebrow">TRY ME · ${S.outcome ? 'FEEDBACK' : 'YOUR TURN'}</p>`;
   if(S.outcome === 'provider') side += `<h2>Not quite. Check the provider.</h2><div class="fb bad" role="status"><b>✕ That slot is with Dr. Michael Chen</b><p>Maria’s plan says Dr. Patel. ScheduleDesk kept the last provider you booked for. Change the Provider field to Dr. Anika Patel, then pick an open slot the week of Oct 26.</p></div><div class="note"><span class="lab">WHY THIS MATTERS</span><p>A visit with the wrong provider usually means a reschedule call, and a patient who has to repeat their story.</p></div><div class="row"><button class="mbtn" data-act="tryagain">Try again</button><button class="mbtn sec" data-act="showagain">Show me again</button></div>`;
   else if(S.outcome === 'late') side += `<h2>Not quite. Check the time.</h2><div class="fb bad" role="status"><b>✕ ${esc(S.lastSlot)} is too late for Maria</b><p>Maria has to be seen before 10:00 AM, and 10:00 itself is too late. Dr. Patel’s mornings are mostly booked, so scan every day for an open slot before 10.</p></div>${taskCard()}`;
-  else if(S.outcome === 'ok') side += `<h2>That’s the one.</h2><div class="fb good" role="status"><b>✓ Dr. Patel · BP check · Fri, Oct 30 · 9:40 AM</b><p>Right provider, right week, and the only open slot before 10:00 AM. Good scanning: 10:00 itself would have been too late.</p></div><div class="note"><span class="lab">BEFORE YOU BOOK FOR REAL</span><p>You’d read the summary back and leave the text reminder on, just like Show me step 4.</p></div>`;
   else side += `<h2>Book Maria’s follow-up</h2>${taskCard()}<p class="instr">${isPatel ? 'Provider updated. Now scan the week for an open time before 10:00 AM, then Continue.' : 'Check every field, then pick an open time that works for Maria and select Continue.'}</p>`;
-  foot(() => { S.view = 'record'; S.outcome = null; render(); }, S.done ? 'Try me · complete' : `Try me · attempt ${S.attempts + 1}`, S.done ? () => go('q1') : null, 'Test me');
-  return `<div class="split">${win('Schedule', `<h3>Schedule follow-up · Maria Lopez</h3><div class="row">${selectField('Provider', 'prov', PROVIDERS, S.provider)}${selectField('Visit type', 'visit', VISITS, S.visit)}${selectField('Week', 'week', WEEKS, S.week)}</div>${grid(g, {sel:S.slot})}<div class="row"><button class="abtn" data-act="continue"${S.done ? ' disabled' : ''}>Continue</button><button class="abtn sec" data-act="cancel">Cancel</button></div>`)}
+  foot(() => { S.view = 'record'; S.outcome = null; render(); }, `Try me · attempt ${S.attempts + 1}`, null);
+  return `<div class="split">${win('Schedule', `<h3>Schedule follow-up · Maria Lopez</h3><div class="row">${selectField('Provider', 'prov', PROVIDERS, S.provider)}${selectField('Visit type', 'visit', VISITS, S.visit)}${selectField('Week', 'week', WEEKS, S.week)}</div>${grid(g, {sel:S.slot})}<div class="row"><button class="abtn" data-act="continue">Continue</button><button class="abtn sec" data-act="cancel">Cancel</button></div>`)}
     <aside class="coach" aria-live="polite">${side}</aside></div>`;
+}
+function tryReview(){
+  if(S.done){
+    foot(() => { S.view = 'sched'; render(); }, 'Try me · complete', () => go('q1'), 'Test me');
+    return `<div class="split">${win('Schedule', `<div class="banner" role="status">✓ Appointment booked: Fri, Oct 30 at 9:40 AM with Dr. Patel. Text reminder sent.</div><h3>Review and confirm</h3><div class="sum"><div><span>Patient</span><b>Maria Lopez · DOB 03/14/1968</b></div><div><span>Provider</span><b>Dr. Anika Patel</b></div><div><span>Visit type</span><b>BP check · 20 min</b></div><div><span>When</span><b>Fri, Oct 30, 2026 · 9:40 AM</b></div><div><span>Where</span><b>Brightwell Clinic · Suite 200</b></div></div>`)}
+      <aside class="coach" aria-live="polite"><p class="eyebrow">TRY ME · FEEDBACK</p><h2>Maria is booked.</h2><div class="fb good" role="status"><b>✓ Dr. Patel · BP check · Fri, Oct 30 · 9:40 AM</b><p>You read back all five details, sent the text reminder and booked it yourself. Right provider, right week, and the only open slot before 10:00 AM.</p></div><div class="note"><span class="lab">NEXT</span><p>Select Test me to answer two quick workplace questions.</p></div></aside></div>`;
+  }
+  foot(() => { S.view = 'sched'; render(); }, 'Try me · step 4: review and confirm', null);
+  return `<div class="split">${win('Schedule', `<h3>Review and confirm</h3><div class="sum"><div><span>Patient</span><b>Maria Lopez · DOB 03/14/1968</b></div><div><span>Provider</span><b>Dr. Anika Patel</b></div><div><span>Visit type</span><b>BP check · 20 min</b></div><div><span>When</span><b>Fri, Oct 30, 2026 · 9:40 AM</b></div><div><span>Where</span><b>Brightwell Clinic · Suite 200</b></div></div><label class="chk"><input type="checkbox" id="remind"${S.remind ? ' checked' : ''}> Send a text reminder to (951) 555-0142</label><div class="row"><button class="abtn" data-act="book">Book appointment</button><button class="abtn sec" data-act="back-sched">Back</button></div>`)}
+    <aside class="coach" aria-live="polite"><p class="eyebrow">TRY ME · YOUR TURN</p><h2>Read it back, then book</h2><div class="fb good" role="status"><b>✓ That’s the one</b><p>Right provider, right week, and the only open slot before 10:00 AM. Good scanning: 10:00 itself would have been too late.</p></div><p class="instr">Check all five details against the task card, check the box to send Maria a text reminder, then select Book appointment.</p>${taskCard()}</aside></div>`;
 }
 function question(i){
   const Q = QUESTIONS[i], ans = answers[i];
@@ -496,6 +507,7 @@ document.addEventListener('change', e => {
   if(t.id === 'visit'){ if(t.value !== VISITS[0]){ t.value = VISITS[0]; toast('visit'); } }
   if(t.id === 'week'){ if(t.value !== WEEKS[1]){ t.value = WEEKS[1]; toast('week'); } }
   if(['smProv','smVisit','smWeek'].includes(t.id)) toast('ring');
+  if(t.id === 'remind') S.remind = t.checked;
 });
 document.addEventListener('click', e => {
   const el = e.target.closest('button');
@@ -504,7 +516,7 @@ document.addEventListener('click', e => {
 
   if(d.nav){
     if(screen !== 'try') return toast('ring');
-    if(d.nav === 'Patients'){ if(S.view === 'sched'){ S.view = 'record'; S.outcome = null; render(); } else if(S.view === 'record'){ S.view = 'search'; render(); } return; }
+    if(d.nav === 'Patients'){ if(S.view === 'sched' || S.view === 'review'){ S.view = 'record'; S.outcome = null; render(); } else if(S.view === 'record'){ S.view = 'search'; render(); } return; }
     if(d.nav === 'Schedule'){ if(S.view === 'search') return toast('findFirst'); if(S.view === 'record'){ S.view = 'sched'; render(); } return; }
     return toast('notHere');
   }
@@ -517,7 +529,12 @@ document.addEventListener('click', e => {
   if(d.act === 'schedule'){ if(screen === 'sm2') return go('sm3'); S.view = 'sched'; return render(); }
   if(d.act === 'message') return toast(screen === 'try' ? 'notHere' : 'ring');
   if(d.act === 'continue-sm') return go('sm4');
-  if(d.act === 'book') return go('booked');
+  if(d.act === 'book'){
+    if(screen !== 'try') return go('booked');
+    if(!S.remind) return toast('remind');
+    S.done = true; return render();
+  }
+  if(d.act === 'back-sched'){ S.view = 'sched'; return render(); }
   if(d.act === 'back-sm3') return go('sm3');
   if(d.act === 'cancel') return toast('notHere');
   if(d.act === 'tryagain'){ S.outcome = null; S.slot = null; return render(); }
@@ -526,7 +543,6 @@ document.addEventListener('click', e => {
   if(d.booked) return toast(screen === 'sm3' ? 'ring' : 'booked');
   if(d.slot){
     if(screen === 'sm3') return d.slot === 'Oct 28 9:20 AM' ? go('sm4') : toast('ring');
-    if(S.done) return;
     S.slot = d.slot; S.outcome = null; render();
     const b = document.querySelector(`[data-slot="${d.slot}"]`); b && b.focus();
     return;
@@ -536,7 +552,7 @@ document.addEventListener('click', e => {
     S.attempts++;
     if(S.provider !== 'Dr. Anika Patel'){ S.outcome = 'provider'; }
     else if(S.slot !== 'Oct 30 9:40 AM'){ S.outcome = 'late'; S.lastSlot = S.slot.replace(/^(Oct \d+) /, '$1 at '); S.slot = null; }
-    else { S.outcome = 'ok'; S.done = true; }
+    else { S.outcome = null; S.view = 'review'; S.remind = false; }
     render(); return;
   }
   if(d.ans !== undefined){
