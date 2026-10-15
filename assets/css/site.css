@@ -91,7 +91,7 @@ section { padding: 72px 0; }
 /* ---------- Home hero ---------- */
 .home-hero .wrap { display: grid; grid-template-columns: 420px 1fr; gap: 80px; align-items: center; padding-block: 60px 40px; }
 .headshot { position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; padding: 16px; border: 1.5px solid rgba(224,166,114,.6); }
-.headshot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; border-radius: 50%; }
+.headshot img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 25%; border-radius: 50%; }
 .home-hero h1 { margin: 6px 0 22px; }
 .home-hero .lead { margin-bottom: 30px; max-width: 34ch; }
 
@@ -415,3 +415,18 @@ a.step-card:hover { border-color: var(--copper); transform: translateY(-2px); }
 /* Comfortable reading length for case-study body text */
 .cs .wrap p, .cs .wrap li { max-width: 72ch; }
 .cs .two p, .cs .split p { max-width: none; }
+
+/* Phone hero: less dead space, smaller portrait, buttons above the fold */
+@media (max-width: 700px) {
+  section.home-hero { padding-top: 20px; }
+  .home-hero .wrap { padding-block: 8px 24px; gap: 22px; }
+  .home-hero .headshot { max-width: 200px; padding: 10px; }
+  .home-hero .eyebrow { letter-spacing: .1em; font-size: 12px; }
+  .home-hero h1 { font-size: 52px; margin: 4px 0 14px; }
+  .home-hero .lead { font-size: 18px; margin-bottom: 22px; }
+  .about-intro .headshot { max-width: 200px; padding: 10px; }
+}
+@media (max-width: 700px) {
+  .home-hero .hero-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .home-hero .hero-btns .pill { padding: 12px 18px; font-size: 15px; margin: 0; }
+}
