@@ -4,10 +4,22 @@
     "title": "I direct the vision. AI is my crew.",
     "body": "Think of how a film gets made. One director holds the vision, and a crew of specialists helps bring it to life. That's how I build learning experiences: I direct a crew of AI agents, and I'm also the designer, so I own the creative flow and give every piece its final human touch.",
     "slate": [
-      ["Production", "Every project on this site"],
-      ["Director & designer", "Tshwjxeeb Vaaj"],
-      ["Crew", "Claude and a team of AI agents"],
-      ["Final cut", "Mine, every time"]
+      [
+        "Production",
+        "Every project on this site"
+      ],
+      [
+        "Director & designer",
+        "Tshwjxeeb Vaaj"
+      ],
+      [
+        "Crew",
+        "Claude and a team of AI agents"
+      ],
+      [
+        "Final cut",
+        "Mine, every time"
+      ]
     ]
   },
   "crew": {
@@ -31,9 +43,9 @@
         "desc": "Watches every take for mistakes. Each draft passes the same checklist: my real facts, no invented numbers, my voice and my style guide."
       },
       {
-        "role": "Advisor",
-        "name": "The Second Opinion",
-        "desc": "Brings research and a different point of view before I commit to a direction, so my choices are grounded, not guesses."
+        "role": "Researcher",
+        "name": "Gemini",
+        "desc": "Digs into the research before I commit to a direction, bringing facts and a different point of view so my choices are grounded, not guesses."
       },
       {
         "role": "Second unit",
@@ -42,11 +54,11 @@
       },
       {
         "role": "Art department",
-        "name": "Midjourney & Flora AI",
+        "name": "Midjourney, Flora AI & Nano Banana",
         "desc": "Sets the look and generates the scenes, keeping the same people, places and style consistent from screen to screen."
       },
       {
-        "role": "Production bible",
+        "role": "Continuity",
         "name": "The Playbook",
         "desc": "One place for my background, decisions, style guides and project details, so nothing gets decided twice."
       }
@@ -63,10 +75,22 @@
     "title": "Directing a crew is designing for learning.",
     "body": "A good director doesn't do every job. They make the vision clear, give each person a role they can own, cue them at the right moment, and check the take before moving on. That's the same work as designing training that moves a whole team toward one outcome. To direct the crew, I have to understand each job well enough to teach it, and that's exactly what instructional design asks of me.",
     "pairs": [
-      ["One clear vision", "One clear learning goal"],
-      ["A role each person can own", "Behaviors each learner can practice"],
-      ["Cues at the right moment", "Feedback at the right moment"],
-      ["Check the take before moving on", "Test the module before it ships"]
+      [
+        "One clear vision",
+        "One clear learning goal"
+      ],
+      [
+        "A role each person can own",
+        "Behaviors each learner can practice"
+      ],
+      [
+        "Cues at the right moment",
+        "Feedback at the right moment"
+      ],
+      [
+        "Check the take before moving on",
+        "Test the module before it ships"
+      ]
     ]
   },
   "overview": {
@@ -79,9 +103,28 @@
     "title": "Every project goes through the same production.",
     "body": "Instead of asking AI one question at a time, every project moves through the same three phases. Each step hands off to the next, and I review the take before it moves on.",
     "phases": [
-      ["Pre-production", ["Real story", "Action map", "Storyboard"]],
-      ["Production", ["Visuals", "Prototype"]],
-      ["Post-production", ["Check", "Case study"]]
+      [
+        "Pre-production",
+        [
+          "Real story",
+          "Action map",
+          "Storyboard"
+        ]
+      ],
+      [
+        "Production",
+        [
+          "Visuals",
+          "Prototype"
+        ]
+      ],
+      [
+        "Post-production",
+        [
+          "Check",
+          "Case study"
+        ]
+      ]
     ],
     "quote": "The crew does the legwork. I call every cut."
   },
