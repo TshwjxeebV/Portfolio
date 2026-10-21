@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exit Ticket · Comparing Numbers · Pip's Number Garden</title>
+<meta name="description" content="A printable one-page exit ticket for comparing three-digit numbers with >, < and =, to use after Pip's Number Garden. By Tshwjxeeb Vaaj.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Grandstander:wght@700;800&display=swap">
+<style>
+:root{--ink:#2f2620; --muted:#6b5c4c; --line:#cdbf9f; --paper:#fffdf7; --hund:#a35a32; --tens:#3f6f8f; --ones:#4f7a3a; --leaf:#5e8b4c}
+*{box-sizing:border-box}
+html{background:#e9e3d4}
+body{margin:0; font-family:Andika,"Trebuchet MS",system-ui,sans-serif; color:var(--ink); font-size:17px; line-height:1.4; padding:24px 16px 48px}
+.toolbar{max-width:8.5in; margin:0 auto 16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between}
+.toolbar a,.toolbar button{font:700 15px Andika,system-ui,sans-serif; color:var(--ink); background:#fff; border:2px solid var(--line); border-radius:999px; padding:8px 16px; text-decoration:none; cursor:pointer}
+.toolbar button{background:var(--leaf); border-color:#4c7540; color:#fff}
+.toolbar button.alt{background:#fff; color:var(--ink); border-color:var(--line)}
+.toolbar a:focus-visible,.toolbar button:focus-visible{outline:3px solid #c9574f; outline-offset:2px}
+.page{max-width:8.5in; margin:0 auto; background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:0.55in 0.6in; box-shadow:0 10px 30px -18px rgba(0,0,0,.4)}
+header{display:flex; justify-content:space-between; gap:16px; align-items:flex-start; border-bottom:2px solid var(--ink); padding-bottom:10px}
+h1{font-family:Grandstander,"Comic Sans MS",system-ui,sans-serif; font-size:28px; margin:0; line-height:1.1}
+.sub{margin:4px 0 0; color:var(--muted); font-size:15px}
+.who{display:grid; gap:10px; min-width:2.6in; font-size:15px}
+.who span{display:flex; gap:6px; align-items:flex-end}
+.who i{flex:1; border-bottom:1.5px solid var(--ink); height:1.1em}
+.howto{margin:14px 0 6px; font-size:15px}
+.howto b{color:var(--ink)}
+.signs{display:flex; gap:18px; flex-wrap:wrap; margin:6px 0 4px; font-size:15px}
+.signs span{display:inline-flex; gap:6px; align-items:center}
+.signs b{font-family:Grandstander,system-ui,sans-serif; font-size:24px; line-height:1}
+ol.probs{list-style:none; counter-reset:p; margin:12px 0 0; padding:0; display:grid; gap:14px}
+ol.probs li{counter-increment:p; border:1.5px solid var(--line); border-radius:12px; padding:12px 14px 10px; break-inside:avoid}
+.row1{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+.num-label{font-weight:700; color:var(--muted); font-size:14px; min-width:22px}
+.num-label::before{content:counter(p) "."}
+.cmp{display:flex; align-items:center; gap:12px; font-family:Grandstander,system-ui,sans-serif; font-size:34px; font-weight:800; letter-spacing:1px}
+.box{width:52px; height:52px; border:2.5px dashed var(--ink); border-radius:50%}
+.decide{margin-left:auto; font-size:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.decide label{display:inline-flex; gap:4px; align-items:center}
+.decide input{width:16px; height:16px; margin:0}
+.c-h{color:var(--hund)} .c-t{color:var(--tens)} .c-o{color:var(--ones)}
+.frame{margin-top:8px; font-size:15px; display:flex; gap:6px; align-items:flex-end; flex-wrap:wrap}
+.frame i{display:inline-block; border-bottom:1.5px solid var(--ink); width:1.1in; height:1.1em}
+.frame i.w{width:1.5in}
+.foot{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; font-size:14px}
+.foot h2{font-size:15px; margin:0 0 4px}
+.foot ul{margin:0; padding-left:18px}
+.foot li{margin:2px 0}
+.note{color:var(--muted); font-size:13px; margin-top:12px}
+@media (max-width:640px){ .page{padding:20px 16px} header{flex-direction:column} .who{min-width:0; width:100%} .decide{margin-left:0} .cmp{font-size:28px} .foot{grid-template-columns:1fr} }
+@media print{
+  html,body{background:#fff; padding:0}
+  .toolbar{display:none}
+  body:not(.key) .teacher{display:none}
+  .teacher-tag{display:none}
+  .page{border:0; box-shadow:none; border-radius:0; padding:0.4in 0.5in; max-width:none}
+  @page{size:letter; margin:0.3in}
+  body.key ol.probs{gap:9px} body.key ol.probs li{padding:8px 12px 8px} body.key .cmp{font-size:30px} body.key .box{width:44px;height:44px}
+  body.key .howto{margin:10px 0 4px} body.key .foot{margin-top:10px; font-size:13px} body.key .note{margin-top:6px}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">&larr; Back to the game</a>
+  <span style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" onclick="document.body.classList.remove('key');window.print()">Print student copy</button><button type="button" class="alt" onclick="document.body.classList.add('key');window.print()">Print with teacher notes</button></span>
+</div>
+
+<main class="page" aria-labelledby="t">
+  <p class="note teacher-tag" style="margin:0 0 8px">On screen you can see the teacher notes below. <b>Print student copy</b> leaves them off the page.</p>
+  <header>
+    <div>
+      <h1 id="t">Comparing Numbers</h1>
+      <p class="sub">Exit ticket · Pip's Number Garden · 2nd grade (2.NBT.A.4)</p>
+    </div>
+    <div class="who">
+      <span>Name <i></i></span>
+      <span>Date <i></i></span>
+    </div>
+  </header>
+
+  <p class="howto"><b>How to compare:</b> Start with the <b class="c-h">hundreds</b>. If they are the same, look at the <b class="c-t">tens</b>, then the <b class="c-o">ones</b>. Write the sign in the circle. Then finish the sentence.</p>
+  <div class="signs" aria-label="The three signs">
+    <span><b>&gt;</b> is greater than</span>
+    <span><b>&lt;</b> is less than</span>
+    <span><b>=</b> is equal to</span>
+  </div>
+
+  <ol class="probs">
+    <li>
+      <div class="row1">
+        <span class="num-label" aria-hidden="true"></span>
+        <div class="cmp" aria-label="452 compared with 425"><span>452</span><span class="box" aria-hidden="true"></span><span>425</span></div>
+        <div class="decide">Which place decides? <label><input type="checkbox"> <span class="c-h">Hundreds</span></label><label><input type="checkbox"> <span class="c-t">Tens</span></label><label><input type="checkbox"> <span class="c-o">Ones</span></label></div>
+      </div>
+      <div class="frame"><i></i> is <i class="w"></i> <i></i>.</div>
+    </li>
+    <li>
+      <div class="row1">
+        <span class="num-label" aria-hidden="true"></span>
+        <div class="cmp" aria-label="308 compared with 380"><span>308</span><span class="box" aria-hidden="true"></span><span>380</span></div>
+        <div class="decide">Which place decides? <label><input type="checkbox"> <span class="c-h">Hundreds</span></label><label><input type="checkbox"> <span class="c-t">Tens</span></label><label><input type="checkbox"> <span class="c-o">Ones</span></label></div>
+      </div>
+      <div class="frame"><i></i> is <i class="w"></i> <i></i>.</div>
+    </li>
+    <li>
+      <div class="row1">
+        <span class="num-label" aria-hidden="true"></span>
+        <div class="cmp" aria-label="617 compared with 617"><span>617</span><span class="box" aria-hidden="true"></span><span>617</span></div>
+        <div class="decide">Which place decides? <label><input type="checkbox"> <span class="c-h">Hundreds</span></label><label><input type="checkbox"> <span class="c-t">Tens</span></label><label><input type="checkbox"> <span class="c-o">Ones</span></label><label><input type="checkbox"> None, they match</label></div>
+      </div>
+      <div class="frame"><i></i> is <i class="w"></i> <i></i>.</div>
+    </li>
+    <li>
+      <div class="row1">
+        <span class="num-label" aria-hidden="true"></span>
+        <div class="cmp" aria-label="739 compared with 829"><span>739</span><span class="box" aria-hidden="true"></span><span>829</span></div>
+        <div class="decide">Which place decides? <label><input type="checkbox"> <span class="c-h">Hundreds</span></label><label><input type="checkbox"> <span class="c-t">Tens</span></label><label><input type="checkbox"> <span class="c-o">Ones</span></label></div>
+      </div>
+      <div class="frame"><i></i> is <i class="w"></i> <i></i>.</div>
+    </li>
+  </ol>
+
+  <div class="foot teacher">
+    <section>
+      <h2>For the teacher: what each problem checks</h2>
+      <ul>
+        <li><b>1.</b> Same hundreds, so the tens decide.</li>
+        <li><b>2.</b> A zero in the tens. Students who skip it often choose the wrong sign.</li>
+        <li><b>3.</b> Every place matches, so the numbers are equal.</li>
+        <li><b>4.</b> The hundreds decide, and the answer is less than.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Next step</h2>
+      <ul>
+        <li><b>4 of 4:</b> ready for the next level.</li>
+        <li><b>3 of 4:</b> almost there. Check which place they missed.</li>
+        <li><b>2 or fewer:</b> practice the hundreds first. Cover the tens and ones, then add them back.</li>
+        <li><b>Right sign, wrong words?</b> Have them say the sentence out loud before they write the sign.</li>
+      </ul>
+    </section>
+  </div>
+  <p class="note teacher">Answers: 1. 452 &gt; 425 (tens) · 2. 308 &lt; 380 (tens) · 3. 617 = 617 · 4. 739 &lt; 829 (hundreds). A portfolio concept by Tshwjxeeb Vaaj.</p>
+</main>
+</body>
+</html>

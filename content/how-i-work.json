@@ -22,6 +22,29 @@
       ]
     ]
   },
+  "process": {
+    "label": "Before the crew arrives",
+    "title": "The design decisions come first.",
+    "body": "Every project starts with the same instructional design work, and that part is mine: finding the real gap, deciding what people need to do, and planning how I'll know it worked. The AI crew joins once the plan is clear, to help me build it faster.",
+    "steps": [
+      [
+        "01 · Analyze",
+        "Find the real performance gap: a season I coached, a lesson I observed alongside a teacher, a regulation I read line by line."
+      ],
+      [
+        "02 · Design",
+        "Turn it into behaviors, measurable objectives and an assessment plan, using action mapping, ADDIE and UDL."
+      ],
+      [
+        "03 · Prototype",
+        "Storyboard and prototype in Figma, Rise 360 or HTML, then walk the flow the way a learner would."
+      ],
+      [
+        "04 · Build & revise",
+        "Direct the AI crew to speed up the build, then review every take and revise from feedback."
+      ]
+    ]
+  },
   "crew": {
     "label": "Scene 1 · The crew",
     "title": "Everyone on set has one clear job.",

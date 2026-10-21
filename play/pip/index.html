@@ -162,6 +162,19 @@ body{
 .foot{display:flex; justify-content:center; gap:10px; flex-wrap:wrap}
 .link{background:none; border:0; font:700 14px var(--body); color:var(--muted); text-decoration:underline; text-underline-offset:3px; cursor:pointer; padding:6px}
 
+.say-row{display:flex; gap:8px; align-items:flex-end; flex:1; min-width:0}
+.hear{flex:0 0 auto; width:44px; height:44px; border-radius:50%; border:2px solid var(--line); background:#fff; cursor:pointer; display:grid; place-items:center; box-shadow:0 2px 0 var(--line)}
+.hear svg{width:22px; height:22px}
+.hear:focus-visible{outline:3px solid var(--berry); outline-offset:2px}
+.pill[aria-pressed="true"]{background:var(--leaf-soft); border-color:#9fc77f}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.keys{font-size:14px; color:var(--muted)} .keys kbd{font:700 13px var(--body); background:#fff; border:1px solid var(--line); border-bottom-width:2px; border-radius:6px; padding:0 6px}
+.report{width:100%; border-collapse:collapse; margin-top:8px; font-size:15px}
+.report th,.report td{text-align:left; padding:6px 8px; border-bottom:1px solid var(--line)}
+.report th{font-size:13px; color:var(--muted)}
+.report td.n{font-variant-numeric:tabular-nums}
+body.calm .spark{display:none}
+body.calm *{animation:none!important; transition:none!important}
 @media (max-width:380px){
   .col.h{width:50px} .flat{width:22px;height:22px;background-size:2.2px 2.2px}
   .rod{height:22px} .chip{min-width:36px}
@@ -178,7 +191,8 @@ body{
       <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c4 3 6 7 6 11a6 6 0 0 1-12 0c0-4 2-8 6-11z" fill="#b5803f"/><path d="M12 7c1.5 2 2 4 2 6" stroke="#f3dcb6" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
       <span class="n" id="seedN">0</span> seeds
     </button>
-    <button class="pill" id="soundBtn" aria-pressed="true">Sound on</button>
+    <button class="pill" id="readBtn" aria-pressed="false" title="Pip reads every prompt out loud">Read to me</button>
+    <button class="pill" id="calmBtn" aria-pressed="false" title="Turns off sounds, sparkles and motion">Calm mode</button>
   </header>
 
   <div class="strip">
@@ -209,7 +223,7 @@ body{
           <ellipse cx="30" cy="84" rx="8" ry="5" fill="#e6b4a0"/><ellipse cx="70" cy="84" rx="8" ry="5" fill="#e6b4a0"/>
         </svg>
       </div>
-      <div class="bubble" id="say" aria-live="polite"></div>
+      <div class="say-row"><div class="bubble" id="say" aria-live="polite"></div><button class="hear" id="hearBtn" aria-label="Hear Pip say it"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="#4a3a2c"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="#4a3a2c" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button></div>
     </div>
 
     <div class="controls" id="controls"></div>
@@ -218,6 +232,7 @@ body{
   <div class="foot">
     <button class="link" id="gardenLink">My garden</button>
     <button class="link" id="grownLink">For grown-ups</button>
+    <a class="link" href="exit-ticket.html" target="_blank" rel="noopener">Printable exit ticket</a>
   </div>
 </div>
 
@@ -240,8 +255,10 @@ const CHEERS = ["Yes!","You got it!","Nice looking!","Wonderful!","That's it!"];
 const KEY = "pip-number-garden-v1";
 
 const $ = id => document.getElementById(id);
-let save = {seeds:0, level:0, plants:[], sound:true};
+let save = {seeds:0, level:0, plants:[], sound:true, calm:false, read:false, stats:{}, sets:0};
 try{ const raw = localStorage.getItem(KEY); if(raw) save = Object.assign(save, JSON.parse(raw)); }catch(e){}
+if(!save.stats || typeof save.stats!=="object") save.stats = {};
+function stat(level){ const k = String(level); return save.stats[k] = save.stats[k] || {rounds:0, first:0, sets:0, passed:0}; }
 function persist(){ try{ localStorage.setItem(KEY, JSON.stringify(save)); }catch(e){} }
 
 let S; // round state
@@ -300,7 +317,7 @@ const LEAF_PRACTICE = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fi
 /* ---------- sound (starts only after a tap) ---------- */
 let ac = null;
 function tone(freq, start, dur, vol){
-  if(!save.sound) return;
+  if(!save.sound || save.calm) return;
   try{
     ac = ac || new (window.AudioContext||window.webkitAudioContext)();
     const t = ac.currentTime + start, o = ac.createOscillator(), g = ac.createGain();
@@ -325,6 +342,12 @@ function newRound(){
   Object.assign(S, {a, b, len:LEVELS[S.level].digits, placeIdx:0, phase:"place", mistake:false});
   render();
 }
+function crateLabel(n){
+  const d = digitsOf(n, S.len), names = PLACE[S.len];
+  const parts = names.map((p,i)=>`${d[i]} ${d[i]===1 ? p.replace(/s$/,"") : p}`).join(", ");
+  const look = S.phase==="place" ? `. Choose this number if it has more ${names[S.placeIdx]}` : "";
+  return `${n}: ${parts}${look}`;
+}
 function sideDigit(side, i){ return digitsOf(side==="a"?S.a:S.b, S.len)[i]; }
 
 function render(){
@@ -340,7 +363,7 @@ function render(){
 
   const A = $("crateA"), B = $("crateB");
   A.innerHTML = crateHTML(S.a, S.len); B.innerHTML = crateHTML(S.b, S.len);
-  A.setAttribute("aria-label", `${S.a}`); B.setAttribute("aria-label", `${S.b}`);
+  A.setAttribute("aria-label", crateLabel(S.a)); B.setAttribute("aria-label", crateLabel(S.b));
   A.classList.remove("win"); B.classList.remove("win");
   const stage = $("stage");
   stage.classList.toggle("focus", S.phase==="place");
@@ -366,8 +389,26 @@ function render(){
     c.innerHTML = `<button class="btn go" id="goBtn">${S.round>=4?"See my garden grow":"Next numbers"}</button>`;
     $("goBtn").onclick = advance; $("goBtn").focus({preventScroll:true});
   } else { c.innerHTML = ""; }
+  if(S.phase==="symbol" && document.activeElement && document.activeElement.closest && document.activeElement.closest(".stage")){
+    const first = c.querySelector(".sym"); if(first) first.focus({preventScroll:true});
+  }
 }
-function say(html){ $("say").innerHTML = html; }
+function say(html){ $("say").innerHTML = html; if(save.read) speak(); }
+/* ---------- read aloud (browser speech, no audio files) ---------- */
+const canSpeak = "speechSynthesis" in window;
+function spoken(){
+  return $("say").textContent.replace(/\s+/g," ").trim()
+    .replace(/>/g," is greater than ").replace(/</g," is less than ");
+}
+function speak(extra){
+  if(!canSpeak) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(extra || spoken());
+    u.rate = 0.9; u.pitch = 1.1; u.lang = "en-US";
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
 
 function pickPlace(choice){
   const i = S.placeIdx, da = sideDigit("a",i), db = sideDigit("b",i);
@@ -399,7 +440,9 @@ function pickSym(s){
     S.sym = s; S.phase = "next";
     const first = !S.mistake;
     S.results[S.round] = first;
-    if(first){ save.seeds++; persist(); }
+    const st = stat(S.level); st.rounds++; if(first) st.first++;
+    if(first){ save.seeds++; }
+    persist();
     render();
     $("crateA").classList.toggle("win", s===">"); $("crateB").classList.toggle("win", s==="<");
     const word = s===">" ? "is greater than" : s==="<" ? "is less than" : "is equal to";
@@ -425,6 +468,7 @@ function endSet(){
   const grew = Math.floor(save.seeds/5) > save.plants.length;
   while(Math.floor(save.seeds/5) > save.plants.length) save.plants.push(kind);
   let up = false;
+  const st = stat(S.level); st.sets++; if(score>=4) st.passed++; save.sets = (save.sets||0) + 1;
   if(score>=4 && save.level<3){ save.level++; up = true; }
   persist();
   S.phase = "end"; render();
@@ -443,7 +487,7 @@ function endSet(){
 
 /* ---------- celebration ---------- */
 function burst(){
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(save.calm || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const card = $("card"), colors = ["#f2cf63","#c9574f","#7fae63","#8dbbd6"];
   for(let i=0;i<14;i++){
     const s = document.createElement("span"); s.className = "spark";
@@ -479,6 +523,27 @@ function openGarden(){
     <div class="row"><button class="btn go" id="closeG">Back to the numbers</button></div>`);
   $("closeG").onclick = () => { if(S.phase==="end"){ closeSheet(); newSet(); } else closeSheet(); };
 }
+function reportRows(){
+  return LEVELS.map((L,i)=>{ const st = save.stats[String(i)] || {rounds:0, first:0, sets:0, passed:0};
+    return {level:L.name, skill:L.hint, rounds:st.rounds, first:st.first, pct: st.rounds ? Math.round(st.first/st.rounds*100) : null, sets:st.sets, passed:st.passed}; });
+}
+function reportHTML(){
+  const rows = reportRows();
+  if(!rows.some(r=>r.rounds)) return `<p class="note">No rounds played yet on this device.</p>`;
+  return `<table class="report"><thead><tr><th scope="col">Level</th><th scope="col">Rounds</th><th scope="col">First try</th><th scope="col">Sets passed</th></tr></thead><tbody>` +
+    rows.map(r=>`<tr><th scope="row">${r.level}</th><td class="n">${r.rounds}</td><td class="n">${r.pct===null?"–":r.pct+"%"}</td><td class="n">${r.passed} of ${r.sets}</td></tr>`).join("") +
+    `</tbody></table><p class="note">Current level: <strong>${LEVELS[save.level].name}</strong> · ${save.seeds} seeds · ${save.plants.length} plants</p>`;
+}
+function downloadReport(){
+  const q = v => `"${String(v).replace(/"/g,'""')}"`;
+  const lines = [["Pip's Number Garden progress report"],["Downloaded", new Date().toLocaleString()],["Current level", LEVELS[save.level].name],["Seeds", save.seeds],["Plants", save.plants.length],[],
+    ["Level","Skill","Rounds","First-try correct","First-try %","Sets played","Sets passed (4 of 5)"],
+    ...reportRows().map(r=>[r.level, r.skill, r.rounds, r.first, r.pct===null?"":r.pct+"%", r.sets, r.passed])];
+  const csv = lines.map(l=>l.map(q).join(",")).join("\r\n");
+  const url = URL.createObjectURL(new Blob(["\ufeff"+csv], {type:"text/csv;charset=utf-8"}));
+  const a = document.createElement("a"); a.href = url; a.download = `pip-progress-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
 function openGrown(){
   sheet(`<div class="grown">
     <h2>For grown-ups</h2>
@@ -491,13 +556,24 @@ function openGrown(){
       <li><strong>Move up at 80%.</strong> Four of five correct on the first try unlocks the next level, from two-digit numbers up to three-digit numbers with ties.</li>
       <li><strong>Mistakes become practice.</strong> A wrong answer gets a hint and a retry. Seeds are only earned on the first try, so the garden reflects real understanding.</li>
     </ul>
-    <p class="note">Progress is saved in this browser only.</p>
-    <div class="row"><button class="btn" id="resetBtn">Start over</button><button class="btn go" id="closeX">Close</button></div>
+    <h2 style="font-size:21px;margin-top:16px">Progress report</h2>
+    <p class="note">First-try answers show real understanding, so that's what this counts. Four of five on the first try moves a student up.</p>
+    ${reportHTML()}
+    <h2 style="font-size:21px;margin-top:16px">Ways to play</h2>
+    <ul>
+      <li><strong>Read to me</strong> has Pip read every prompt and the full comparison sentence out loud. The speaker button repeats the last thing Pip said.</li>
+      <li><strong>Calm mode</strong> turns off sounds, sparkles and motion.</li>
+      <li class="keys"><strong>Keyboard:</strong> <kbd>←</kbd> or <kbd>A</kbd> picks the left number, <kbd>→</kbd> or <kbd>B</kbd> the right, <kbd>S</kbd> means Same. Type <kbd>&gt;</kbd> <kbd>&lt;</kbd> <kbd>=</kbd> for the sign, and <kbd>Enter</kbd> for the next numbers.</li>
+    </ul>
+    <p>A <a href="exit-ticket.html" target="_blank" rel="noopener">printable exit ticket</a> checks the same skill on paper after a session.</p>
+    <p class="note">Progress is saved in this browser only, on this device.</p>
+    <div class="row"><button class="btn" id="csvBtn">Download report</button><button class="btn" id="resetBtn">Start over</button><button class="btn go" id="closeX">Close</button></div>
   </div>`);
+  $("csvBtn").onclick = downloadReport;
   $("closeX").onclick = closeSheet;
   $("resetBtn").onclick = () => {
     const b = $("resetBtn");
-    if(b.dataset.armed){ save = {seeds:0, level:0, plants:[], sound:save.sound}; persist(); closeSheet(); newSet(); }
+    if(b.dataset.armed){ save = {seeds:0, level:0, plants:[], sound:save.sound, calm:save.calm, read:save.read, stats:{}, sets:0}; persist(); closeSheet(); newSet(); }
     else { b.dataset.armed = "1"; b.textContent = "Tap again to erase the garden"; }
   };
 }
@@ -507,9 +583,27 @@ $("crateB").onclick = () => pickPlace("b");
 $("seedBtn").onclick = openGarden;
 $("gardenLink").onclick = openGarden;
 $("grownLink").onclick = openGrown;
-function syncSound(){ $("soundBtn").textContent = save.sound ? "Sound on" : "Sound off"; $("soundBtn").setAttribute("aria-pressed", String(save.sound)); }
-$("soundBtn").onclick = () => { save.sound = !save.sound; persist(); syncSound(); if(save.sound) sndStep(); };
-syncSound();
+function syncToggles(){
+  $("calmBtn").setAttribute("aria-pressed", String(!!save.calm)); $("calmBtn").textContent = save.calm ? "Calm mode on" : "Calm mode";
+  document.body.classList.toggle("calm", !!save.calm);
+  $("readBtn").setAttribute("aria-pressed", String(!!save.read)); $("readBtn").textContent = save.read ? "Reading to me" : "Read to me";
+  if(!canSpeak){ $("readBtn").hidden = true; $("hearBtn").hidden = true; }
+}
+$("calmBtn").onclick = () => { save.calm = !save.calm; persist(); syncToggles(); };
+$("readBtn").onclick = () => { save.read = !save.read; persist(); syncToggles(); if(save.read) speak(); else if(canSpeak) speechSynthesis.cancel(); };
+$("hearBtn").onclick = () => speak();
+syncToggles();
+document.addEventListener("keydown", e => {
+  if(!$("veil").hidden || e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key;
+  if(S.phase==="place"){
+    if(k==="ArrowLeft" || k==="a" || k==="A"){ e.preventDefault(); pickPlace("a"); }
+    else if(k==="ArrowRight" || k==="b" || k==="B"){ e.preventDefault(); pickPlace("b"); }
+    else if(k==="s" || k==="S" || k==="="){ e.preventDefault(); pickPlace("same"); }
+  } else if(S.phase==="symbol"){
+    if(k===">" || k==="<" || k==="="){ e.preventDefault(); pickSym(k); }
+  }
+});
 
 newSet();
 })();
