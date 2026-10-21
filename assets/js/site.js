@@ -81,3 +81,16 @@
   window.addEventListener("load", sync);
   sync();
 })();
+
+// Read-more panels: open the panel a link points to (e.g. "See it" → #storyboard), then scroll to it.
+(function () {
+  function openTarget() {
+    if (!location.hash) return;
+    var el = document.getElementById(location.hash.slice(1));
+    if (!el) return;
+    var d = el.tagName === 'DETAILS' ? el : el.closest('details');
+    if (d && !d.open) { d.open = true; setTimeout(function () { el.scrollIntoView({ block: 'start' }); }, 0); }
+  }
+  window.addEventListener('hashchange', openTarget);
+  openTarget();
+})();

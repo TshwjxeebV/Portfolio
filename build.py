@@ -7,7 +7,6 @@ import html
 # ---------------- SETTINGS (edit me) ----------------
 EMAIL = "TshwjxeebKVaaj@gmail.com"
 LINKEDIN = "https://www.linkedin.com/in/tshwjxeebvaaj/"
-RESUME = "#"                               # TODO: link to your résumé PDF (e.g. assets/resume.pdf)
 COACHING_URL = "play/coaching/"
 PIP_URL = "play/pip/"
 TV_URL = "play/tv-sales/"
@@ -68,7 +67,6 @@ def footer():
   <div class="wrap">
     <a href="mailto:{e(EMAIL)}">{e(EMAIL)}</a>
     {f'<a href="{e(LINKEDIN)}" target="_blank" rel="noopener">LinkedIn</a>' if LINKEDIN not in ("", "#") else ""}
-    {f'<a href="{e(RESUME)}" target="_blank" rel="noopener">Résumé (PDF)</a>' if RESUME not in ("", "#") else ""}
     <span>© <span id="year">2026</span> Tshwjxeeb Vaaj</span>
   </div>
 </footer>
@@ -191,6 +189,27 @@ def access(built, nxt):
 """
 
 
+def glance(label, audience, problem, role, constraint, outcome):
+    """20-second summary card at the top of a case study."""
+    rows = [("Audience", audience), ("Problem", problem), ("My role", role), ("Constraint", constraint), ("Outcome", outcome)]
+    dl = "".join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k, v in rows)
+    return f"""<section class="glance-sec" aria-label="Project at a glance"><div class="wrap reveal">
+  <div class="glance glass">
+    <p class="concept-tag">{e(label)}</p>
+    <dl>{dl}</dl>
+  </div>
+</div></section>
+"""
+
+
+def more(title, teaser, inner, sid=None):
+    """Collapsible 'Read more' panel: depth for readers who want it, nothing deleted."""
+    i = f' id="{sid}"' if sid else ""
+    return (f'<details class="more reveal"{i}><summary><span class="more-t">{e(title)}</span>'
+            f'<span class="more-s">{e(teaser)}</span><span class="more-i" aria-hidden="true">+</span></summary>'
+            f'<div class="more-body">{inner}</div></details>')
+
+
 def write(name, content):
     with open(name, "w", encoding="utf-8") as f:
         f.write(content)
@@ -293,7 +312,7 @@ home += f"""<main>
     <div class="box reveal">
       <p class="eyebrow">My approach</p>
       <h2 class="h-md">Built from real moments, not theory.</h2>
-      <p>Every module starts with something I lived: a team that turned a winless season into a semifinal run, a 2nd grade student teacher leading a place-value lesson, and a sales floor where the training never let me practice. I turn those moments into safe practice that feels real.</p>
+      <p>Every module starts with something I lived or saw up close: a team that turned a winless season into a semifinal run, a 2nd grade classroom where students mixed up their signs, and a sales floor where the training never let me practice. I turn those moments into safe practice that feels real.</p>
       <div class="steps"><span>01 Read</span><span>02 Adapt</span><span>03 Execute</span></div>
     </div>
   </div>
@@ -302,13 +321,19 @@ home += f"""<main>
 <section id="work" aria-labelledby="work-h">
   <div class="wrap">
     <p class="eyebrow reveal">Selected work</p>
-    <h2 class="h-lg reveal" id="work-h">Five projects, five kinds of learners.</h2>
-    <div class="tiles c5">
-      <a class="tile reveal" href="coaching.html"><div class="shot"><img src="assets/img/tile-coaching.jpg" alt="Coaching Through Conflict on a laptop at home" loading="lazy"></div><h3>Coaching Through Conflict</h3><span class="role">Scenario-based training →</span></a>
-      <a class="tile reveal d1" href="lab-ready.html"><div class="shot"><img src="assets/img/tile-labready.jpg" alt="A lab technician in safety goggles pouring a liquid into a flask" loading="lazy"></div><h3>Lab Ready</h3><span class="role">Compliance training →</span></a>
-      <a class="tile reveal d1" href="pip.html"><div class="shot"><img src="assets/img/tile-pip.jpg" alt="Pip's Number Garden on a phone on a wooden table" loading="lazy"></div><h3>Pip's Number Garden</h3><span class="role">Game-based learning →</span></a>
-      <a class="tile reveal d2" href="tv-sales.html"><div class="shot"><img src="assets/img/tile-tv.jpg" alt="The TV Sales Enablement Simulator open on a laptop in an electronics store" loading="lazy"></div><h3>The TV Sales Enablement Simulator</h3><span class="role">Sales enablement →</span></a>
-      <a class="tile reveal d2" href="software-training.html"><div class="shot"><img src="assets/img/tile-software-ipad.jpg" alt="The Schedule a Patient Follow-Up training on an iPad at a hospital front desk" loading="lazy"></div><h3>Schedule a Patient Follow-Up</h3><span class="role">Software training →</span></a>
+    <h2 class="h-lg reveal" id="work-h">Three projects, three kinds of learners.</h2>
+    <p class="lead reveal work-lead">Leadership, corporate compliance and K-12: one way of designing, for any team.</p>
+    <div class="tiles c3">
+      <a class="tile reveal" href="coaching.html"><div class="shot"><img src="assets/img/tile-coaching.jpg" alt="Coaching Through Conflict on a laptop at home" loading="lazy"></div><h3>Coaching Through Conflict</h3><span class="role">Leadership · Scenario-based training →</span></a>
+      <a class="tile reveal d1" href="lab-ready.html"><div class="shot"><img src="assets/img/tile-labready.jpg" alt="A lab technician in safety goggles pouring a liquid into a flask" loading="lazy"></div><h3>Lab Ready</h3><span class="role">Corporate · Compliance in Rise 360 →</span></a>
+      <a class="tile reveal d2" href="pip.html"><div class="shot"><img src="assets/img/tile-pip.jpg" alt="Pip's Number Garden on a phone on a wooden table" loading="lazy"></div><h3>Pip's Number Garden</h3><span class="role">K-12 · Game-based learning →</span></a>
+    </div>
+    <div class="more-work reveal">
+      <p class="eyebrow">More work</p>
+      <div class="mini-tiles">
+        <a class="mini" href="tv-sales.html"><img src="assets/img/tile-tv.jpg" alt="" loading="lazy"><span><strong>The TV Sales Enablement Simulator</strong><small>Sales enablement · HTML lesson built for Rise →</small></span></a>
+        <a class="mini" href="software-training.html"><img src="assets/img/tile-software-ipad.jpg" alt="" loading="lazy"><span><strong>Schedule a Patient Follow-Up</strong><small>Software training · Figma prototype →</small></span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -375,7 +400,7 @@ about += f"""<main>
     <h2 class="h-lg reveal" style="margin-bottom:28px">The classroom and the court, side by side.</h2>
     <div class="two">
       <p class="reveal">I didn't choose between teaching and coaching. I did both at the same time. During my years as a full-time substitute teacher and as a chemistry student teacher, I was also running a boys' volleyball program as its program director and head coach. My days were in the classroom teaching high school chemistry aligned to California's science standards, and my afternoons were in the gym breaking complex motor skills into steps athletes could practice and master.</p>
-      <p class="reveal d1">The two roles worked hand in hand. Both came down to the same skills: planning a clear lesson, breaking hard ideas into steps, and checking whether learners could actually do it. Along the way I mentored the coaches on my staff and a 2nd grade student teacher, so my learners have ranged from kindergarten through high school graduation, plus the adults who teach them.</p>
+      <p class="reveal d1">The two roles worked hand in hand. Both came down to the same skills: planning a clear lesson, breaking hard ideas into steps, and checking whether learners could actually do it. Along the way I mentored the coaches on my staff and collaborated with a 2nd grade teacher, so my learners have ranged from kindergarten through high school graduation, plus the adults who teach them.</p>
     </div>
     <p class="reveal bg-close">Instructional design brings both sides of my experience together. I understand how learning works from my time in the classroom and my graduate study, and I've applied Universal Design for Learning (UDL) in the lab as well as on the court. That foundation lets me partner with subject matter experts in any field: they bring the expertise, and I bring the strategies and tools that turn it into training people can actually apply. I'm a creative at heart, and I'm excited to build learning that helps teams and organizations perform. Let's connect and explore what we can create together.</p>
   </div>
@@ -409,7 +434,7 @@ COACH_PROCESS = process_strip([
     ("Analyze", "Used my own 0–10 season as the needs analysis, then action-mapped the goal down to on-court behaviors.", "#action-map", "assets/img/action-map.png"),
     ("Design", "Wrote a text-based storyboard for every screen and built a style guide so all 68 screens stay consistent.", "#storyboard", "assets/img/storyboard.png"),
     ("Develop", "Went from grey-box wireframes to a 68-screen branching prototype in Figma, then started the build in Articulate Storyline 360.", "#wireframes", "assets/img/wireframes.png"),
-    ("Evaluate", "Planned a pilot with other high school volleyball coaches, measured at all four Kirkpatrick levels.", "#evaluation", "assets/img/coaching-decision.jpg"),
+    ("Evaluate", "Wrote an evaluation plan at all four Kirkpatrick levels for a future group of high school volleyball coaches.", "#evaluation", "assets/img/coaching-decision.jpg"),
 ])
 COACH_OBJ = objectives(
     "Given a player-conflict moment in practice or a match (a distracted huddle, a disengaged star, a teammate's frustration boiling over), a new head coach will be able to protect the player and the team's energy by:",
@@ -432,7 +457,7 @@ COACH_ACCESS = access(
      "Offer narrated chalk talks with captions as an option."])
 COACH_EVAL = evaluation(
     "Evaluation plan",
-    "The module is the next test, so I've planned how I'll measure it with a pilot group of high school volleyball coaches, using Kirkpatrick's four levels.",
+    "The module is the next test, so I've planned how I'd measure it with a group of high school volleyball coaches, using Kirkpatrick's four levels.",
     [("1 · Reaction", "Coaches find the scenarios realistic and useful.", "Short survey after the module: realism, relevance and confidence (1–5).", "Planned"),
      ("2 · Learning", "Coaches spot the cause and pick the SBI and open-question responses.", "First-try choices at each decision; mental-timeout guess vs. the real cause.", "Built into the prototype"),
      ("3 · Behavior", "Coaches use the habits at real practices.", "Two-week self-check against the clipboard habits, plus an assistant coach's observation.", "Planned"),
@@ -442,6 +467,12 @@ c += nav("work")
 c += "<main class=\"cs\">\n"
 c += cs_hero("assets/img/coaching-hero.jpg", "“In good teams, coaches hold players accountable. In great teams, players hold players accountable.”",
              "— Roy Keane", "Experience the project", C)
+c += glance("Portfolio concept · Figma prototype and HTML build, Storyline 360 in progress",
+    "New varsity volleyball head coaches, assistants stepping up, and the program directors who train them.",
+    "New coaches meet player conflict with control and pressure, which drains both the player and the team. I did it myself during a 0–10 season.",
+    "Sole designer and subject matter expert: needs analysis, action map, storyboard, style guide, prototype and build.",
+    "No real student-athletes on screen and no pilot group yet, so the scenes use AI-generated players with consistent jersey numbers.",
+    "A 68-screen branching scenario that plays in any browser, built on the method that took my team from 0–10 to 6–4 and a first-ever semifinal.")
 c += f"""<section class="cs-intro">
   <div class="wrap split">
     <div class="reveal">
@@ -463,64 +494,56 @@ c += f"""<section class="cs-intro">
 <section><div class="wrap reveal">
   <h2 class="h-md">The Problem</h2>
   {paras("This isn't a hypothetical. I'm the program director and head coach it's based on. In my fourth season, our high school boys' program finished last in our league at 0–10. In my fifth season, we placed third at 6–4 and competed our way to a historic spot among the top four teams in our divisional playoffs.",
-         "What I discovered is that a coach has to protect two things at once: the player and the team's energy. In that fourth season, I failed to do both. I got angry, micromanaged every rep and piled pressure on my players, and the team's energy drained away.",
-         "Then I realized the two work hand in hand. You can't have one without the other, because each feeds directly off the other: a player who feels protected gives energy back to the team, and a team with good energy lifts every player in it.",
-         "We're in a new time of coaching, one that's moving away from yelling and reprimands and toward empowerment, giving athletes an identity they can carry off of the court. We define who they are as people; they define who they are as a team. But we can only push them so far. In an environment that demands results, pushing is all we know how to do, and we push our athletes until they break. It's here, in this moment, that we need to know how to lift our athletes. As coaches, we can't pull our athletes to where we want them; we can't force them to be great. But we can empower them to achieve great things on their own.")}
+         "What I discovered is that a coach has to protect two things at once: the player and the team's energy. In that fourth season, I failed to do both. I got angry, micromanaged every rep and piled pressure on my players, and the team's energy drained away.")}
+  <details class="more reveal"><summary><span class="more-t">Read more</span><span class="more-s">Why the player and the team's energy rise and fall together</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body">{paras("Then I realized the two work hand in hand. You can't have one without the other, because each feeds directly off the other: a player who feels protected gives energy back to the team, and a team with good energy lifts every player in it.",
+         "We're in a new time of coaching, one that's moving away from yelling and reprimands and toward empowerment, giving athletes an identity they can carry off of the court. We define who they are as people; they define who they are as a team. But we can only push them so far. In an environment that demands results, pushing is all we know how to do, and we push our athletes until they break. It's here, in this moment, that we need to know how to lift our athletes. As coaches, we can't pull our athletes to where we want them; we can't force them to be great. But we can empower them to achieve great things on their own.")}</div></details>
   <p class="lead objective-callout"><strong>Learning objective:</strong> By the end of this module, coaches will be able to handle player conflict in ways that protect the player and the team's energy.</p>
 </div></section>
 
 {COACH_OBJ}
-<section><div class="wrap reveal">
-  <h2 class="h-md">The Process</h2>
-  {paras("I followed the ADDIE model (Analyze, Design, Develop, Implement, and Evaluate). My analysis wasn't a survey; it was my own season. In my fourth season, I had a talented group, many of them just up from JV, but the way I coached held them back: I micromanaged every rep, got angry, and my assistants and I piled pressure on kids who mostly lacked varsity experience. We went 0–10. Then I sat in on a friend's college practice and watched him give his athletes real autonomy, and I rebuilt how I coached around that. The next season we went 6–4 and reached the semifinals. I distilled what changed into three principles (backed by the SBI and GROW frameworks), then designed a storyboard, built a clickable prototype, and refined it.",
-         "Each phase stayed anchored to one question: what does a coach need to do in the moment, not just know? I learned the answer the hard way, and the module exists so other coaches don't have to.")}
-</div></section>
-
 <section id="action-map"><div class="wrap split">
   <div class="reveal">
     <h2 class="h-md">Action Map</h2>
-    {paras("I served as my own subject matter expert, drawing on five years as a head coach and program director and on what I saw sitting in on a friend's college men's volleyball practices. Using Cathy Moore's Action Mapping model, I started with the goal instead of the content: new head coaches handling player conflict in ways that protect both the player and the team's energy. From there, I mapped the on-court behaviors coaches need to do to reach that goal, rather than what they need to know about conflict theory.",
-           "Each behavior then broke down into smaller sub-actions. To keep the training focused, I built the scenarios only around the highest-leverage sub-actions, shown in yellow: looking for the cause behind the behavior, using SBI and “I” statements, and asking open questions so players become part of the solution. Learners practice these in every set because they address the root causes behind most player conflict: unclear expectations, misread effort, and frustration with nowhere to go. If new coaches master these, the larger goal is far more likely to follow.")}
+    {paras("I served as my own subject matter expert, drawing on five years as a head coach and program director and on what I saw sitting in on a friend's college men's volleyball practices. Using Cathy Moore's Action Mapping model, I started with the goal instead of the content: new head coaches handling player conflict in ways that protect both the player and the team's energy. From there, I mapped the on-court behaviors coaches need to do to reach that goal, rather than what they need to know about conflict theory.")}
+    <details class="more reveal"><summary><span class="more-t">Read more</span><span class="more-s">Why I built the scenarios around three high-leverage sub-actions</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body">{paras("Each behavior then broke down into smaller sub-actions. To keep the training focused, I built the scenarios only around the highest-leverage sub-actions, shown in yellow: looking for the cause behind the behavior, using SBI and “I” statements, and asking open questions so players become part of the solution. Learners practice these in every set because they address the root causes behind most player conflict: unclear expectations, misread effort, and frustration with nowhere to go. If new coaches master these, the larger goal is far more likely to follow.")}</div></details>
   </div>
   <div class="visual reveal d1"><img src="assets/img/action-map.png" alt="Action map: the goal branches into three behaviors and their sub-actions, with the highest-leverage actions highlighted in yellow" loading="lazy"></div>
 </div></section>
 
-<section id="storyboard"><div class="wrap split">
-  <div class="reveal">
-    <h2 class="h-md">Text-Based Storyboard</h2>
+<section id="artifacts"><div class="wrap">
+  <div class="reveal"><p class="eyebrow">Design artifacts</p><h2 class="h-md">How I built it</h2><p>Open any step to see the artifact and the decisions behind it.</p></div>
+  <div class="more-list">
+  <details class="more reveal"><summary><span class="more-t">The Process</span><span class="more-s">ADDIE, with my own 0–10 season as the needs analysis</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body"><div class="more-grid">
+  {paras("I followed the ADDIE model (Analyze, Design, Develop, Implement, and Evaluate). My analysis wasn't a survey; it was my own season. In my fourth season, I had a talented group, many of them just up from JV, but the way I coached held them back: I micromanaged every rep, got angry, and my assistants and I piled pressure on kids who mostly lacked varsity experience. We went 0–10. Then I sat in on a friend's college practice and watched him give his athletes real autonomy, and I rebuilt how I coached around that. The next season we went 6–4 and reached the semifinals. I distilled what changed into three principles (backed by the SBI and GROW frameworks), then designed a storyboard, built a clickable prototype, and refined it.",
+         "Each phase stayed anchored to one question: what does a coach need to do in the moment, not just know? I learned the answer the hard way, and the module exists so other coaches don't have to.")}
+
+</div></div></details>
+  <details class="more reveal" id="storyboard"><summary><span class="more-t">Text-Based Storyboard</span><span class="more-s">Every screen planned, from the visuals to the exact words</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body"><div class="more-grid split">  <div class="reveal">
     {paras("Once the action map was set, I wrote a text-based storyboard to plan the whole module, from the visuals and interactions to the exact text on every screen. Every piece was designed to put the learner on the court as the coach, showing consequences through the natural story of a season rather than right-or-wrong pop-ups. Each scenario was built around the core habits from the action map, and the scenarios themselves came from real moments in my own seasons as a head coach: two players laughing in the back of a huddle, a star player whose energy was fading, and a teammate's anger boiling over during a match.",
            "Following Mayer's personalization principle of multimedia learning, the module speaks directly to the learner as “you,” and the storyboard plans every line of the mentor, Coach Ramos, along with each decision and its consequence.")}
   </div>
   <div class="visual reveal d1"><img src="assets/img/storyboard.png" alt="Storyboard tables for the title slide, Introduction A and Set 1 Decision 1" loading="lazy"></div>
-</div></section>
 
-<section><div class="wrap split">
-  <div class="reveal">
-    <h2 class="h-md">Style Guide</h2>
+</div></div></details>
+  <details class="more reveal"><summary><span class="more-t">Style Guide</span><span class="more-s">One Figma system for all 68 screens</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body"><div class="more-grid split">  <div class="reveal">
     {paras("Before building the full module, I created an eLearning style guide in Figma so every color, font, button and spacing choice stayed consistent across all 68 screens. The palette pulls navy and gold from the team's jerseys and pads, adds marker colors for Coach Ramos's whiteboard chalk talks, and saves green and red for points won and lost. Every element became a reusable style or component, so one change updates every screen.")}
   </div>
   <div class="visual reveal d1"><img src="assets/img/style-guide.png" alt="Style guide with colors, text styles, buttons, spacing and the clipboard" loading="lazy"></div>
-</div></section>
 
-<section id="wireframes"><div class="wrap">
-  <div class="reveal">
-    <h2 class="h-md">Wireframe Progression</h2>
+</div></div></details>
+  <details class="more reveal" id="wireframes"><summary><span class="more-t">Wireframe Progression</span><span class="more-s">From grey boxes to the final screens</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body"><div class="more-grid">  <div class="reveal">
     {paras("Next, I built wireframes and mockups to dial in the layout before adding any visuals. I started with grey boxes to place the story card, the four choices, the scoreboard and the clipboard, then moved to a mid-fidelity version with the real script to check reading length and flow. The final screens add the gym scenes with a warm gold tint and a soft dark fade, so the cards stay easy to read.")}
   </div>
   <div class="wide-visual reveal d1"><img src="assets/img/wireframes.png" alt="The same decision screen as a wireframe, a mid-fidelity mockup and the final design" loading="lazy"></div>
-</div></section>
 
-<section><div class="wrap">
-  <div class="reveal">
-    <h2 class="h-md">AI Image Generation &amp; Character Consistency</h2>
+</div></div></details>
+  <details class="more reveal"><summary><span class="more-t">AI Image Generation &amp; Character Consistency</span><span class="more-s">Keeping the same players across three sets</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body"><div class="more-grid">  <div class="reveal">
     {paras("From the start, I wanted the module to feel like you were standing in the gym with your own team, so I used AI to build the scenes: Midjourney to explore the style and mood, then Flora AI with Nano Banana, plus Gemini, to generate the images themselves. AI imagery brings its own creative and iterative challenges, so my wireframes worked as loose guides that I adjusted or threw out as the scenes came together. The biggest challenge was consistency: the same players had to appear across three sets, from a practice huddle to a packed match night. I kept the navy-and-gold uniforms, jersey numbers and gym details steady from scene to scene, so learners can follow Austin (#8), Troy (#14) and Eli (#12) from one moment to the next.")}
   </div>
   <div class="wide-visual reveal d1"><img src="assets/img/coaching-ai-grid.jpg" alt="Six AI-generated scenes showing the same players across practice and game night" loading="lazy"></div>
-</div></section>
 
-<section><div class="wrap split">
-  <div class="reveal">
-    <h2 class="h-md">Visual Mockups</h2>
+</div></div></details>
+  <details class="more reveal"><summary><span class="more-t">Visual Mockups</span><span class="more-s">A visual identity rooted in the sport</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body"><div class="more-grid split">  <div class="reveal">
     {paras("I studied how story-driven scenario modules pace their openings, and used what I learned to build a visual identity rooted in the sport itself.",
            "The final style pairs photorealistic gym scenes with story cards designed as coach's whiteboards, in navy and gold drawn from the team's pads and jerseys. Headings use a condensed athletic typeface, while the chalk-talk screens use marker fonts and hand-drawn doodles. A scoreboard chip tracks progress, and jersey numbers stand in for player portraits, so the module never needs photos of real student-athletes.")}
   </div>
@@ -529,11 +552,9 @@ c += f"""<section class="cs-intro">
     <div class="stack-arrow" aria-hidden="true">↓</div>
     <img src="assets/img/coaching-point-lost.jpg" alt="Point lost aftermath screen" loading="lazy">
   </div>
-</div></section>
 
-<section><div class="wrap">
-  <div class="reveal">
-    <h2 class="h-md">Interactive Prototype</h2>
+</div></div></details>
+  <details class="more reveal"><summary><span class="more-t">Interactive Prototype</span><span class="more-s">Testing the flow early, plus the mentor and the clipboard</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body"><div class="more-grid">  <div class="reveal">
     {paras("I built an interactive prototype in Figma to test the flow and functionality of the module before building out every scenario. The first version included the opening story, Coach Ramos's chalk talk and the first huddle decision, so I could gather feedback and refine the design early.",
            "To support learners the whole way through, I added a mentor and a memory aid. Coach Ramos, a college coach whose players run their own practices, teaches the three core ideas on a whiteboard before the first scenario. Learners then copy those ideas onto their own clipboard. On every decision screen, a small “My clipboard” sits in the corner; selecting it opens the full game plan as an overlay, and “Back to the court” returns the learner to the same moment. Learners can check their notes whenever a choice gets hard without losing their place, the same way a real coach glances at a clipboard on the sideline.")}
   </div>
@@ -541,15 +562,18 @@ c += f"""<section class="cs-intro">
     <figure class="reveal"><img src="assets/img/coaching-chalk-talk.jpg" alt="Coach Ramos's whiteboard chalk talk" loading="lazy"><figcaption>The mentor: Coach Ramos's chalk talk</figcaption></figure>
     <figure class="reveal d1"><img src="assets/img/coaching-clipboard.jpg" alt="The My game plan clipboard opened over a decision screen" loading="lazy"><figcaption>The clipboard: the game plan opens on any decision</figcaption></figure>
   </div>
+
+</div></div></details>
+  </div>
 </div></section>
 
 <section id="development"><div class="wrap">
   <div class="reveal">
     <h2 class="h-md">Full Development</h2>
     {paras("After several rounds of iteration, I developed the full module as a clickable prototype: 68 screens that move from a story-driven opening through three sets of decisions and a closing season wrap-up with Coach Ramos, each wrong choice with its own aftermath, and a success screen for each set. Each round of changes came from walking through the flow as a learner would. For example, I replaced a text-message exchange with a whiteboard chalk talk, so the mentor teaches the principles directly instead of just encouraging the learner.",
-           "I also used Figma's prototyping features to make the experience feel responsive. Prototype links handle the branching, so each choice leads to its own consequence and every “Replay the point” button returns learners to the decision. Smart Animate reveals the whiteboard ideas one at a time, a “mental timeout” screen lets learners tap their best guess about what is behind the behavior, and dissolve transitions carry the story from scene to scene. A prototype variable also remembers the learner's mental-timeout guess, so the follow-up screen shows that guess beside the real cause.",
            "Once the Figma prototype was final, I rebuilt the module as a web page in HTML, CSS and JavaScript, using the same script, images and branching, so anyone can play it in a browser on a computer or a phone.",
            "I've also started rebuilding the module in Articulate Storyline 360, the authoring tool many L&D teams use. So far I've built the opening story and Coach Ramos's chalk talk in Storyline, using the same script, scene images and style guide. Next, I'll build the three sets of decisions with their aftermaths and Replay the point branching, so the finished module can be published for an LMS.")}
+    <details class="more reveal"><summary><span class="more-t">Read more</span><span class="more-s">How the branching, Smart Animate and the mental-timeout variable work</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body">{paras("I also used Figma's prototyping features to make the experience feel responsive. Prototype links handle the branching, so each choice leads to its own consequence and every “Replay the point” button returns learners to the decision. Smart Animate reveals the whiteboard ideas one at a time, a “mental timeout” screen lets learners tap their best guess about what is behind the behavior, and dissolve transitions carry the story from scene to scene. A prototype variable also remembers the learner's mental-timeout guess, so the follow-up screen shows that guess beside the real cause.")}</div></details>
   </div>
   <div class="wide-visual reveal d1">{video("assets/video/coaching-walkthrough.mp4", "assets/img/poster-coaching.jpg", "Walkthrough of the Coaching Through Conflict module", "player wide")}</div>
 </div></section>
@@ -557,15 +581,16 @@ c += f"""<section class="cs-intro">
 {COACH_ACCESS}
 <section id="results"><div class="wrap reveal">
   <h2 class="h-md">Results</h2>
-  {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–4 season and our school's first-ever semifinal appearance. The module that teaches it is still a concept, so the next steps are to finish the Storyline 360 build and test the full module with other high school volleyball coaches.",
-         "My biggest takeaway is that the shift had to start with me before it could reach the players: trading control for ownership changed the team only once I changed how I coached. The module is built to pass that lesson on, in the learner's own world of the gym, the whiteboard, and the huddle. These insights will shape how I design future scenario-based training for coaches, teachers, and teams.")}
+  {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–4 season and our school's first-ever semifinal appearance. The module that teaches it is still a concept, so the next steps are to finish the Storyline 360 build and test the full module with other high school volleyball coaches.")}
+    <details class="more reveal"><summary><span class="more-t">Read more</span><span class="more-s">My biggest takeaway from the season and the build</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body">{paras("My biggest takeaway is that the shift had to start with me before it could reach the players: trading control for ownership changed the team only once I changed how I coached. The module is built to pass that lesson on, in the learner's own world of the gym, the whiteboard, and the huddle. These insights will shape how I design future scenario-based training for coaches, teachers, and teams.")}</div></details>
 </div></section>
 
 {COACH_EVAL}
 <section><div class="wrap reveal">
   <h2 class="h-md">Lessons Learned</h2>
-  {paras("This was my first training module, and I built it with no formal instructional design training. What made it possible was learning to build alongside AI. Through vibe coding and AI tools, I turned the ideas in my head into working drafts quickly, then spent my own time on the decisions: what each coach should do, and how each consequence should feel.",
-         "The biggest lesson was that I didn't need to know everything before I started. I needed a clear goal, a real story, and a willingness to learn the tools as I built. Each round of feedback from the AI taught me something new about instructional design, and I could test those ideas right away. I'm excited to keep growing this skill set as AI keeps expanding what's possible in scenario-based learning.")}
+  <p>This was my first training module, built alongside AI with no formal instructional design training.</p>
+  <details class="more reveal"><summary><span class="more-t">Read more</span><span class="more-s">What building with AI taught me about instructional design</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body">{paras("This was my first training module, and I built it with no formal instructional design training. What made it possible was learning to build alongside AI. Through vibe coding and AI tools, I turned the ideas in my head into working drafts quickly, then spent my own time on the decisions: what each coach should do, and how each consequence should feel.",
+         "The biggest lesson was that I didn't need to know everything before I started. I needed a clear goal, a real story, and a willingness to learn the tools as I built. Each round of feedback from the AI taught me something new about instructional design, and I could test those ideas right away. I'm excited to keep growing this skill set as AI keeps expanding what's possible in scenario-based learning.")}</div></details>
   <p style="margin-top:28px">{pill(C, "Experience the project", external=True)}</p>
 </div></section>
 """
@@ -583,6 +608,7 @@ def simple_case(file, title, sub, desc, meta, quote, by, hero_img, cta, url, pro
     else:
         p += cs_hero(hero_img, None, None, cta, url, right=True, title=title, sub=sub)
         heading = ""
+    p += extras.get("glance", "")
     p += f"""<section class="cs-intro"><div class="wrap reveal">
   {heading}
   <p>{e(desc)}</p>
@@ -594,6 +620,7 @@ def simple_case(file, title, sub, desc, meta, quote, by, hero_img, cta, url, pro
   <div class="reveal"><h2 class="h-md">The Problem</h2><p>{e(problem)}</p></div>
   <div class="reveal d1"><h2 class="h-md">The Solution</h2><p>{e(solution)}</p></div>
 </div></section>
+{extras.get("analysis", "")}
 {extras["objectives"]}
 <section id="development"><div class="wrap">
   <div class="reveal"><h2 class="h-md">Full Development</h2>{paras(*dev)}</div>
@@ -607,12 +634,34 @@ def simple_case(file, title, sub, desc, meta, quote, by, hero_img, cta, url, pro
     write(file, p)
 
 
+PIP_ANALYSIS = """<section id="analysis"><div class="wrap reveal">
+  <p class="eyebrow">Analysis</p>
+  <h2 class="h-md">What I saw → what I designed</h2>
+  <p class="lead">Every feature in the game answers something I observed alongside a 2nd grade teacher in a small-group place-value lesson.</p>
+  <div class="saw-table" role="table" aria-label="Classroom observations and the design response to each">
+    <div class="saw-row saw-head" role="row"><span role="columnheader">What I saw in the classroom</span><span aria-hidden="true"></span><span role="columnheader">What I designed</span></div>
+    <div class="saw-row"><p class="saw">Students said “greater than” out loud, then wrote the less-than sign.</p><span class="saw-arrow" aria-hidden="true">→</span><p class="did">Every sign button carries its words (“> is greater than”), and the bigger number’s crate lights up, so the symbol and the language always arrive together.</p></div><div class="saw-row"><p class="saw">The class’s alligator trick helped students remember which way the sign opens.</p><span class="saw-arrow" aria-hidden="true">→</span><p class="did">Kept the idea as one plain cue, “the open side faces the bigger number,” instead of adding another character to remember.</p></div><div class="saw-row"><p class="saw">Students who started with the hundreds got it right, and the teacher planned to reteach by covering the tens and ones so students focus on the hundreds first.</p><span class="saw-arrow" aria-hidden="true">→</span><p class="did">The biggest place lights up first. Students move to the tens only after a tie, then to the ones.</p></div><div class="saw-row"><p class="saw">Checking answers one student at a time was slow, so a wrong sign could go unnoticed.</p><span class="saw-arrow" aria-hidden="true">→</span><p class="did">Every student gets instant feedback and a hint on their own screen, and a teacher report shows first-try accuracy by level.</p></div><div class="saw-row"><p class="saw">The sentence frame (“___ is greater than ___”) helped students explain their thinking, but it was easy to skip in a busy lesson.</p><span class="saw-arrow" aria-hidden="true">→</span><p class="did">Pip says the full comparison sentence after every answer, and Read to me speaks it out loud.</p></div><div class="saw-row"><p class="saw">Students did best when they could see, hear and handle the math, not just listen.</p><span class="saw-arrow" aria-hidden="true">→</span><p class="did">Base-ten blocks, a color and a label for each place, read-aloud, and tap or keyboard play (UDL: multiple means of representation and action).</p></div>
+  </div>
+  <h3 class="h-sm" style="margin-top:40px">Two decisions, and why</h3>
+  <p>The class already used an alligator to remember which way the sign opens, and it helped. But the mistake I saw happened after that: a student named the comparison correctly, then wrote the opposite sign. So I kept the alligator's idea as a plain cue and paired every symbol with its words, instead of adding another character to remember.</p>
+  <p>I also chose a fixed, place-by-place routine over letting students compare however they like. It matches how the teacher planned to reteach, by covering the tens and ones and comparing the hundreds first, so the game and the small group teach the same habit.</p>
+  <p style="margin-top:22px">""" + pill("play/pip/exit-ticket.html", "See the printable exit ticket", ghost=True, external=True) + """</p>
+</div></section>
+"""
+
 PIP_EXTRAS = {
+    "glance": glance("Portfolio concept · HTML game, designed with a 2nd grade teacher",
+        "2nd graders practicing number comparison on their own, and the teachers who run small-group place-value lessons.",
+        "In a 2nd grade small group, students could read and build the numbers, but often chose the wrong sign: saying “greater than” while writing <.",
+        "Observed the lesson with the classroom teacher, then designed and built the game, read-aloud, teacher report and exit ticket with Claude.",
+        "Young readers who need very little text and play on their own, without an adult checking every answer.",
+        "A four-level game that teaches place by place, pairs every sign with its words, and reports first-try accuracy to the teacher."),
+    "analysis": PIP_ANALYSIS,
     "process": process_strip([
-        ("Analyze", "Mentored a 2nd grade student teacher through her small-group place-value lesson and saw where students got stuck: mixing up places and guessing which way the sign points.", None, None),
-        ("Design", "Mapped the 2nd grade comparison standard (2.NBT.A.4) to a three-step routine, with a color, block and label for each place.", "#objectives", None),
-        ("Develop", "Built a single-page game with Claude in HTML, CSS and JavaScript: four levels, hint feedback and a For grown-ups page.", "#development", None),
-        ("Evaluate", "A 2nd grade student teacher played it and gave feedback, and first-try accuracy gates every level.", "#evaluation", None),
+        ("Analyze", "Worked alongside a 2nd grade teacher in a small-group place-value lesson and noted where comparing broke down: the sign, more than the place value.", "#analysis", None),
+        ("Design", "Mapped each observation to a game feature and to the 2nd grade comparison standard (2.NBT.A.4), with a color, block and label for each place.", "#objectives", None),
+        ("Develop", "Built a single-page game with Claude in HTML, CSS and JavaScript: four levels, hints, read-aloud, a teacher report and a printable exit ticket.", "#development", None),
+        ("Evaluate", "The teacher played it and gave feedback, and first-try accuracy gates every level and feeds the teacher report.", "#evaluation", None),
     ]),
     "objectives": objectives(
         "Given two 2- or 3-digit numbers, a 2nd grade student will:",
@@ -620,31 +669,37 @@ PIP_EXTRAS = {
           "Practiced as step one of every round: check the biggest place first."),
          ("Decide which number is greater, or whether the two are equal.",
           "Practiced as step two, with a hint from Pip after a wrong answer."),
-         ("Choose the correct sign: >, < or =.",
+         ("Choose the correct sign (>, < or =) and say the comparison as a full sentence.",
           "Mastery: 4 of 5 correct on the first try unlocks the next level, from Sprout to Sunflower.")],
         "Aligned to Common Core 2.NBT.A.4, part of California's math standards."),
     "access": access(
         ["Place value never relies on color alone: hundreds, tens and ones each get their own block, color and written label.",
-         "A hint after every wrong answer, then another try, so mistakes turn into practice instead of a dead end.",
-         "Short, kid-friendly prompts and a friendly guide keep the reading load low for young readers.",
-         "Self-paced levels that unlock on mastery, not on time.",
-         "A For grown-ups page explains the design, so teachers can use the game in their own small groups."],
-        ["Add a read-aloud option for prompts, for early and emerging readers.",
-         "Check every color pair against WCAG 2.2 AA contrast.",
-         "Support full keyboard play and screen-reader labels for the number blocks.",
-         "Add a switch to turn off sounds and sparkles for students who are sensitive to them."]),
-    # TODO(Tshwjxeeb): add one line on what your wife flagged in the playtest and what you changed because of it.
+         "Read to me reads every prompt, hint and the full comparison sentence out loud, for early and emerging readers.",
+         "Every sign comes with its words, so students practice the language along with the symbol.",
+         "Calm mode turns off sounds, sparkles and motion, and the game respects reduced-motion settings.",
+         "Playable with a keyboard (arrow keys, S for Same, and the sign keys), with screen-reader labels that name each place in every number.",
+         "A hint after every wrong answer, then another try, so mistakes turn into practice instead of a dead end."],
+        ["Check every color pair against WCAG 2.2 AA contrast.",
+         "Test the game with a screen reader on a classroom tablet.",
+         "Add a Spanish read-aloud option for English learners.",
+         "Let teachers set a starting level for each student."]),
     "evaluation": evaluation(
         "Evaluation plan",
-        "The game already collects the most honest learning signal for 2nd graders: whether they get it right on the first try. Seeds are only earned on a first-try answer, so the garden itself is the progress report.",
+        "The game already collects the most honest learning signal for 2nd graders: whether they get it right on the first try. Seeds are only earned on a first-try answer, and the teacher report shows first-try accuracy by level.",
         [("1 · Reaction", "Students want to keep playing.", "Teacher notes on engagement during independent practice.", "Planned"),
-         ("2 · Learning", "Students compare by place value, not by guessing.", "First-try accuracy on each level; 4 of 5 unlocks the next.", "Built into the game"),
-         ("3 · Behavior", "Students use the place-by-place routine in class.", "A short paper comparison task in small group.", "Planned"),
-         ("4 · Results", "Fewer place-value mix-ups across the class.", "Exit tickets on comparing three-digit numbers, before and after.", "Planned")],
-        '<p class="ev-extra"><strong>Playtest.</strong> My wife, a 2nd grade student teacher, played through the game and gave feedback on it from a classroom point of view.</p>'),
+         ("2 · Learning", "Students compare by place value, not by guessing.", "First-try accuracy by level in the teacher report; 4 of 5 unlocks the next level.", "Built into the game"),
+         ("3 · Behavior", "Students use the place-by-place routine and say the full sentence in class.", "The printable exit ticket: which place decides, plus the sentence frame.", "Planned"),
+         ("4 · Results", "Fewer place-value mix-ups across the class.", "Exit tickets on comparing three-digit numbers, before and after a few weeks of play.", "Planned")],
+        '<p class="ev-extra"><strong>Teacher feedback.</strong> A 2nd grade teacher I collaborate with played through the game and gave feedback from a classroom point of view. Pip is a portfolio concept that we would bring into small-group practice if approved.</p>'),
 }
 
 TV_EXTRAS = {
+    "glance": glance("Portfolio concept · HTML lesson with a Figma blueprint, built to move into Rise 360",
+        "New TV-department sales associates at a big-box electronics store, and the leads who onboard them.",
+        "Onboarding taught every TV spec but never let associates practice matching a TV to a real customer.",
+        "Sole designer: sprint plan, Figma blueprint and prototype, scenario writing, assessments, visuals and the HTML build.",
+        "Four look-alike technologies to tell apart without a spec dump, in a format that moves into Rise 360 one-to-one.",
+        "A 10-section lesson with a pre-check, five practice customers and a 10-question exit assessment that shows growth by topic."),
     "process": process_strip([
         ("Sprint 1 · Core knowledge", "Turned my own first weeks on the Best Buy floor into a learning need, then built the core: four TV technologies, five specs and an ungraded pre-check.", "#objectives", None),
         ("Sprint 2 · Visual layers", "Added same-scene TV screens, light-layer diagrams and at-a-glance meters, then made the screens far more distinct after feedback.", "#development", None),
@@ -681,15 +736,16 @@ TV_EXTRAS = {
 }
 
 simple_case("pip.html","Pip's Number Garden", "A game-based learning garden for 2nd grade math",
-    "A cozy, self-paced garden game that helps 2nd graders compare numbers with >, <, and = by reading place value one place at a time. Students compare two numbers in three focused steps: check the biggest place first, decide which number is greater, then pick the sign. Every first-try answer earns a seed, and five seeds grow a new plant in their garden.",
+    "A cozy, self-paced garden game that helps 2nd graders compare numbers with >, <, and = by reading place value one place at a time. Students compare two numbers in three focused steps: check the biggest place first, decide which number is greater, then pick the sign, which always comes with its words. Every first-try answer earns a seed, and five seeds grow a new plant in their garden. I designed it as a concept for small-group practice, built from what I observed alongside a 2nd grade teacher.",
     [("Audience", "2nd grade students practicing number comparison on their own, and the teachers who run small-group place-value lessons."),
-     ("Responsibilities", "Instructional Design Tasks (Mentoring a 2nd grade student teacher through her small-group place-value lesson, Identifying where students got stuck, Mapping the 2nd grade standard for comparing numbers, Designing place-value visuals and hint feedback, Writing kid-friendly prompts), Game Development, Teacher Feedback Review."),
-     ("Tools Used", "Claude, HTML, CSS, JavaScript")],
+     ("Responsibilities", "Instructional Design Tasks (Collaborating with a 2nd grade teacher to observe a small-group place-value lesson, Turning classroom observations into design decisions, Mapping the 2nd grade standard for comparing numbers, Designing place-value visuals, read-aloud and hint feedback, Writing kid-friendly prompts, Designing a teacher report and a printable exit ticket), Game Development, Teacher Feedback Review."),
+     ("Tools Used", "Claude, HTML, CSS, JavaScript, Web Speech API")],
     "“UDL is a way to provide children with choices for what they are learning, how they are learning, and how they are showing what they know, as well as a variety of ways to be motivated and challenged.”", '— <a href="https://products.brookespublishing.com/Engaging-Young-Engineers-P1537.aspx" target="_blank" rel="noopener"><em>Engaging Young Engineers</em>, Second Edition</a>, by Angi Stone-MacDonald, Kristen B. Wendell, Anne Douglass, Mary Lu Love &amp; Amanda Wiehe Lopes',
     "assets/img/tile-pip.jpg", "Play the game", PIP_URL,
-    "In a 2nd grade small-group lesson, students could read two- and three-digit numbers but struggled to compare them. They mixed up the places, skipped straight to the ones, or guessed which way the > and < signs should point. One small-group session wasn't enough practice to make the comparison order stick.",
-    "I designed a game students can play on their own. Hundreds, tens, and ones each get their own block, color, and label, and students compare one place at a time before choosing the sign. Four levels build from two-digit numbers (Sprout) to three-digit numbers with tricky ties (Sunflower), and getting 4 of 5 right on the first try unlocks the next level.",
-    ["I built Pip's Number Garden with Claude as a single web page in HTML, CSS, and JavaScript. Pip, a friendly garden guide, gives a short hint after a wrong answer and lets students try again, while seeds are only earned on the first try so the garden reflects real understanding. Sparkles, a hopping Pip, and soft chimes celebrate correct answers, progress saves in the browser, and a For grown-ups page explains the design choices to teachers."],
+    "Working alongside a 2nd grade teacher in a small-group place-value lesson, I saw where comparing numbers really broke down. Students could already build three-digit numbers with base-ten blocks, and many knew to start with the hundreds. The trouble came at the last step: a student would say “greater than” and then write the less-than sign. Checking answers one student at a time was slow, so a wrong sign could go unnoticed, and the sentence frame that helps students explain their answer was easy to skip in a busy lesson.",
+    "I designed a game students can play on their own, built around those moments. Hundreds, tens, and ones each get their own block, color, and label, and students compare one place at a time, starting with the biggest. Every sign button carries its words (“> is greater than”), so the symbol and the language always arrive together, and Pip can read every prompt and the full comparison sentence out loud. Getting 4 of 5 right on the first try unlocks the next level, from two-digit numbers (Sprout) to three-digit numbers with tricky ties (Sunflower).",
+    ["I built Pip's Number Garden with Claude as a single web page in HTML, CSS, and JavaScript. The visuals follow a concrete → representational → abstract progression: blocks students can count, then a labeled digit for each place, then the sign. Pip, a friendly garden guide, gives a short hint after a wrong answer and lets students try again, while seeds are only earned on the first try so the garden reflects real understanding.",
+     "Read to me uses the browser's built-in voice to read every prompt aloud, Calm mode turns off sounds, sparkles and motion, and the whole game can be played with a keyboard. A For grown-ups page explains the design choices, shows a progress report of first-try accuracy by level that teachers can download, and links to a printable exit ticket that checks the same skill on paper."],
     "assets/video/pip-gameplay.mp4", "assets/img/poster-pip.jpg", "Gameplay of Pip's Number Garden on a phone",
     ("Lab Ready", "lab-ready.html"), ("The TV Sales Enablement Simulator", "tv-sales.html"),
     "A cozy, self-paced garden game that helps 2nd graders compare numbers using place value.", PIP_EXTRAS)
@@ -725,6 +781,12 @@ sw = head("Schedule a Patient Follow-Up · Tshwjxeeb Vaaj",
 sw += nav("work") + '<main class="cs">\n'
 sw += cs_hero("assets/img/sw-ipad-hospital.jpg", None, None, "Try the prototype", S, right=True,
               title="Schedule a Patient Follow-Up", sub="A software-training module for new front-desk staff")
+sw += glance("Portfolio concept · Figma prototype and HTML build, with a fictional clinic and app",
+    "New front-desk and scheduling staff at an outpatient clinic, and the supervisors who onboard them.",
+    "Software demos stop at “click here,” so new staff miss the detail that matters: the right patient and the right provider.",
+    "Sole designer: objectives, Show me / Try me / Test me flow, feedback, Figma component library, prototype and HTML build.",
+    "The practice had to recreate a real scheduler's traps, like look-alike patients and a pre-filled wrong provider.",
+    "29 screens, 14 feedback pop-ups and 350+ interactions, ending with a five-step job aid for the desk.")
 
 
 def fig(src, alt, cap):
@@ -830,6 +892,12 @@ lab = head("Lab Ready · Tshwjxeeb Vaaj",
 lab += nav("work") + '<main class="cs">\n'
 lab += cs_hero("assets/img/labready-hero.jpg", None, None, LAB_CTA[0], LAB_CTA[1], right=True,
                title="Lab Ready", sub="A chemical safety onboarding course for new lab technicians")
+lab += glance("Portfolio concept · Built and published in Articulate Rise 360",
+    "Newly hired adult lab technicians, from career changers to experienced techs, and the supervisors who onboard them.",
+    "A 70-rule safety contract that people skim, sign and forget, with facts that didn't match Cal/OSHA.",
+    "Sole designer and developer: source review, objectives, wireframes, Rise 360 build, job aid and evaluation plan.",
+    "Every rule had to match Cal/OSHA §5191, and experienced hires needed a way to test out.",
+    "A published Rise 360 course that turns about 70 rules into 7 practiced decisions, plus a one-page bench job aid.")
 lab += f"""<section class="cs-intro"><div class="wrap reveal">
   <p>Lab Ready is a scenario-based onboarding course that turns a 70-rule chemical safety contract into seven decisions new lab technicians actually face: reading a label, checking a fume hood, knowing when to clean up a spill and when to call for help, and leaving a station safe for the next person. I designed it for adult learners and built and published it in Articulate Rise 360, with practice in every lesson and a job aid that stays at the bench.</p>
   {meta_blocks([("Audience", "Newly hired adult lab technicians, from career changers to techs with years at other labs, and the supervisors who onboard them."),
@@ -974,6 +1042,17 @@ w += f"""<section class="hiw-hero"><div class="wrap hero-split">
     <div class="slate-bar" aria-hidden="true"></div>
     <dl>{slate}</dl>
   </div>
+</div></section>
+"""
+
+# --- Process first: the instructional design work that comes before the crew ---
+PR = H["process"]
+pcards = "".join(f'<div class="step-card"><span class="ph">{e(h)}</span><p>{e(b)}</p></div>' for h, b in PR["steps"])
+w += f"""<section class="process hiw-process" aria-labelledby="process-first-h"><div class="wrap reveal">
+  {label(PR["label"])}
+  <h2 class="h-lg" id="process-first-h">{e(PR["title"])}</h2>
+  <p class="lead">{e(PR["body"])}</p>
+  <div class="steps-row c4">{pcards}</div>
 </div></section>
 """
 
