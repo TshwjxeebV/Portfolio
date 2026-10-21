@@ -285,7 +285,6 @@ home += f"""<main>
       <p class="eyebrow">Instructional Designer</p>
       <h1 class="h-xl">I'm Tshwjxeeb.</h1>
       <p class="lead">I design training that holds up when the real situation stops following the script.</p>
-      <ul class="fw-tags hero-tags" aria-label="Frameworks I design with"><li>Understanding by Design</li><li>UDL</li></ul>
       <div class="hero-btns">{pill("#work", "See my work")}{pill("about.html", "About me", ghost=True)}</div>
     </div>
   </div>

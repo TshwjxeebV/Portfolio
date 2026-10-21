@@ -620,4 +620,4 @@ a.step-card:hover .see .arrow, a.step-card:focus-visible .see .arrow { transform
   .method p { font-size: 16px; }
 }
 
-.home-hero .hero-tags { margin: 6px 0 32px; }
+.home-hero .lead { margin-bottom: 36px; }
