@@ -511,3 +511,22 @@ a.step-card:hover .see .arrow, a.step-card:focus-visible .see .arrow { transform
 @media (max-width: 700px) and (max-height: 720px) { .hero-bio { display: none; } }
 .objective-callout { margin-top: 28px; padding: 20px 24px; border-left: 3px solid var(--copper); background: rgba(224,166,114,.07); border-radius: 0 14px 14px 0; max-width: 900px; color: var(--ink); }
 .objective-callout strong { color: var(--copper); }
+
+/* ---------- Lab Ready additions ---------- */
+.tiles.c5 { grid-template-columns: repeat(6, 1fr); }
+.tiles.c5 .tile { grid-column: span 2; }
+.tiles.c5 .tile:nth-child(n+4) { grid-column: span 3; }
+.tiles.c5 .tile:nth-child(n+4) .shot { aspect-ratio: 16 / 10; }
+.tiles.c5 .tile h3 { font-size: 26px; }
+.steps-row.c3 { grid-template-columns: repeat(3, 1fr); }
+.steps-row.c3 .step-card h3 { color: var(--ink); }
+.cs-intro .hero-btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+@media (max-width: 1080px) {
+  .tiles.c5 { grid-template-columns: repeat(2, 1fr); }
+  .tiles.c5 .tile, .tiles.c5 .tile:nth-child(n+4) { grid-column: auto; }
+  .tiles.c5 .tile:nth-child(n+4) .shot { aspect-ratio: 1; }
+  .steps-row.c3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 860px) {
+  .tiles.c5, .steps-row.c3 { grid-template-columns: 1fr; }
+}
