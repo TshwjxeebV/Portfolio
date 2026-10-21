@@ -820,18 +820,18 @@ lab += nav("work") + '<main class="cs">\n'
 lab += cs_hero("assets/img/labready-hero.jpg", None, None, LAB_CTA[0], LAB_CTA[1], right=True,
                title="Lab Ready", sub="A chemical safety onboarding course for new lab technicians")
 lab += f"""<section class="cs-intro"><div class="wrap reveal">
-  <p>Lab Ready is a scenario-based onboarding course that turns a 70-rule chemical safety contract into seven decisions new lab technicians actually face: reading a label, checking a fume hood, knowing when to clean up a spill and when to call for help, and leaving a station safe for the next person. It's designed for adult learners in Articulate Rise 360, with practice in every lesson and a job aid that stays at the bench.</p>
+  <p>Lab Ready is a scenario-based onboarding course that turns a 70-rule chemical safety contract into seven decisions new lab technicians actually face: reading a label, checking a fume hood, knowing when to clean up a spill and when to call for help, and leaving a station safe for the next person. I designed it for adult learners and built and published it in Articulate Rise 360, with practice in every lesson and a job aid that stays at the bench.</p>
   {meta_blocks([("Audience", "Newly hired adult lab technicians, from career changers to techs with years at other labs, and the supervisors who onboard them."),
                 ("Responsibilities", "Needs Analysis, Source Review (Cal/OSHA §5191 and a university Chemical Hygiene Plan), Learning Objectives, Adult Learning & UDL Design, Figma Wireframes & Prototype, Rise 360 Development, Job Aids, Evaluation Planning"),
                 ("Tools Used", "Articulate Rise 360, Figma, Figma AI, Claude")], cols=True)}
   <p class="cs-note">Lab Ready is a portfolio concept and hasn't been delivered to learners. I adapted the source documents without naming the school district or university they came from.</p>
-  <div class="hero-btns">{pill(LAB_CTA[1], LAB_CTA[0], external=True)}{pill(LAB_FIGMA_URL, "See the design notes", ghost=True, external=True)}</div>
+  <div class="hero-btns">{pill(LAB_CTA[1], LAB_CTA[0], external=True)}</div>
 </div></section>
 """
 lab += process_strip([
     ("Analyze", "Compared the safety contract I handed my own students with Cal/OSHA §5191 and a university Chemical Hygiene Plan, and found where they disagreed.", "#thinking", None),
     ("Design", "Reorganized about 70 rules into 7 decision moments, wrote objectives, and planned a 6-touchpoint training journey.", "#journey", "assets/img/labready-design-notes.png"),
-    ("Develop", "Wireframed 10 Rise-style lessons in Figma, then started building a 5-lesson cut in Rise 360.", "#inside", "assets/img/labready-wireframe.jpg"),
+    ("Develop", "Wireframed every lesson first, then built and published the course in Articulate Rise 360.", "#inside", "assets/img/labready-wireframe.jpg"),
     ("Evaluate", "Planned all four Kirkpatrick levels, from a usefulness rating to a 30-day supervisor check.", "#evaluation", None),
 ])
 lab += """<section><div class="wrap two">
@@ -859,7 +859,7 @@ THOUGHTS = [
     ("Switch to adults", "Most instructional design roles ask for adult learning, so I rewrote the course for newly hired lab technicians."),
     ("Read the real standards", "Cal/OSHA §5191 and a university Chemical Hygiene Plan raised the bar and exposed errors: 15 vs. 20 minutes for an eye flush, the outdated term MSDS, and a contact lens rule the adult standard doesn't include."),
     ("Borrow a proven layout", "I studied a Rise course from Articulate's community challenges: photos with short captions, lots of space, one idea per block. Then I wireframed all 10 lessons in Figma."),
-    ("Design for real adults", "I added a test-out path, a “why this matters” card in every lesson, audio and transcripts, and a 6-touchpoint journey. Then I started building a 5-lesson cut in Rise."),
+    ("Design for real adults", "I added a test-out path, a “why this matters” card in every lesson, audio and transcripts, and a 6-touchpoint journey. Then I built and published the course in Rise."),
 ]
 thoughts = "".join(f'<div class="step-card"><span class="ph">Step {i:02d}</span><h3 class="h-sm">{e(h)}</h3><p>{e(b)}</p></div>'
                    for i, (h, b) in enumerate(THOUGHTS, 1))
@@ -879,7 +879,7 @@ lab += f"""<section id="thinking" class="process"><div class="wrap reveal">
 <section id="inside"><div class="wrap">
   <div class="reveal">
     <h2 class="h-md">Practice in every lesson</h2>
-    <p>I wireframed every lesson in Figma before opening Rise, so each block had a job before I built it. The layout follows a proven Rise pattern: a photo with a short caption, a few sentences, then practice. Each lesson teaches one decision and practices it right away.</p>
+    <p>I wireframed every lesson before opening Rise, so each block had a job before I built it. The layout follows a proven Rise pattern: a photo with a short caption, a few sentences, then practice. Each lesson teaches one decision and practices it right away.</p>
   </div>
   <div class="pair">
     {lab_fig("assets/img/labready-clean-or-call.jpg", "The Clean It or Call It? interaction with a spill on a lab bench", "Clean It or Call It?: four spills, one decision rule")}
@@ -897,7 +897,7 @@ lab += f"""<section id="thinking" class="process"><div class="wrap reveal">
     <p>Training doesn't end when the course does. I planned a journey from before day one to a refresher every three years: a welcome email with the lab's safety plan, a day-one walk-through, the course, a station card and weekly self-check, a supervisor check at 30 days, and a short refresher before any new chemical or procedure. A design notes board maps every decision to adult learning principles, UDL and Kirkpatrick's four levels.</p>
   </div>
   <div class="wide-visual reveal d1"><img src="assets/img/labready-journey.png" alt="Six touchpoints in a row: before day one, day one, the Lab Ready course, on the job, at 30 days, and ongoing" loading="lazy"></div>
-  <p style="margin-top:28px" class="reveal">{pill(LAB_FIGMA_URL, "See the full design notes", ghost=True, external=True)}</p>
+  <p style="margin-top:28px" class="reveal">{pill(LAB_CTA[1], "Take the course in Rise", external=True)}</p>
 </div></section>
 """
 lab += access(
@@ -920,8 +920,8 @@ lab += evaluation(
 lab += f"""<section><div class="wrap reveal">
   <h2 class="h-md">Lessons Learned</h2>
   {paras("The biggest lesson was that the source material had problems of its own. The student contract and the adult standards disagreed on simple facts, like how long to flush an eye. Reading the actual regulation, not a summary of it, changed the course.",
-         "I'm also learning Rise by building in it. Designing in Figma first meant every block had a job before I opened the editor. Where Rise's built-in blocks couldn't do what I planned for Storyline, I swapped in a labeled graphic and a scenario block, and I noted the Storyline upgrade as the next step.")}
-  <div class="hero-btns" style="margin-top:28px">{pill(LAB_CTA[1], LAB_CTA[0], external=True)}{pill(LAB_FIGMA_URL, "See the design notes", ghost=True, external=True)}</div>
+         "I also learned Rise by building the whole course in it, from the first block to the published link. Wireframing first meant every block had a job before I opened the editor. Where Rise's built-in blocks couldn't do what I planned for Storyline, I swapped in a labeled graphic and a scenario block, and I noted the Storyline upgrade as the next step.")}
+  <div class="hero-btns" style="margin-top:28px">{pill(LAB_CTA[1], LAB_CTA[0], external=True)}</div>
 </div></section>
 """
 lab += next_prev(("Coaching Through Conflict", "coaching.html"), ("Pip's Number Garden", "pip.html"))
