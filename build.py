@@ -894,12 +894,19 @@ lab += f"""<section id="thinking" class="process"><div class="wrap reveal">
 <section id="journey"><div class="wrap">
   <div class="reveal">
     <h2 class="h-md">The course is one of six touchpoints</h2>
-    <p>Training doesn't end when the course does. I planned a journey from before day one to a refresher every three years: a welcome email with the lab's safety plan, a day-one walk-through, the course, a station card and weekly self-check, a supervisor check at 30 days, and a short refresher before any new chemical or procedure. A design notes board maps every decision to adult learning principles, UDL and Kirkpatrick's four levels.</p>
+    <p>Training doesn't end when the course does. I planned a journey from before day one to a refresher every three years: a welcome email with the lab's safety plan, a day-one walk-through, the course, a station card and weekly self-check, a supervisor check at 30 days, and a short refresher before any new chemical or procedure.</p>
   </div>
   <div class="wide-visual reveal d1"><img src="assets/img/labready-journey.png" alt="Six touchpoints in a row: before day one, day one, the Lab Ready course, on the job, at 30 days, and ongoing" loading="lazy"></div>
   <p style="margin-top:28px" class="reveal">{pill(LAB_CTA[1], "Take the course in Rise", external=True)}</p>
 </div></section>
 """
+lab += evaluation(
+    "Measuring what matters: Kirkpatrick's four levels",
+    "Training only counts if it changes what people do at the bench. Here's how I'd measure Lab Ready with a real group of new hires, from their first reaction to results in the lab.",
+    [("1 · Reaction", "New techs find it useful for the job.", "A 1–5 usefulness rating at the end of the course.", "Built into the course"),
+     ("2 · Learning", "Techs make the right call in each scenario.", "A scenario-based final check, 80% to pass, with links back to each lesson.", "Built into the course"),
+     ("3 · Behavior", "Techs use the habits at the bench.", "A supervisor observes one task at 30 days, using the weekly self-check.", "Planned"),
+     ("4 · Results", "A safer lab.", "More near misses reported, and fewer inspection findings and incidents.", "Planned")])
 lab += access(
     ["Every hazard pictogram has a text label, so color is never the only cue.",
      "Audio narration, a transcript and captions are available in every lesson.",
@@ -910,13 +917,6 @@ lab += access(
      "Test the full course with a keyboard and a screen reader.",
      "Rebuild Hood Check and Clean It or Call It? in Storyline with a logical keyboard focus order.",
      "Publish the Lab Ready Card as an accessible PDF."])
-lab += evaluation(
-    "Evaluation plan",
-    "Here's how I'd measure Lab Ready with a real group of new hires, using Kirkpatrick's four levels.",
-    [("1 · Reaction", "New techs find it useful for the job.", "A 1–5 usefulness rating at the end of the course.", "Built into the course"),
-     ("2 · Learning", "Techs make the right call in each scenario.", "A scenario-based final check, 80% to pass, with links back to each lesson.", "Built into the course"),
-     ("3 · Behavior", "Techs use the habits at the bench.", "A supervisor observes one task at 30 days, using the weekly self-check.", "Planned"),
-     ("4 · Results", "A safer lab.", "More near misses reported, and fewer inspection findings and incidents.", "Planned")])
 lab += f"""<section><div class="wrap reveal">
   <h2 class="h-md">Lessons Learned</h2>
   {paras("The biggest lesson was that the source material had problems of its own. The student contract and the adult standards disagreed on simple facts, like how long to flush an eye. Reading the actual regulation, not a summary of it, changed the course.",
