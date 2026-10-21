@@ -12,6 +12,9 @@ COACHING_URL = "play/coaching/"
 PIP_URL = "play/pip/"
 TV_URL = "play/tv-wall/"
 SW_URL = "play/scheduling/"
+LAB_RISE_URL = ""                          # TODO: paste your published Rise 360 share link here
+LAB_PROTO_URL = "https://www.figma.com/proto/M62ZWJzPvCysgnzbNSUhmy/?node-id=2-2&starting-point-node-id=2%3A2"
+LAB_FIGMA_URL = "https://www.figma.com/design/M62ZWJzPvCysgnzbNSUhmy/?node-id=22-2"
 # ----------------------------------------------------
 
 e = html.escape
@@ -277,7 +280,7 @@ home += f"""<main>
       <div>
         <p class="eyebrow">Featured · Scenario-based training</p>
         <h2 class="h-md" id="featured">Coaching Through Conflict</h2>
-        <p>A branching simulation built from my own season as a head coach: from 0–10 and last in the league to my school's first-ever semifinal. New coaches practice pausing, reading the moment, and letting players own the fix.</p>
+        <p>A branching simulation built from my own season as a head coach: from 0 wins and last in our league to the program's first-ever top four regional performance. New coaches practice pausing, reading the moment, and letting players own the fix.</p>
         <ul class="chips"><li>0–10 → 6–4</li><li>First-ever semifinal</li><li>68 screens</li></ul>
         {pill("coaching.html", "Learn more", ghost=True)}
       </div>
@@ -299,9 +302,10 @@ home += f"""<main>
 <section id="work" aria-labelledby="work-h">
   <div class="wrap">
     <p class="eyebrow reveal">Selected work</p>
-    <h2 class="h-lg reveal" id="work-h">Four projects, four kinds of learners.</h2>
-    <div class="tiles c4">
+    <h2 class="h-lg reveal" id="work-h">Five projects, five kinds of learners.</h2>
+    <div class="tiles c5">
       <a class="tile reveal" href="coaching.html"><div class="shot"><img src="assets/img/tile-coaching.jpg" alt="Coaching Through Conflict on a laptop at home" loading="lazy"></div><h3>Coaching Through Conflict</h3><span class="role">Scenario-based training →</span></a>
+      <a class="tile reveal d1" href="lab-ready.html"><div class="shot"><img src="assets/img/tile-labready.jpg" alt="A lab technician in safety goggles pouring a liquid into a flask" loading="lazy"></div><h3>Lab Ready</h3><span class="role">Compliance training →</span></a>
       <a class="tile reveal d1" href="pip.html"><div class="shot"><img src="assets/img/tile-pip.jpg" alt="Pip's Number Garden on a phone on a wooden table" loading="lazy"></div><h3>Pip's Number Garden</h3><span class="role">Game-based learning →</span></a>
       <a class="tile reveal d2" href="tv-wall.html"><div class="shot"><img src="assets/img/tile-tv.jpg" alt="The TV Wall Sales Simulator on a laptop in an office" loading="lazy"></div><h3>The TV Wall Sales Simulator</h3><span class="role">Sales simulation →</span></a>
       <a class="tile reveal d2" href="software-training.html"><div class="shot"><img src="assets/img/tile-software-ipad.jpg" alt="The Schedule a Patient Follow-Up training on an iPad at a hospital front desk" loading="lazy"></div><h3>Schedule a Patient Follow-Up</h3><span class="role">Software training →</span></a>
@@ -315,7 +319,7 @@ home += f"""<main>
     <h2 class="h-lg reveal" id="fit-h">Find the work that fits your team.</h2>
     <div class="fit">
       <div class="fit-card glass reveal"><h3>K-12 &amp; EdTech</h3><p>Standards-aligned practice for young learners, from a chemistry teacher with an NGSS classroom background.</p><a href="pip.html">Pip's Number Garden {ARROW}</a></div>
-      <div class="fit-card glass reveal d1"><h3>Corporate L&amp;D &amp; enablement</h3><p>Sales practice and software training that measure what the business cares about: kept sales and correct bookings.</p><a href="tv-wall.html">The TV Wall Sales Simulator {ARROW}</a><a href="software-training.html">Schedule a Patient Follow-Up {ARROW}</a></div>
+      <div class="fit-card glass reveal d1"><h3>Corporate L&amp;D &amp; enablement</h3><p>Sales practice and software training that measure what the business cares about: kept sales and correct bookings.</p><a href="tv-wall.html">The TV Wall Sales Simulator {ARROW}</a><a href="software-training.html">Schedule a Patient Follow-Up {ARROW}</a><a href="lab-ready.html">Lab Ready {ARROW}</a></div>
       <div class="fit-card glass reveal d2"><h3>Leadership &amp; people development</h3><p>Branching scenarios for leaders who have to handle the hard conversation in the moment.</p><a href="coaching.html">Coaching Through Conflict {ARROW}</a></div>
     </div>
   </div>
@@ -359,7 +363,7 @@ about += f"""<main>
       <p class="eyebrow reveal">About me</p>
       <h1 class="h-xl reveal d1" style="margin-bottom:22px">I'm Tshwjxeeb Vaaj.</h1>
       <p class="lead reveal d1">Hi, I'm Tshwjxeeb, an instructional designer who comes from both the classroom and the court. I'm a credentialed chemistry teacher, and for five years I was also program director and head coach of a boys' volleyball program, often doing both full-time at once.</p>
-      <p class="pull reveal d2">I help people build skills they can use right away by designing practice that feels like the real moment.</p>
+      <p class="pull reveal d2">I help people build skills by designing practice that feels like the real moment.</p>
     </div>
     <div class="headshot reveal"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj"></div>
   </div>
@@ -565,7 +569,7 @@ c += f"""<section class="cs-intro">
   <p style="margin-top:28px">{pill(C, "Experience the project", external=True)}</p>
 </div></section>
 """
-c += next_prev(("Schedule a Patient Follow-Up", "software-training.html"), ("Pip's Number Garden", "pip.html"))
+c += next_prev(("Schedule a Patient Follow-Up", "software-training.html"), ("Lab Ready", "lab-ready.html"))
 c += "</main>\n" + footer()
 write("coaching.html", c)
 
@@ -685,7 +689,7 @@ simple_case("pip.html","Pip's Number Garden", "A game-based learning garden for 
     "I designed a game students can play on their own. Hundreds, tens, and ones each get their own block, color, and label, and students compare one place at a time before choosing the sign. Four levels build from two-digit numbers (Sprout) to three-digit numbers with tricky ties (Sunflower), and getting 4 of 5 right on the first try unlocks the next level.",
     ["I built Pip's Number Garden with Claude as a single web page in HTML, CSS, and JavaScript. Pip, a friendly garden guide, gives a short hint after a wrong answer and lets students try again, while seeds are only earned on the first try so the garden reflects real understanding. Sparkles, a hopping Pip, and soft chimes celebrate correct answers, progress saves in the browser, and a For grown-ups page explains the design choices to teachers."],
     "assets/video/pip-gameplay.mp4", "assets/img/poster-pip.jpg", "Gameplay of Pip's Number Garden on a phone",
-    ("Coaching Through Conflict", "coaching.html"), ("The TV Wall Sales Simulator", "tv-wall.html"),
+    ("Lab Ready", "lab-ready.html"), ("The TV Wall Sales Simulator", "tv-wall.html"),
     "A cozy, self-paced garden game that helps 2nd graders compare numbers using place value.", PIP_EXTRAS)
 
 simple_case("tv-wall.html", "The TV Wall Sales Simulator", "A practice-first sales simulation for new associates",
@@ -806,6 +810,123 @@ sw += evaluation(
 sw += next_prev(("The TV Wall Sales Simulator", "tv-wall.html"), ("Coaching Through Conflict", "coaching.html"))
 sw += "</main>\n" + footer()
 write("software-training.html", sw)
+
+
+# ======================= LAB READY =======================
+LAB_CTA = ("View the Rise course", LAB_RISE_URL) if LAB_RISE_URL else ("Click through the prototype", LAB_PROTO_URL)
+lab = head("Lab Ready · Tshwjxeeb Vaaj",
+           "A scenario-based chemical safety onboarding course for new lab technicians, designed for adult learners and built in Rise 360.")
+lab += nav("work") + '<main class="cs">\n'
+lab += cs_hero("assets/img/labready-hero.jpg", None, None, LAB_CTA[0], LAB_CTA[1], right=True,
+               title="Lab Ready", sub="A chemical safety onboarding course for new lab technicians")
+lab += f"""<section class="cs-intro"><div class="wrap reveal">
+  <p>Lab Ready is a scenario-based onboarding course that turns a 70-rule chemical safety contract into seven decisions new lab technicians actually face: reading a label, checking a fume hood, knowing when to clean up a spill and when to call for help, and leaving a station safe for the next person. It's designed for adult learners in Articulate Rise 360, with practice in every lesson and a job aid that stays at the bench.</p>
+  {meta_blocks([("Audience", "Newly hired adult lab technicians, from career changers to techs with years at other labs, and the supervisors who onboard them."),
+                ("Responsibilities", "Needs Analysis, Source Review (Cal/OSHA §5191 and a university Chemical Hygiene Plan), Learning Objectives, Adult Learning & UDL Design, Figma Wireframes & Prototype, Rise 360 Development, Job Aids, Evaluation Planning"),
+                ("Tools Used", "Articulate Rise 360, Figma, Figma AI, Claude")], cols=True)}
+  <p class="cs-note">Lab Ready is a portfolio concept and hasn't been delivered to learners. I adapted the source documents without naming the school district or university they came from.</p>
+  <div class="hero-btns">{pill(LAB_CTA[1], LAB_CTA[0], external=True)}{pill(LAB_FIGMA_URL, "See the design notes", ghost=True, external=True)}</div>
+</div></section>
+"""
+lab += process_strip([
+    ("Analyze", "Compared the safety contract I handed my own students with Cal/OSHA §5191 and a university Chemical Hygiene Plan, and found where they disagreed.", "#thinking", None),
+    ("Design", "Reorganized about 70 rules into 7 decision moments, wrote objectives, and planned a 6-touchpoint training journey.", "#journey", "assets/img/labready-design-notes.png"),
+    ("Develop", "Wireframed 10 Rise-style lessons in Figma, then started building a 5-lesson cut in Rise 360.", "#inside", "assets/img/labready-wireframe.jpg"),
+    ("Evaluate", "Planned all four Kirkpatrick levels, from a usefulness rating to a 30-day supervisor check.", "#evaluation", None),
+])
+lab += """<section><div class="wrap two">
+  <div class="reveal"><h2 class="h-md">The Problem</h2><p>Most lab safety training is a list of rules you read once and sign. I handed out that kind of contract to my own chemistry students: about 70 rules across two pages. People skim, sign and forget, and a list of rules doesn't tell you what to do when a spill is too big, a hood alarm goes off, or a senior coworker cuts a corner.</p></div>
+  <div class="reveal d1"><h2 class="h-md">The Solution</h2><p>I rebuilt the rules around the moments new technicians actually face. Each lesson opens with why it matters on the job, teaches one decision, and gives practice right away: a fume hood to inspect, spills to clean up or call in, a waste label to fix. Experienced hires can test out, and everyone leaves with a one-page card for their station.</p></div>
+</div></section>
+"""
+lab += objectives(
+    "Given a real task at the bench, a new lab technician will be able to:",
+    [("Read a chemical label and Safety Data Sheet to name a chemical's hazards before using it.",
+      "Measured by: the label and hazard questions in the final check."),
+     ("Check a fume hood and choose the right controls and protective gear for a task.",
+      "Measured by: finding the problems in Hood Check, plus the glove question."),
+     ("Decide whether to clean up a spill or call for help.",
+      "Mastery: the right call in all three Clean It or Call It? scenes."),
+     ("Respond to a splash, a fire or an unknown chemical in the first 60 seconds.",
+      "Measured by: the fire and old ether bottle scenarios."),
+     ("Label and sort hazardous waste, and leave the station safe for the next person.",
+      "Measured by: all six errors found on the waste label, plus the container sort.")],
+    "Each objective maps to one of the seven decision moments and a section of the Lab Ready Card.")
+
+THOUGHTS = [
+    ("Find the gap", "Every project in my portfolio was a branching scenario. Hiring posts kept asking for Rise and compliance training, so I picked chemical safety, the subject I taught."),
+    ("Start with what I know", "I began with the safety contract I handed my own students and outlined a course around it."),
+    ("Switch to adults", "Most instructional design roles ask for adult learning, so I rewrote the course for newly hired lab technicians."),
+    ("Read the real standards", "Cal/OSHA §5191 and a university Chemical Hygiene Plan raised the bar and exposed errors: 15 vs. 20 minutes for an eye flush, the outdated term MSDS, and a contact lens rule the adult standard doesn't include."),
+    ("Borrow a proven layout", "I studied a Rise course from Articulate's community challenges: photos with short captions, lots of space, one idea per block. Then I wireframed all 10 lessons in Figma."),
+    ("Design for real adults", "I added a test-out path, a “why this matters” card in every lesson, audio and transcripts, and a 6-touchpoint journey. Then I started building a 5-lesson cut in Rise."),
+]
+thoughts = "".join(f'<div class="step-card"><span class="ph">Step {i:02d}</span><h3 class="h-sm">{e(h)}</h3><p>{e(b)}</p></div>'
+                   for i, (h, b) in enumerate(THOUGHTS, 1))
+
+
+def lab_fig(src, alt, cap):
+    return f'<figure class="reveal"><img src="{src}" alt="{e(alt)}" loading="lazy"><figcaption>{e(cap)}</figcaption></figure>'
+
+
+lab += f"""<section id="thinking" class="process"><div class="wrap reveal">
+  <p class="eyebrow">My thought process</p>
+  <h2 class="h-md">How the design evolved</h2>
+  <p class="lead">Every big decision came from a question I asked along the way. Here's the path, in order.</p>
+  <div class="steps-row c3">{thoughts}</div>
+</div></section>
+
+<section id="inside"><div class="wrap">
+  <div class="reveal">
+    <h2 class="h-md">Practice in every lesson</h2>
+    <p>I wireframed every lesson in Figma before opening Rise, so each block had a job before I built it. The layout follows a proven Rise pattern: a photo with a short caption, a few sentences, then practice. Each lesson teaches one decision and practices it right away.</p>
+  </div>
+  <div class="pair">
+    {lab_fig("assets/img/labready-clean-or-call.jpg", "The Clean It or Call It? interaction with a spill on a lab bench", "Clean It or Call It?: four spills, one decision rule")}
+    {lab_fig("assets/img/labready-hierarchy.png", "An inverted pyramid of five controls, from elimination at the top to protective gear at the bottom", "Controls before gear: the hierarchy of controls as a visual model")}
+  </div>
+  <div class="pair">
+    {lab_fig("assets/img/labready-waste-label.png", "A waste bottle and a label with six numbered markers pointing to errors", "Fix This Waste Label: six errors, including one that could explode")}
+    {lab_fig("assets/img/labready-card.png", "The Lab Ready Card, a one-page quick reference with four sections", "The Lab Ready Card: a job aid for the station, not a certificate")}
+  </div>
+</div></section>
+
+<section id="journey"><div class="wrap">
+  <div class="reveal">
+    <h2 class="h-md">The course is one of six touchpoints</h2>
+    <p>Training doesn't end when the course does. I planned a journey from before day one to a refresher every three years: a welcome email with the lab's safety plan, a day-one walk-through, the course, a station card and weekly self-check, a supervisor check at 30 days, and a short refresher before any new chemical or procedure. A design notes board maps every decision to adult learning principles, UDL and Kirkpatrick's four levels.</p>
+  </div>
+  <div class="wide-visual reveal d1"><img src="assets/img/labready-journey.png" alt="Six touchpoints in a row: before day one, day one, the Lab Ready course, on the job, at 30 days, and ongoing" loading="lazy"></div>
+  <p style="margin-top:28px" class="reveal">{pill(LAB_FIGMA_URL, "See the full design notes", ghost=True, external=True)}</p>
+</div></section>
+"""
+lab += access(
+    ["Every hazard pictogram has a text label, so color is never the only cue.",
+     "Audio narration, a transcript and captions are available in every lesson.",
+     "Experienced hires can test out with a short self-check; everyone else follows a guided path.",
+     "No time limit on the final check, and a timer that can be turned off in timed practice.",
+     "Alt text on every graphic, and a click-to-place option for drag activities."],
+    ["Check every color pair in the Rise theme against WCAG 2.2 AA contrast.",
+     "Test the full course with a keyboard and a screen reader.",
+     "Rebuild Hood Check and Clean It or Call It? in Storyline with a logical keyboard focus order.",
+     "Publish the Lab Ready Card as an accessible PDF."])
+lab += evaluation(
+    "Evaluation plan",
+    "Here's how I'd measure Lab Ready with a real group of new hires, using Kirkpatrick's four levels.",
+    [("1 · Reaction", "New techs find it useful for the job.", "A 1–5 usefulness rating at the end of the course.", "Built into the course"),
+     ("2 · Learning", "Techs make the right call in each scenario.", "A scenario-based final check, 80% to pass, with links back to each lesson.", "Built into the course"),
+     ("3 · Behavior", "Techs use the habits at the bench.", "A supervisor observes one task at 30 days, using the weekly self-check.", "Planned"),
+     ("4 · Results", "A safer lab.", "More near misses reported, and fewer inspection findings and incidents.", "Planned")])
+lab += f"""<section><div class="wrap reveal">
+  <h2 class="h-md">Lessons Learned</h2>
+  {paras("The biggest lesson was that the source material had problems of its own. The student contract and the adult standards disagreed on simple facts, like how long to flush an eye. Reading the actual regulation, not a summary of it, changed the course.",
+         "I'm also learning Rise by building in it. Designing in Figma first meant every block had a job before I opened the editor. Where Rise's built-in blocks couldn't do what I planned for Storyline, I swapped in a labeled graphic and a scenario block, and I noted the Storyline upgrade as the next step.")}
+  <div class="hero-btns" style="margin-top:28px">{pill(LAB_CTA[1], LAB_CTA[0], external=True)}{pill(LAB_FIGMA_URL, "See the design notes", ghost=True, external=True)}</div>
+</div></section>
+"""
+lab += next_prev(("Coaching Through Conflict", "coaching.html"), ("Pip's Number Garden", "pip.html"))
+lab += "</main>\n" + footer()
+write("lab-ready.html", lab)
 
 
 # ======================= HOW I WORK =======================
