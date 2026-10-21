@@ -285,9 +285,9 @@ home += f"""<main>
       <p class="eyebrow">Instructional Designer · Program Manager</p>
       <h1 class="h-xl">I'm Tshwjxeeb.</h1>
       <p class="lead">I design training that holds up when the real situation stops following the script.</p>
-      <p class="hero-bio">A chemistry teacher and head coach turned instructional designer. I build simulations, scenarios and learning games from moments I've lived, so people practice the real thing before it counts.</p>
+      <p class="hero-bio">Former chemistry teacher and head coach. Now I build simulations and learning games from real moments.</p>
       <div class="method">
-        <p>I start with what people need to do, decide how I'll know they can, then build the practice.</p>
+        <p>I start with the goal, decide the proof, then build the practice.</p>
         <ul class="fw-tags" aria-label="Frameworks I design with"><li>Understanding by Design</li><li>UDL</li></ul>
       </div>
       <div class="hero-btns">{pill("#work", "See my work")}{pill("about.html", "About me", ghost=True)}</div>
@@ -320,7 +320,7 @@ home += f"""<main>
         <p class="eyebrow">Featured · Scenario-based training</p>
         <h2 class="h-md" id="featured">Coaching Through Conflict</h2>
         <p>A branching simulation built from my own season as a head coach: from 0 wins and last in our league to the program's first-ever top four regional performance. New coaches practice pausing, reading the moment, and letting players own the fix.</p>
-        <ul class="chips"><li>0–10 → 6–4</li><li>First-ever semifinal</li><li class="fw">Backward design</li><li class="fw">UDL</li></ul>
+        <ul class="chips"><li>0–10 → 6–4</li><li>First-ever top four regional performance</li><li class="fw">Backward design</li><li class="fw">UDL</li></ul>
         {pill("coaching.html", "Learn more", ghost=True)}
       </div>
     </div>
@@ -471,7 +471,7 @@ COACH_EVAL = evaluation(
      ("2 · Learning", "Coaches spot the cause and pick the SBI and open-question responses.", "First-try choices at each decision; mental-timeout guess vs. the real cause.", "Built into the prototype"),
      ("3 · Behavior", "Coaches use the habits at real practices.", "Two-week self-check against the clipboard habits, plus an assistant coach's observation.", "Planned"),
      ("4 · Results", "Calmer huddles and players who own the fix.", "Program director check-in at season's end, compared with my own 0–10 → 6–4 baseline.", "Observed on my team")])
-c = head("Coaching Through Conflict · Tshwjxeeb Vaaj", "A scenario-based simulation for new head coaches, built from a real 0–10 to semifinal turnaround.")
+c = head("Coaching Through Conflict · Tshwjxeeb Vaaj", "A scenario-based simulation for new head coaches, built from a real 0–10 to top four regional turnaround.")
 c += nav("work")
 c += "<main class=\"cs\">\n"
 c += cs_hero("assets/img/coaching-hero.jpg", "“In good teams, coaches hold players accountable. In great teams, players hold players accountable.”",
@@ -481,7 +481,7 @@ c += glance("Portfolio concept · Figma prototype and HTML build, Storyline 360 
     "New coaches meet player conflict with control and pressure, which drains both the player and the team. I did it myself during a 0–10 season.",
     "Sole designer and subject matter expert: needs analysis, action map, storyboard, style guide, prototype and build.",
     "No real student-athletes on screen and no pilot group yet, so the scenes use AI-generated players with consistent jersey numbers.",
-    "A 68-screen branching scenario that plays in any browser, built on the method that took my team from 0–10 to 6–4 and a first-ever semifinal.")
+    "A 68-screen branching scenario that plays in any browser, built on the method that took my team from 0–10 to 6–4 and a first-ever top four regional performance.")
 c += f"""<section class="cs-intro">
   <div class="wrap split">
     <div class="reveal">
@@ -538,7 +538,7 @@ c += f"""<section class="cs-intro">
   <div class="reveal"><p class="eyebrow">Design artifacts</p><h2 class="h-md">How I built it</h2><p>Open any step to see the artifact and the decisions behind it.</p></div>
   <div class="more-list">
   <details class="more reveal"><summary><span class="more-t">The Process</span><span class="more-s">ADDIE, with my own 0–10 season as the needs analysis</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body"><div class="more-grid">
-  {paras("I followed the ADDIE model (Analyze, Design, Develop, Implement, and Evaluate). My analysis wasn't a survey; it was my own season. In my fourth season, I had a talented group, many of them just up from JV, but the way I coached held them back: I micromanaged every rep, got angry, and my assistants and I piled pressure on kids who mostly lacked varsity experience. We went 0–10. Then I sat in on a friend's college practice and watched him give his athletes real autonomy, and I rebuilt how I coached around that. The next season we went 6–4 and reached the semifinals. I distilled what changed into three principles (backed by the SBI and GROW frameworks), then designed a storyboard, built a clickable prototype, and refined it.",
+  {paras("I followed the ADDIE model (Analyze, Design, Develop, Implement, and Evaluate). My analysis wasn't a survey; it was my own season. In my fourth season, I had a talented group, many of them just up from JV, but the way I coached held them back: I micromanaged every rep, got angry, and my assistants and I piled pressure on kids who mostly lacked varsity experience. We went 0–10. Then I sat in on a friend's college practice and watched him give his athletes real autonomy, and I rebuilt how I coached around that. The next season we went 6–4 and reached the program's first-ever top four regional performance. I distilled what changed into three principles (backed by the SBI and GROW frameworks), then designed a storyboard, built a clickable prototype, and refined it.",
          "Each phase stayed anchored to one question: what does a coach need to do in the moment, not just know? I learned the answer the hard way, and the module exists so other coaches don't have to.")}
 
 </div></div></details>
@@ -605,7 +605,7 @@ c += f"""<section class="cs-intro">
 {COACH_ACCESS}
 <section id="results"><div class="wrap reveal">
   <h2 class="h-md">Results</h2>
-  {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–4 season and our school's first-ever semifinal appearance. The module that teaches it is still a concept, so the next steps are to finish the Storyline 360 build and test the full module with other high school volleyball coaches.")}
+  {paras("The method is already proven: holding this standard for myself and my assistants is what took my own program from 0–10 to a 6–4 season and the program's first-ever top four regional performance. The module that teaches it is still a concept, so the next steps are to finish the Storyline 360 build and test the full module with other high school volleyball coaches.")}
     <details class="more reveal"><summary><span class="more-t">Read more</span><span class="more-s">My biggest takeaway from the season and the build</span><span class="more-i" aria-hidden="true">+</span></summary><div class="more-body">{paras("My biggest takeaway is that the shift had to start with me before it could reach the players: trading control for ownership changed the team only once I changed how I coached. The module is built to pass that lesson on, in the learner's own world of the gym, the whiteboard, and the huddle. These insights will shape how I design future scenario-based training for coaches, teachers, and teams.")}</div></details>
 </div></section>
 
