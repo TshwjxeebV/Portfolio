@@ -10,7 +10,7 @@ LINKEDIN = "https://www.linkedin.com/in/tshwjxeebvaaj/"
 RESUME = "#"                               # TODO: link to your résumé PDF (e.g. assets/resume.pdf)
 COACHING_URL = "play/coaching/"
 PIP_URL = "play/pip/"
-TV_URL = "play/tv-wall/"
+TV_URL = "play/tv-sales/"
 SW_URL = "play/scheduling/"
 LAB_RISE_URL = "https://share.articulate.com/BtDI2U6F0Qdm4Yr-KZmlb"
 LAB_PROTO_URL = "https://www.figma.com/proto/M62ZWJzPvCysgnzbNSUhmy/?node-id=2-2&starting-point-node-id=2%3A2"
@@ -307,7 +307,7 @@ home += f"""<main>
       <a class="tile reveal" href="coaching.html"><div class="shot"><img src="assets/img/tile-coaching.jpg" alt="Coaching Through Conflict on a laptop at home" loading="lazy"></div><h3>Coaching Through Conflict</h3><span class="role">Scenario-based training →</span></a>
       <a class="tile reveal d1" href="lab-ready.html"><div class="shot"><img src="assets/img/tile-labready.jpg" alt="A lab technician in safety goggles pouring a liquid into a flask" loading="lazy"></div><h3>Lab Ready</h3><span class="role">Compliance training →</span></a>
       <a class="tile reveal d1" href="pip.html"><div class="shot"><img src="assets/img/tile-pip.jpg" alt="Pip's Number Garden on a phone on a wooden table" loading="lazy"></div><h3>Pip's Number Garden</h3><span class="role">Game-based learning →</span></a>
-      <a class="tile reveal d2" href="tv-wall.html"><div class="shot"><img src="assets/img/tile-tv.jpg" alt="The TV Wall Sales Simulator on a laptop in an office" loading="lazy"></div><h3>The TV Wall Sales Simulator</h3><span class="role">Sales simulation →</span></a>
+      <a class="tile reveal d2" href="tv-sales.html"><div class="shot"><img src="assets/img/tile-tv.jpg" alt="The TV Sales Enablement Simulator open on a laptop in an electronics store" loading="lazy"></div><h3>The TV Sales Enablement Simulator</h3><span class="role">Sales enablement →</span></a>
       <a class="tile reveal d2" href="software-training.html"><div class="shot"><img src="assets/img/tile-software-ipad.jpg" alt="The Schedule a Patient Follow-Up training on an iPad at a hospital front desk" loading="lazy"></div><h3>Schedule a Patient Follow-Up</h3><span class="role">Software training →</span></a>
     </div>
   </div>
@@ -319,7 +319,7 @@ home += f"""<main>
     <h2 class="h-lg reveal" id="fit-h">Find the work that fits your team.</h2>
     <div class="fit">
       <div class="fit-card glass reveal"><h3>K-12 &amp; EdTech</h3><p>Standards-aligned practice for young learners, from a chemistry teacher with an NGSS classroom background.</p><a href="pip.html">Pip's Number Garden {ARROW}</a></div>
-      <div class="fit-card glass reveal d1"><h3>Corporate L&amp;D &amp; enablement</h3><p>Sales practice and software training that measure what the business cares about: kept sales and correct bookings.</p><a href="tv-wall.html">The TV Wall Sales Simulator {ARROW}</a><a href="software-training.html">Schedule a Patient Follow-Up {ARROW}</a><a href="lab-ready.html">Lab Ready {ARROW}</a></div>
+      <div class="fit-card glass reveal d1"><h3>Corporate L&amp;D &amp; enablement</h3><p>Sales onboarding and software training that measure what the business cares about: floor-ready associates and correct bookings.</p><a href="tv-sales.html">The TV Sales Enablement Simulator {ARROW}</a><a href="software-training.html">Schedule a Patient Follow-Up {ARROW}</a><a href="lab-ready.html">Lab Ready {ARROW}</a></div>
       <div class="fit-card glass reveal d2"><h3>Leadership &amp; people development</h3><p>Branching scenarios for leaders who have to handle the hard conversation in the moment.</p><a href="coaching.html">Coaching Through Conflict {ARROW}</a></div>
     </div>
   </div>
@@ -646,36 +646,38 @@ PIP_EXTRAS = {
 
 TV_EXTRAS = {
     "process": process_strip([
-        ("Analyze", "Turned my own first weeks on the Best Buy sales floor into a learning need: knowing the tech wasn't the same as matching a TV to a customer.", None, None),
-        ("Design", "Mapped D.I.S.C. into a practice loop and wrote five customer personas, each with their own room, habits and ideal panel.", "#objectives", None),
-        ("Develop", "Built it in HTML, CSS and JavaScript, then rebuilt the core loop as a clickable Figma prototype.", "#development", None),
-        ("Evaluate", "Every recommendation is checked 30 days later: kept or returned. Then I tracked my own sales.", "#evaluation", None),
+        ("Sprint 1 · Core knowledge", "Turned my own first weeks on the Best Buy floor into a learning need, then built the core: four TV technologies, five specs and an ungraded pre-check.", "#objectives", None),
+        ("Sprint 2 · Visual layers", "Added same-scene TV screens, light-layer diagrams and at-a-glance meters, then made the screens far more distinct after feedback.", "#development", None),
+        ("Sprint 3 · Practice", "Wrote five customer scenarios with feedback for every wrong pick and a Take Again loop, plus a photo-led guide and the three moments of the sale.", "#development", None),
+        ("Sprint 4 · Polish & measure", "One question at a time, three choices everywhere, keyboard and phone support, and a 10-question exit assessment.", "#evaluation", None),
     ]),
     "objectives": objectives(
-        "Given a customer on the sales floor, a new TV associate will:",
-        [("Ask at least three discovery questions about the customer's room and viewing habits before recommending a TV.",
-          "Built into the simulator: associates can't move on until they've asked three."),
-         ("Recommend the panel type (LED, QLED, Mini-LED or OLED) that fits the customer's room and habits.",
-          "Mastery target: at least 4 of 5 customers keep their TV at the 30-day check."),
-         ("Explain installation and add-on services in terms of what the customer shared in discovery.",
-          "Measured by: the choices made in the Solve and Close steps.")]),
+        "Given a customer's room, viewing habits and budget, a new TV associate will:",
+        [("Explain how OLED, Mini-LED, QLED and Crystal LED each make light, and each one's main trade-off.",
+          "Measured by: the Specs and Technologies questions on the exit assessment."),
+         ("Recommend the technology that fits the customer's room and needs, and explain why the alternatives fall short.",
+          "Practiced with five customer scenarios; measured by the Matching customers questions."),
+         ("Run the sale in three moments: welcome and discover, demo and recommend, then close.",
+          "Measured by: The sale questions. Mastery target: 80% or higher on the exit assessment.")],
+        "Every question has three choices, and every wrong answer explains why."),
     "access": access(
-        ["Every customer answer and every choice is written on screen, so nothing depends on audio.",
-         "Low-stakes practice: associates can make a wrong match and see the 30-day return without a real customer paying for it.",
-         "A required discovery step builds the habit of asking before telling.",
-         "Five personas with different rooms and habits give varied examples of the same skill (UDL: multiple means of representation)."],
-        ["Check every color pair against WCAG 2.2 AA contrast.",
-         "Add full keyboard navigation and visible focus states to the HTML version.",
-         "Add screen-reader labels to the TV wall and customer cards.",
-         "Add a plain-language glossary for panel types and room terms."]),
+        ["Information is revealed one piece at a time through accordions, flip cards and tabs, so new associates aren't flooded with specs.",
+         "Every visual sits next to the words it explains, and all four TVs show the same scene, so there's only one picture to learn (Mayer's contiguity and signaling principles).",
+         "Feedback never relies on color alone: every result has an icon and a word, and the meters show scores as text.",
+         "Keyboard friendly, with arrow-key tabs, a visible focus ring, 44 px click targets and a written description for every image.",
+         "An ungraded pre-check and a Take Again loop make mistakes safe practice. It also respects reduced-motion settings and works on a phone."],
+        ["Run a full WCAG 2.2 AA audit, including screen-reader testing with VoiceOver and NVDA.",
+         "Pilot it with new associates and add a short confidence rating before and after.",
+         "Add narrated audio for each section as a second way in.",
+         "Rebuild the exit assessment as a Rise Quiz lesson so scores report to the LMS automatically."]),
     "evaluation": evaluation(
         "Results & evaluation",
-        "The simulator already measures what the store cares about most: whether the TV stays sold. Here's how I'd evaluate it with a real onboarding class, using Kirkpatrick's four levels.",
+        "The lesson already captures the clearest learning signal: each associate's pre-check score next to their exit score, broken down by topic. Here's how I'd evaluate it with a real onboarding class, using Kirkpatrick's four levels.",
         [("1 · Reaction", "Associates feel ready for their first sale.", "Confidence rating before and after (1–5).", "Planned"),
-         ("2 · Learning", "Associates match the right panel to each customer.", "Kept vs. returned on the final scorecard.", "Built into the simulator"),
-         ("3 · Behavior", "Associates run D.I.S.C. on the real floor.", "A lead observes one live sale with a D.I.S.C. checklist.", "Planned"),
+         ("2 · Learning", "Associates can explain and match all four technologies.", "Pre-check vs. exit score by topic, with 80% to pass and a downloadable results file.", "Built into the lesson"),
+         ("3 · Behavior", "Associates run the three moments of the sale on the real floor.", "A lead observes one live sale with a Welcome → Demo → Close checklist.", "Planned"),
          ("4 · Results", "Fewer returns and more attached services.", "Return rate and service attach rate vs. the previous new-hire class.", "Planned")],
-        '<p class="ev-extra"><strong>What I saw myself.</strong> After building and practicing with the simulator, my TV unit sales, accessory sales and service sales all grew.</p>'),
+        '<p class="ev-extra"><strong>Honest scope.</strong> This is a portfolio concept and hasn\'t been delivered to a real onboarding class yet. It was shaped by feedback during the build, and I documented the changes. <a href="play/tv-sales/process.html" target="_blank" rel="noopener">See how the TV visuals evolved</a></p>'),
 }
 
 simple_case("pip.html","Pip's Number Garden", "A game-based learning garden for 2nd grade math",
@@ -689,22 +691,31 @@ simple_case("pip.html","Pip's Number Garden", "A game-based learning garden for 
     "I designed a game students can play on their own. Hundreds, tens, and ones each get their own block, color, and label, and students compare one place at a time before choosing the sign. Four levels build from two-digit numbers (Sprout) to three-digit numbers with tricky ties (Sunflower), and getting 4 of 5 right on the first try unlocks the next level.",
     ["I built Pip's Number Garden with Claude as a single web page in HTML, CSS, and JavaScript. Pip, a friendly garden guide, gives a short hint after a wrong answer and lets students try again, while seeds are only earned on the first try so the garden reflects real understanding. Sparkles, a hopping Pip, and soft chimes celebrate correct answers, progress saves in the browser, and a For grown-ups page explains the design choices to teachers."],
     "assets/video/pip-gameplay.mp4", "assets/img/poster-pip.jpg", "Gameplay of Pip's Number Garden on a phone",
-    ("Lab Ready", "lab-ready.html"), ("The TV Wall Sales Simulator", "tv-wall.html"),
+    ("Lab Ready", "lab-ready.html"), ("The TV Sales Enablement Simulator", "tv-sales.html"),
     "A cozy, self-paced garden game that helps 2nd graders compare numbers using place value.", PIP_EXTRAS)
 
-simple_case("tv-wall.html", "The TV Wall Sales Simulator", "A practice-first sales simulation for new associates",
-    "A practice-first sales simulator that helps new associates sell TVs with confidence using the D.I.S.C. model: Discover, Inspire, Solve, and Close. Associates help five customers on a virtual sales floor. They ask discovery questions to learn about each customer's room and habits, inspire a vision, recommend the right panel, and close the sale. Thirty days later, each customer either keeps the TV or returns it.",
+simple_case("tv-sales.html", "The TV Sales Enablement Simulator", "An agile onboarding lesson that takes new associates from learning to live-floor practice",
+    "Display Tech Essentials is a scrolling onboarding lesson that takes new TV associates from knowing the specs to choosing the right TV for a real customer. Associates start with an ungraded pre-check, learn the four TV technologies on the floor (OLED, Mini-LED, QLED and Crystal LED) through side-by-side visuals, practice with five customers who each bring a different room and need, and finish with a 10-question exit assessment that shows how far they've come.",
     [("Audience", "New sales associates in the TV department of a big-box electronics store, and the leads who onboard them."),
-     ("Responsibilities", "Instructional Design Tasks (Turning my own first weeks on the sales floor into a learning need, Mapping the D.I.S.C. sales model into a practice loop, Writing five customer personas with realistic needs, Designing feedback that shows whether a TV was kept or returned), Simulation Development, Figma Prototyping."),
-     ("Tools Used", "HTML, CSS, JavaScript, Figma.")],
+     ("Responsibilities", "Instructional Design Tasks (Turning my own first weeks on the sales floor into a learning need, Planning four agile sprints from knowledge to practice, Writing a pre-check, five customer scenarios and a 10-question exit assessment, Designing feedback for every wrong answer, Applying UDL and Mayer's principles to limit cognitive load), Visual Design, Figma Prototyping, Web Development."),
+     ("Tools Used", "Figma, Figma AI, Claude, HTML, CSS, JavaScript, GitHub Pages. Built to move into Articulate Rise 360.")],
     None, None,
-    "assets/img/tile-tv.jpg", "Play the simulation", TV_URL,
+    "assets/img/tile-tv.jpg", "Start the lesson", TV_URL,
     "When I started as a sales associate at Best Buy, I completed the training modules and learned the details of every TV technology, but I never got to practice selling one. On the sales floor there was too much to sort out in my head: panel types, room conditions, installation, and add-on services. Even though I was comfortable with technology, I struggled to match the right TV to the right customer. A wrong match leads to a return, which costs the store and frustrates a customer who trusted my advice.",
-    "I designed a simulator where new associates can practice a full TV sale with no real-world consequences. Each customer brings a different room, viewing habit, and need, and associates work through D.I.S.C. They must ask at least three discovery questions before moving on, and every recommendation is checked 30 days later: kept or returned. The goal is the one the store cares about most: the right TV the first time, fewer returns, and customers who trust their associate.",
-    ["I built the TV Wall as a web-based simulation in HTML, CSS, and JavaScript, then rebuilt the core simulator as a clickable Figma prototype with a corporate showroom theme. Five customers each have their own discovery answers and an ideal panel (LED, QLED, Mini-LED, or OLED). Choices carry forward through the conversation, and a final scorecard totals TVs kept and returned. Building and using the simulator made the D.I.S.C. model second nature for me. I asked better questions, saw each customer's full picture, and became more confident explaining installation and services. My customers left knowing they had the right TV."],
-    "assets/video/tv-wall-walkthrough.mp4", "assets/img/poster-tv.jpg", "Walkthrough of the TV Wall Sales Simulator",
+    "I designed an onboarding lesson in two halves: learn, then practice. Information is revealed one piece at a time, so new associates aren't flooded with specs, and every TV is shown on the same night-sky scene, so learners can see the difference in black level, brightness, color and glow before they read about it. Then they apply it with five customers, each with a different room and need. Every wrong pick explains why, and a Take Again loop lets them try until they get it right. A pre-check and an exit assessment bookend the lesson, so growth is easy to see.",
+    ["I planned the build as four agile sprints in Figma: core knowledge, visual layers, customer practice, then polish and measurement. The Figma file holds the sprint board, a component library, a user-flow map, and a Rise-style scrolling prototype with every section tagged to its matching Articulate Rise block, so the lesson can move into Rise 360 one-to-one.",
+     "I built the working lesson with Claude in HTML, CSS and JavaScript and published it on GitHub Pages. I generated the scene art with Figma AI in one consistent navy-and-slate style. For the three moments of the sale, I generated all three scenes as a single storyboard, so the same associate and customer appear in every step.",
+     "Feedback shaped the design along the way. My first TV screen visuals were realistic but too subtle; at thumbnail size they all looked the same, so I rebuilt them to exaggerate one signature trait per TV. The pre-check first showed four questions at once and took up too much space, so it became one question at a time with a results screen, the way a Rise quiz works. I also made every question three-choice for consistency, and replaced a single final scenario with a full exit assessment that reports results by topic."],
+    "assets/video/tv-sales-walkthrough.mp4", "assets/img/poster-tv.jpg", "Walkthrough of the TV Sales Enablement Simulator: pre-check, specs, TV comparisons, a practice scenario and the exit assessment results",
     ("Pip's Number Garden", "pip.html"), ("Schedule a Patient Follow-Up", "software-training.html"),
-    "A practice-first sales simulator for new TV associates using the D.I.S.C. model.", TV_EXTRAS)
+    "An agile onboarding lesson that takes new TV associates from learning the four TV technologies to practicing with real customers.", TV_EXTRAS)
+
+# Old address for this project: send visitors to the new page.
+write("tv-wall.html", """<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>The TV Sales Enablement Simulator · Tshwjxeeb Vaaj</title>
+<meta http-equiv="refresh" content="0; url=tv-sales.html"><link rel="canonical" href="tv-sales.html"><meta name="robots" content="noindex"></head>
+<body><p>This project moved. <a href="tv-sales.html">Go to the TV Sales Enablement Simulator</a>.</p></body></html>
+""")
 
 
 # ======================= SOFTWARE TRAINING =======================
@@ -807,7 +818,7 @@ sw += evaluation(
      ("2 · Learning", "Staff check the provider and the date of birth without prompting.", "First-try results in Try me and both Test me questions.", "Built into the prototype"),
      ("3 · Behavior", "Staff use the habits on real bookings.", "A supervisor reviews each new hire's first 10 bookings for patient and provider accuracy.", "Planned"),
      ("4 · Results", "Fewer reschedules caused by booking errors.", "Reschedule calls tied to wrong patient or wrong provider, compared with the previous hiring group.", "Planned")])
-sw += next_prev(("The TV Wall Sales Simulator", "tv-wall.html"), ("Coaching Through Conflict", "coaching.html"))
+sw += next_prev(("The TV Sales Enablement Simulator", "tv-sales.html"), ("Coaching Through Conflict", "coaching.html"))
 sw += "</main>\n" + footer()
 write("software-training.html", sw)
 
