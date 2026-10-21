@@ -12,7 +12,7 @@ COACHING_URL = "play/coaching/"
 PIP_URL = "play/pip/"
 TV_URL = "play/tv-wall/"
 SW_URL = "play/scheduling/"
-LAB_RISE_URL = ""                          # TODO: paste your published Rise 360 share link here
+LAB_RISE_URL = "https://share.articulate.com/BtDI2U6F0Qdm4Yr-KZmlb"
 LAB_PROTO_URL = "https://www.figma.com/proto/M62ZWJzPvCysgnzbNSUhmy/?node-id=2-2&starting-point-node-id=2%3A2"
 LAB_FIGMA_URL = "https://www.figma.com/design/M62ZWJzPvCysgnzbNSUhmy/?node-id=22-2"
 # ----------------------------------------------------
