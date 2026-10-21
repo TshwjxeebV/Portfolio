@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Display Tech Essentials · TV Sales Onboarding</title>
+  <meta name="description" content="An interactive onboarding lesson for new TV sales associates: OLED, Mini-LED, QLED and Crystal LED, a pre-check, and five customer practice scenarios.">
+  <meta name="theme-color" content="#0B1F3A">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=20261020164646">
+</head>
+<body>
+  <a class="skip-link" href="#s1">Skip to lesson content</a>
+  <a class="case-link" href="../../tv-sales.html">&larr; Case study</a>
+
+  <!-- Mobile scroll progress -->
+  <div class="topbar" aria-hidden="true"><div class="topbar__fill" id="topbarFill"></div></div>
+
+  <!-- Fixed vertical progress tracker (desktop) -->
+  <nav class="tracker" aria-label="Lesson progress">
+    <span class="tracker__pct" id="trackerPct">0%</span>
+    <ol class="tracker__list" id="trackerList"></ol>
+  </nav>
+
+  <!-- 0 · HERO -->
+  <header class="hero" id="s0" data-section data-label="Welcome">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <p class="eyebrow eyebrow--amber">New associate onboarding · Lesson 1</p>
+      <h1 class="hero__title">Display Tech Essentials</h1>
+      <p class="hero__sub">Learn the four display technologies on our floor, the five specs customers ask about, and a simple flow for every sale.</p>
+      <ul class="hero__meta">
+        <li>⏱ 25 min</li>
+        <li>▤ 10 sections</li>
+        <li>✓ Pre-check, 5 practice scenarios + exit assessment</li>
+      </ul>
+      <button class="btn btn--primary" id="startBtn" type="button">Start lesson ↓</button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1 · TEXT & MEDIA -->
+    <section class="section section--card" id="s1" data-section data-label="Introduction" aria-labelledby="h-s1">
+      <div class="col">
+        <div class="split">
+          <figure class="art" aria-hidden="true">
+            <svg class="tv-anim" viewBox="0 0 420 320" role="presentation">
+              <defs>
+                <linearGradient id="scr" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#0B1F3A"/>
+                  <stop offset="1" stop-color="#2563EB"/>
+                </linearGradient>
+                <radialGradient id="glow">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".95"/>
+                  <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect x="56" y="56" width="308" height="178" rx="10" fill="#0B1F3A"/>
+              <rect class="tv-anim__screen" x="64" y="64" width="292" height="162" rx="6" fill="url(#scr)"/>
+              <circle class="tv-anim__glow" cx="270" cy="115" r="40" fill="url(#glow)"/>
+              <rect x="204" y="234" width="12" height="34" fill="#0B1F3A"/>
+              <rect x="155" y="266" width="110" height="8" rx="4" fill="#0B1F3A"/>
+            </svg>
+          </figure>
+          <div class="split__text">
+            <p class="eyebrow">Section 1</p>
+            <h2 id="h-s1">What makes a great TV picture?</h2>
+            <p>Customers rarely ask about nits or dimming zones. They ask, “Will it look good in my room?” Your job is to translate specs into their room, their content and the people watching.</p>
+            <p class="muted">In this lesson you'll preview the four technologies on our floor, go deeper on where each one wins, then practice with real customer scenarios.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · PRE-CHECK -->
+    <section class="section" id="s2" data-section data-label="Pre-check" aria-labelledby="h-s2">
+      <div class="col">
+        <header class="sec-head">
+          <p class="eyebrow">Knowledge check · What do you already know?</p>
+          <h2 id="h-s2">One question for each TV on our floor</h2>
+          <p class="lede">Four quick questions, one at a time. They aren't graded and you don't need to get them right to move on — answer with your best guess, read the feedback, then continue.</p>
+        </header>
+        <div data-quiz-group="precheck"></div>
+      </div>
+    </section>
+
+    <!-- 3 · ACCORDION -->
+    <section class="section section--card" id="s3" data-section data-label="5 specs" aria-labelledby="h-s3">
+      <div class="col">
+        <header class="sec-head">
+          <p class="eyebrow">Section 2</p>
+          <h2 id="h-s3">The 5 specs customers ask about</h2>
+          <p class="lede">Select each spec to expand it. Read one at a time — you don't need to memorize numbers.</p>
+        </header>
+        <div class="accordion" id="accordion"></div>
+      </div>
+    </section>
+
+    <!-- 4 · FLOOR PREVIEW -->
+    <section class="section" id="s4" data-section data-label="Floor preview" aria-labelledby="h-s4">
+      <div class="col">
+        <header class="sec-head">
+          <p class="eyebrow">Section 3</p>
+          <h2 id="h-s4">Four technologies on our floor</h2>
+          <p class="lede">Same scene on all four screens: a bright star in a night sky. Notice four things: how black the sky is, how bright the star is, how vivid the colors are, and how much glow spreads around the light. Then select + to see how each one makes light.</p>
+        </header>
+        <div class="grid grid--4" id="previewGrid"></div>
+      </div>
+    </section>
+
+    <!-- 5 · DEEP DIVE TABS -->
+    <section class="section section--card" id="s5" data-section data-label="Deep dive" aria-labelledby="h-s5">
+      <div class="col">
+        <header class="sec-head">
+          <p class="eyebrow">Section 4 · Deep dive</p>
+          <h2 id="h-s5">Four panel technologies — and the room each one wins</h2>
+          <p class="lede">Now go deeper. Each tab answers the same questions in the same order — including how it fits a bedroom: low light, off-axis viewing and nighttime eye strain.</p>
+        </header>
+        <div class="tabs" id="techTabs"></div>
+      </div>
+    </section>
+
+    <!-- 6 · QUICK GUIDE -->
+    <section class="section" id="s6" data-section data-label="Quick guide" aria-labelledby="h-s6">
+      <div class="col">
+        <header class="sec-head">
+          <p class="eyebrow">Section 5 · Quick guide</p>
+          <h2 id="h-s6">Quick scenario guide: guess, then reveal</h2>
+          <p class="lede">Read each customer type and decide which TV you'd recommend. Then select + to check yourself.</p>
+        </header>
+        <div class="grid grid--2" id="guideGrid"></div>
+      </div>
+    </section>
+
+    <!-- 7 · SALE TABS -->
+    <section class="section section--card" id="s7" data-section data-label="The sale" aria-labelledby="h-s7">
+      <div class="col">
+        <header class="sec-head">
+          <p class="eyebrow">Section 6 · The sale</p>
+          <h2 id="h-s7">The sale in three moments</h2>
+          <p class="lede">Select a tab to see what to do before, during and after the sale.</p>
+        </header>
+        <div class="tabs" id="saleTabs"></div>
+      </div>
+    </section>
+
+    <!-- 8 · PRACTICE -->
+    <section class="section" id="s8" data-section data-label="Practice" aria-labelledby="h-s8">
+      <div class="col">
+        <header class="sec-head">
+          <p class="eyebrow">Practice · Simulation</p>
+          <h2 id="h-s8">Your turn on the floor: 5 customers</h2>
+          <p class="lede">Read each customer, choose a recommendation and submit. A wrong answer explains why — take it again until you get it right.</p>
+        </header>
+        <ol class="howto" aria-label="How it works">
+          <li>Read the customer</li><li>Pick A, B or C</li><li>Submit</li><li>Read your decision results</li>
+        </ol>
+        <div class="stack stack--lg" data-quiz-group="scenarios"></div>
+      </div>
+    </section>
+
+    <!-- 9 · EXIT ASSESSMENT -->
+    <section class="section section--card" id="s9" data-section data-label="Exit assessment" aria-labelledby="h-s9">
+      <div class="col">
+        <header class="sec-head">
+          <p class="eyebrow">Exit assessment</p>
+          <h2 id="h-s9">Show what you learned</h2>
+          <p class="lede">Ten questions covering the whole lesson, one at a time. Score 80% or higher to pass. You'll see your results by topic and how far you've come since the pre-check.</p>
+        </header>
+        <div data-quiz-group="exit"></div>
+      </div>
+    </section>
+
+    <!-- 10 · COMPLETE -->
+    <section class="section section--navy" id="s10" data-section data-label="Complete" aria-labelledby="h-s10">
+      <div class="col col--center">
+        <div class="done-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h2 id="h-s10">Lesson complete</h2>
+        <p class="done-sub">Next up: Reading the customer — DISC styles and how to adapt your pitch.</p>
+        <dl class="summary" id="summary" aria-live="polite">
+          <div><dt>Pre-check</dt><dd id="sumPre">—</dd></div>
+          <div><dt>Scenarios right on first try</dt><dd id="sumScen">—</dd></div>
+          <div><dt>Exit assessment</dt><dd id="sumFinal">—</dd></div>
+        </dl>
+        <div class="row-actions">
+          <button class="btn btn--primary" type="button" disabled aria-describedby="nextNote">Next lesson →</button>
+          <button class="btn btn--secondary-inverse" type="button" id="restartBtn">↻ Restart lesson</button>
+        </div>
+        <p class="done-note" id="nextNote">Lesson 2 is coming soon.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Agile Enablement · TV Sales Onboarding — an instructional design portfolio piece by Tshwjxeeb Vaaj. · <a href="process.html">Design process</a> · <a href="../../tv-sales.html">Case study</a></p>
+  </footer>
+
+  <script src="js/content.js?v=20261020164646"></script>
+  <script src="js/screens.js?v=20261020164646"></script>
+  <script src="js/app.js?v=20261020164646"></script>
+</body>
+</html>

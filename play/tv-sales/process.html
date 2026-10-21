@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design Process · TV Screen Visuals</title>
+  <meta name="description" content="How the TV screen visuals in the Display Tech Essentials lesson evolved from version 1 to version 2.">
+  <meta name="theme-color" content="#0B1F3A">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=20261020164646">
+  <style>
+    .proc-hero { background: var(--navy); color: #fff; padding: 72px 24px 64px; }
+    .proc-hero .col { gap: 14px; }
+    .proc-hero h1 { font-size: clamp(32px, 5vw, 48px); }
+    .proc-hero p { opacity: .85; font-size: 18px; max-width: 760px; }
+    .proc-hero a { color: #fff; }
+    .back { font-size: 14px; font-weight: 600; text-decoration: none; opacity: .8; }
+    .back:hover { opacity: 1; text-decoration: underline; }
+    .ver { display: flex; flex-direction: column; gap: 20px; }
+    .ver__head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .ver__tag { font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--page); border: 1px solid var(--border); color: var(--muted); }
+    .ver__tag--now { background: var(--tint); border-color: var(--primary); color: var(--primary); }
+    .ver h2 { font-size: 26px; }
+    .screens { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    @media (max-width: 900px) { .screens { grid-template-columns: repeat(2, 1fr); } }
+    .shot { margin: 0; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .shot h3 { font-size: 16px; }
+    .shot figcaption { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .note { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 12px; padding: 20px 24px; display: flex; flex-direction: column; gap: 8px; }
+    .note--feedback { border-left-color: var(--focus); background: #FFFBEB; }
+    .note h3 { font-size: 13px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+    .note ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+    .changes { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 15px; }
+    .changes th, .changes td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .changes th { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); background: var(--page); }
+    .changes tr:last-child td { border-bottom: 0; }
+    @media (max-width: 640px) { .changes, .changes tbody, .changes tr, .changes td { display: block; } .changes thead { display: none; } .changes td { border-bottom: 0; padding: 6px 16px; } .changes tr { border-bottom: 1px solid var(--border); padding: 10px 0; } .changes td:first-child { font-weight: 700; } }
+  </style>
+</head>
+<body>
+  <header class="proc-hero">
+    <div class="col">
+      <a class="back" href="index.html">← Back to the lesson</a>
+      <a class="back" href="../../tv-sales.html" style="margin-left:16px">Case study →</a>
+      <p class="eyebrow eyebrow--amber">Design process · Iteration log</p>
+      <h1>Making four TVs look different</h1>
+      <p>The lesson shows the same night-sky scene on each TV so learners can compare them side by side. Here's how that visual evolved, and why.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="col">
+        <div class="ver">
+          <div class="ver__head"><span class="ver__tag">Version 1</span><h2>Subtle, realistic differences</h2></div>
+          <div class="screens" data-version="1"></div>
+          <div class="note">
+            <h3>What I was going for</h3>
+            <ul>
+              <li>One shared scene (a bright star, a few small stars, a line of subtitles) so the only thing that changes is the TV.</li>
+              <li>Realistic differences: black level and glow change gradually from OLED to Crystal LED.</li>
+              <li>Short captions under each screen so the visual and the words reinforce each other (dual coding).</li>
+            </ul>
+          </div>
+          <div class="note note--feedback">
+            <h3>Feedback</h3>
+            <p>“It's really hard to tell because they all look the same — the details need to be more drastic to make them more distinct.”</p>
+            <p class="muted">At thumbnail size, the gray steps between screens were too small to notice, so learners would have to read the captions to see any difference.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--card">
+      <div class="col">
+        <div class="ver">
+          <div class="ver__head"><span class="ver__tag ver__tag--now">Version 2 · Current</span><h2>Exaggerated, one signature trait per TV</h2></div>
+          <div class="screens" data-version="2"></div>
+          <div class="note">
+            <h3>What changed and why</h3>
+            <ul>
+              <li><strong>Exaggerate the difference that matters.</strong> Each screen now pushes one trait to the extreme, so the difference is visible at a glance, before reading.</li>
+              <li><strong>More dimensions than black level.</strong> I added a band of colored aurora light, so brightness, color and glow can all differ, not just how gray the sky is.</li>
+              <li><strong>Make each TV's mechanism visible.</strong> Mini-LED's glow now appears in square blocks, which is literally how dimming zones behave, and it ties back to the layer diagram in the deep dive.</li>
+              <li><strong>Sharper captions.</strong> Each caption names the trait the learner should notice, and the instructions now prompt four things to look for.</li>
+            </ul>
+          </div>
+          <table class="changes">
+            <thead><tr><th>TV</th><th>Version 1</th><th>Version 2</th></tr></thead>
+            <tbody>
+              <tr><td>OLED</td><td>Black sky, no glow</td><td>Pitch-black sky, razor-sharp stars and subtitles, rich color</td></tr>
+              <tr><td>Mini-LED</td><td>Near-black sky, faint halo, faint grid</td><td>Brightest star with long rays, square blocks of glow around bright objects</td></tr>
+              <tr><td>QLED</td><td>Dark gray sky, soft glow</td><td>Most vivid, saturated colors, but a clearly gray-blue sky</td></tr>
+              <tr><td>Crystal LED</td><td>Gray sky, wider glow</td><td>Washed-out gray, dull faded color, dimmer star, wide hazy glow</td></tr>
+            </tbody>
+          </table>
+          <p class="muted" style="font-size:14px">These are teaching illustrations, deliberately exaggerated to make each TV's strengths and trade-offs easy to see. They aren't photographs of real panels.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" style="padding-top:40px">
+    <p>Agile Enablement · TV Sales Onboarding — an instructional design portfolio piece by Tshwjxeeb Vaaj. · <a href="index.html">Back to the lesson</a></p>
+  </footer>
+
+  <script src="js/screens.js?v=20261020164646"></script>
+  <script>
+    document.querySelectorAll("[data-version]").forEach(function (row) {
+      var v = Number(row.dataset.version);
+      row.innerHTML = TVScreens.names.map(function (n) {
+        return '<figure class="shot"><h3>' + n + '</h3>' + (v === 1 ? TVScreens.v1(n) : TVScreens.v2(n)) +
+               '<figcaption>' + TVScreens.caption(n, v) + '</figcaption></figure>';
+      }).join("");
+    });
+  </script>
+</body>
+</html>
