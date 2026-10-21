@@ -621,3 +621,37 @@ a.step-card:hover .see .arrow, a.step-card:focus-visible .see .arrow { transform
 }
 
 .home-hero .lead { margin-bottom: 36px; }
+
+/* ---------- Statement hero ---------- */
+.home-hero h1.statement { font-size: clamp(46px, 5.6vw, 84px); line-height: 1.02; margin: 0 0 26px; max-width: 12ch; }
+.home-hero h1.statement em { font-style: italic; color: var(--copper); }
+.home-hero .byline { margin: 0 0 34px; font-weight: 600; font-size: 18px; color: var(--ink); letter-spacing: .01em; }
+.home-hero .byline span { color: var(--copper); margin: 0 8px; }
+
+/* ---------- Design framework page ---------- */
+.fw-hero { padding: 96px 0 40px; }
+.fw-hero h1 { margin: 8px 0 18px; }
+.fw-jump { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.fw-jump a { padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(224,166,114,.6); background: rgba(224,166,114,.1); color: var(--copper); font-weight: 600; font-size: 15px; text-decoration: none; transition: background-color .3s var(--ease), color .3s var(--ease); }
+.fw-jump a:hover, .fw-jump a:focus-visible { background: var(--copper); color: var(--bg); }
+.fw-page section[id] { scroll-margin-top: 90px; }
+.fw-head { max-width: 760px; margin-bottom: 32px; }
+.fw-head h2 { margin: 6px 0 16px; }
+.fw-example { margin-top: 24px; padding: 28px 32px; border-radius: 24px; border-color: rgba(224,166,114,.5); background: rgba(224,166,114,.07); }
+.fw-example h3 { font-family: var(--sans); font-weight: 600; font-size: 20px; margin: 4px 0 12px; }
+.fw-example ul { margin: 0 0 14px; padding-left: 20px; color: var(--muted); line-height: 1.7; }
+.fw-example a { color: var(--copper); font-weight: 600; text-decoration: none; }
+.db-card .proj { margin-top: auto; padding-top: 6px; font-size: 13px; color: var(--soft); }
+.ai-grid { grid-template-columns: repeat(3, 1fr); }
+.fw-rule { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; margin-top: 24px; padding: 24px 28px; border-radius: 24px; }
+.fw-rule p { margin: 0; max-width: 60ch; }
+.fw-cta { padding-bottom: 104px; }
+.fw-cta .hero-btns { justify-content: center; margin-top: 26px; }
+@media (max-width: 1080px) { .ai-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 860px) {
+  .ai-grid { grid-template-columns: 1fr; }
+  .fw-hero { padding: 56px 0 16px; }
+  .fw-example { padding: 22px; }
+  .home-hero .byline { font-size: 16px; }
+}
+.fw-page .db-card .eyebrow { color: var(--copper); }

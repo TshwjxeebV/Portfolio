@@ -51,6 +51,7 @@ def nav(current):
     <a class="brand" href="index.html">Tshwjxeeb Vaaj</a>
     <ul class="nav-links" id="nav-links">
       {link("index.html#work", "Work", "work")}
+      {link("framework.html", "Framework", "framework")}
       {link("how-i-work.html", "How I work", "how")}
       {link("about.html", "About", "about")}
       {link("index.html#contact", "Contact", "contact")}
@@ -282,10 +283,9 @@ home += f"""<main>
   <div class="wrap">
     <figure class="portrait"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj in a navy blazer" fetchpriority="high"></figure>
     <div class="hero-text">
-      <p class="eyebrow">Instructional Designer</p>
-      <h1 class="h-xl">I'm Tshwjxeeb.</h1>
-      <p class="lead">I design training that holds up when the real situation stops following the script.</p>
-      <div class="hero-btns">{pill("#work", "See my work")}{pill("about.html", "About me", ghost=True)}</div>
+      <h1 class="statement">I design for the moment <em>the script breaks.</em></h1>
+      <p class="byline">Tshwjxeeb Vaaj <span aria-hidden="true">|</span> Instructional Designer</p>
+      <div class="hero-btns">{pill("#work", "See my work")}{pill("framework.html", "My design framework", ghost=True)}</div>
     </div>
   </div>
   <a class="scroll-cue" href="#approach" aria-label="Scroll to my approach"><span></span></a>
@@ -1196,3 +1196,93 @@ w += f"""<section class="cream" id="contact"><div class="wrap">
 """
 w += footer()
 write("how-i-work.html", w)
+
+
+# ======================= DESIGN FRAMEWORK =======================
+def fw_card(n, label_, h, p, extra="", cls="", d=""):
+    num = f'<span class="n">{n}</span>' if n else ""
+    return f'<div class="db-card glass {cls} reveal {d}">{num}<p class="eyebrow">{label_}</p><h3>{h}</h3><p>{p}</p>{extra}</div>'
+
+ai_items = "".join(
+    f'<div class="db-card glass reveal{" d1" if i % 3 == 1 else (" d2" if i % 3 == 2 else "")}"><h3>{e(h)}</h3><p>{e(b)}</p></div>'
+    for i, (h, b) in enumerate(H["practice"]["items"]))
+
+fw = head("My Design Framework · Tshwjxeeb Vaaj",
+          "How I design learning: Understanding by Design, Universal Design for Learning (UDL), and AI as my production crew.")
+fw += nav("framework")
+fw += f"""<main class="fw-page">
+<section class="fw-hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">My design framework</p>
+    <h1 class="h-xl reveal">How I design learning.</h1>
+    <p class="lead reveal d1">Three ideas shape every project I build.</p>
+    <nav class="fw-jump reveal d2" aria-label="On this page"><a href="#ubd">Understanding by Design</a><a href="#udl">UDL</a><a href="#ai">AI and Innovation</a></nav>
+  </div>
+</section>
+
+<section id="ubd" aria-labelledby="ubd-h">
+  <div class="wrap">
+    <div class="fw-head reveal">
+      <p class="eyebrow">01 · Understanding by Design</p>
+      <h2 class="h-lg" id="ubd-h">I design backward.</h2>
+      <p class="lead">Understanding by Design, from Grant Wiggins and Jay McTighe, starts with the end in mind. Learning counts when people can use it on their own, in a situation they haven't seen before.</p>
+    </div>
+    <div class="db-grid">
+      {fw_card("01", "Stage 1 · The goal", "Start with what they must do", "Name the real action on the job, the court or in class. Not what people should know, but what they should be able to do.")}
+      {fw_card("02", "Stage 2 · The proof", "Decide the proof", "Plan how I'll know they can do it, before I build a single screen.", d="d1")}
+      {fw_card("03", "Stage 3 · The practice", "Build the practice", "Only then do I design the scenarios, games and lessons that rehearse that exact action.", d="d2")}
+    </div>
+    <div class="fw-example glass accent reveal">
+      <p class="eyebrow">In my work</p>
+      <h3>Coaching Through Conflict, designed backward</h3>
+      <ul>
+        <li><strong>The goal:</strong> new head coaches protect the player and the team's energy.</li>
+        <li><strong>The proof:</strong> each coach's guess at the real cause, and their first choice at every decision.</li>
+        <li><strong>The practice:</strong> 68 screens of branching scenes, built around three high-leverage habits.</li>
+      </ul>
+      <a href="coaching.html#designed-backward">See it in the case study {ARROW}</a>
+    </div>
+  </div>
+</section>
+
+<section id="udl" aria-labelledby="udl-h">
+  <div class="wrap">
+    <div class="fw-head reveal">
+      <p class="eyebrow">02 · Universal Design for Learning</p>
+      <h2 class="h-lg" id="udl-h">I design so more people can get in.</h2>
+      <p class="lead">UDL means planning for different learners from the start, not fixing it at the end. Every module I build is shaped by its three principles.</p>
+    </div>
+    <div class="db-grid">
+      {fw_card("", "Engagement", "Mistakes become practice.", "Replay the point lets coaches retry any decision without restarting. In Pip's Number Garden, a hint follows every wrong answer, then another try.", '<p class="proj">Coaching Through Conflict · Pip&rsquo;s Number Garden</p>')}
+      {fw_card("", "Representation", "More than one way to take it in.", "Pip reads every prompt and hint out loud for early readers. Lab Ready offers narration, a transcript and captions in every lesson.", '<p class="proj">Pip&rsquo;s Number Garden · Lab Ready</p>', d="d1")}
+      {fw_card("", "Action &amp; expression", "More than one way to show it.", "Pip can be played with a keyboard. Lab Ready has a click-to-place option for drag activities and a test-out path for experienced hires.", '<p class="proj">Pip&rsquo;s Number Garden · Lab Ready</p>', d="d2")}
+    </div>
+    <p class="db-note reveal">Every case study ends with an Accessibility &amp; UDL section: what's built in, and what I'll improve next.</p>
+  </div>
+</section>
+
+<section id="ai" aria-labelledby="ai-h">
+  <div class="wrap">
+    <div class="fw-head reveal">
+      <p class="eyebrow">03 · AI and Innovation</p>
+      <h2 class="h-lg" id="ai-h">I direct the vision. AI is my crew.</h2>
+      <p class="lead">I make the design decisions. A crew of AI tools helps me build faster, and every piece gets my final human touch.</p>
+    </div>
+    <div class="db-grid ai-grid">{ai_items}</div>
+    <div class="fw-rule glass reveal">
+      <p><strong>One rule on every project:</strong> no invented numbers. If I haven't measured it, it doesn't go on the page.</p>
+      {pill("how-i-work.html", "See how I work with AI", ghost=True)}
+    </div>
+  </div>
+</section>
+
+<section class="center fw-cta">
+  <div class="wrap reveal">
+    <h2 class="h-lg">See it in action.</h2>
+    <div class="hero-btns">{pill("index.html#work", "See my work")}{pill("index.html#contact", "Let's talk", ghost=True)}</div>
+  </div>
+</section>
+</main>
+"""
+fw += footer()
+write("framework.html", fw)
