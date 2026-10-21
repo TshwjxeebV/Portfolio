@@ -832,7 +832,6 @@ lab += process_strip([
     ("Analyze", "Compared the safety contract I handed my own students with Cal/OSHA §5191 and a university Chemical Hygiene Plan, and found where they disagreed.", "#thinking", None),
     ("Design", "Reorganized about 70 rules into 7 decision moments, wrote objectives, and planned a 6-touchpoint training journey.", "#journey", "assets/img/labready-design-notes.png"),
     ("Develop", "Wireframed every lesson first, then built and published the course in Articulate Rise 360.", "#inside", "assets/img/labready-wireframe.jpg"),
-    ("Implement", "Planned a pilot with 3–5 new hires, with supervisors running the 30-day observation.", "#journey", None),
     ("Evaluate", "Planned all four Kirkpatrick levels, from a usefulness rating to a 30-day supervisor check.", "#evaluation", None),
 ])
 lab += """<section><div class="wrap two">
@@ -870,56 +869,6 @@ def lab_fig(src, alt, cap):
     return f'<figure class="reveal"><img src="{src}" alt="{e(alt)}" loading="lazy"><figcaption>{e(cap)}</figcaption></figure>'
 
 
-JOURNEY_STEPS = [
-    ("Before day one", "Welcome email with the lab's safety plan and a 3-question readiness check"),
-    ("Day one", "Supervisor-led walk-through of exits, eyewash, shower, spill kit and hoods"),
-    ("Lab Ready course", "About 30 minutes, or about 12 for experienced techs who test out"),
-    ("On the job", "The Lab Ready Card at the station and a 2-minute weekly self-check"),
-    ("At 30 days", "A supervisor observes one task with the same checklist (Kirkpatrick Level 3)"),
-    ("Ongoing", "A short refresher before any new chemical or procedure, and a full refresh every 3 years"),
-]
-JOURNEY = "".join(f'<li class="{"is-course" if i == 3 else ""}"><span class="j-n">{i:02d}</span><strong>{e(h)}</strong><span>{e(b)}</span></li>'
-                  for i, (h, b) in enumerate(JOURNEY_STEPS, 1))
-
-
-def map_table(left, right, rows):
-    body = "".join(f'<div class="set-row"><span class="on-set">{e(a)}</span><span class="to" aria-hidden="true">→</span><span class="in-ld">{e(b)}</span></div>' for a, b in rows)
-    return (f'<div class="pairs map" role="table" aria-label="{e(left)} and {e(right)}">'
-            f'<div class="set-row head" role="row"><span class="on-set">{e(left)}</span><span class="to"></span><span class="in-ld">{e(right)}</span></div>{body}</div>')
-
-
-KNOWLES = map_table("Principle", "Where it shows up", [
-    ("Adults need to know why", "A “Why this matters on the job” card opens every lesson"),
-    ("They bring experience", "A 3-question self-check lets experienced techs test out and jump to any lesson"),
-    ("They direct their own learning", "Choose-your-path, a lesson menu open in any order, and “Skip to practice”"),
-    ("Learning is problem-centered", "Every practice item is a workplace scenario: the scale-up, the senior coworker, the old ether bottle"),
-    ("Ready when it's relevant", "Rights and who to call on day one, and refreshers triggered by a new chemical or procedure"),
-    ("Motivation comes from within", "Reflect and commit: learners choose the habit they'll change, and it goes on their own card"),
-])
-UDL = map_table("UDL principle", "Design decisions", [
-    ("Engagement (the why)", "Two learning paths, relevance cards, scenarios with coworkers, and near misses framed as wins"),
-    ("Representation (the what)", "Audio narration, transcripts, captions, a text label on every pictogram, alt text on every graphic, and visual models"),
-    ("Action and expression (the how)", "Multiple choice, matching, sorting, hotspots, branching and text entry, with click-to-place options for every drag activity"),
-])
-LESSON_DESIGN = [
-    ("Cover and menu", [("UDL", "Engagement: two learning paths, new to labs or experienced"), ("Accessibility", "Audio, transcripts, captions, keyboard support and WCAG 2.2 AA contrast"), ("Adult learning", "Opens with the learner's first week, not the regulation")]),
-    ("Why This Isn't a Rules List", [("Adult learning", "Experience: a self-check lets experienced techs test out"), ("Adult learning", "Readiness: rights and who to call, useful on day one"), ("UDL", "Engagement: learners choose their own path")]),
-    ("Before You Touch Anything", [("Adult learning", "Problem-centered: a scale-up scenario with a senior coworker"), ("UDL", "Representation: listen, read or skip to practice"), ("Performance", "Tied to the learner's own lab plan and SOPs")]),
-    ("Read the Label", [("UDL", "Every pictogram has a text label, so color is never the only cue"), ("Interaction", "Label Decoder: explore first, then make a decision"), ("Adult learning", "Cognitive load: the SDS is cut to the 4 sections used on the job")]),
-    ("Controls Before Gear", [("UDL", "Representation: the hierarchy of controls as a visual model with alt text"), ("Interaction", "Hood Check: a realistic inspection with distractors"), ("UDL", "Action and expression: match, click and decide")]),
-    ("Dress for the Lab", [("Adult learning", "Learn by finding errors in a realistic photo"), ("Assessment", "Myth or Fact targets real workplace misconceptions"), ("Performance", "Glove choice tied to a real task, an acetone rinse")]),
-    ("Working Safely", [("Adult learning", "Social: practice speaking up to a senior coworker"), ("UDL", "Sorting builds mental categories for storage"), ("Accessibility", "Drag activities have click-to-place alternatives")]),
-    ("When Something Goes Wrong", [("Adult learning", "Support fades: guided steps, then a branching decision, then a timed capstone"), ("Interaction", "Clean It or Call It? teaches a decision rule, not a list"), ("Accessibility", "Timers can be turned off; audio alarms pair with a visual cue")]),
-    ("Clean Exit", [("Adult learning", "Relevance: waste mistakes hurt people who weren't there"), ("Interaction", "Fix This Waste Label: find errors on a realistic label"), ("Performance", "The checklist mirrors the real end-of-day routine")]),
-    ("Final Check", [("Assessment", "Every question is a lab scenario, with links back to each lesson"), ("Adult learning", "Reflect and commit sets up transfer to the job"), ("Accessibility", "No time limit, and it works with screen readers")]),
-    ("Lab Ready Card", [("Performance", "Job aids at the point of need: a station card and a weekly check"), ("Assessment", "Kirkpatrick: a Level 1 rating and a Level 3 check at 30 days"), ("Adult learning", "Spaced refreshers: new procedure, 30 days, 3 years")]),
-]
-LESSON_NOTES = "".join(
-    f'<details class="ln"><summary><span class="ln-n">{i:02d}</span>{e(name)}</summary><ul>'
-    + "".join(f'<li><span class="tag ln-tag">{e(t)}</span>{e(x)}</li>' for t, x in notes) + '</ul></details>'
-    for i, (name, notes) in enumerate(LESSON_DESIGN))
-
-
 lab += f"""<section id="thinking" class="process"><div class="wrap reveal">
   <p class="eyebrow">My thought process</p>
   <h2 class="h-md">How the design evolved</h2>
@@ -942,33 +891,22 @@ lab += f"""<section id="thinking" class="process"><div class="wrap reveal">
   </div>
 </div></section>
 
-<section id="journey"><div class="wrap reveal">
-  <p class="eyebrow">End-to-end training</p>
-  <h2 class="h-md">The course is one of six touchpoints</h2>
-  <p>Training doesn't end when the course does. Six touchpoints take a new hire from the offer letter to a confident tech, and the Rise course is one of them.</p>
-  <ol class="journey">{JOURNEY}</ol>
-  <p style="margin-top:32px">{pill(LAB_CTA[1], "Take the course in Rise", external=True)}</p>
-</div></section>
-
-<section id="design-notes"><div class="wrap reveal">
-  <p class="eyebrow">Design notes</p>
-  <h2 class="h-md">Adult learning principles, applied</h2>
-  <p>Malcolm Knowles's adult learning principles shaped each decision. Here's where each one shows up in the course.</p>
-  {KNOWLES}
-</div></section>
-
-<section><div class="wrap reveal">
-  <h2 class="h-md">Universal Design for Learning across the course</h2>
-  <p>I used the three UDL principles to give every learner more than one way in.</p>
-  {UDL}
-</div></section>
-
-<section><div class="wrap reveal">
-  <h2 class="h-md">Design decisions, lesson by lesson</h2>
-  <p>Every lesson has its own reasons. Open any lesson to see the design notes behind it.</p>
-  <div class="lesson-notes">{LESSON_NOTES}</div>
+<section id="journey"><div class="wrap">
+  <div class="reveal">
+    <h2 class="h-md">The course is one of six touchpoints</h2>
+    <p>Training doesn't end when the course does. I planned a journey from before day one to a refresher every three years: a welcome email with the lab's safety plan, a day-one walk-through, the course, a station card and weekly self-check, a supervisor check at 30 days, and a short refresher before any new chemical or procedure.</p>
+  </div>
+  <div class="wide-visual reveal d1"><img src="assets/img/labready-journey.png" alt="Six touchpoints in a row: before day one, day one, the Lab Ready course, on the job, at 30 days, and ongoing" loading="lazy"></div>
+  <p style="margin-top:28px" class="reveal">{pill(LAB_CTA[1], "Take the course in Rise", external=True)}</p>
 </div></section>
 """
+lab += evaluation(
+    "Measuring what matters: Kirkpatrick's four levels",
+    "Training only counts if it changes what people do at the bench. Here's how I'd measure Lab Ready with a real group of new hires, from their first reaction to results in the lab.",
+    [("1 · Reaction", "New techs find it useful for the job.", "A 1–5 usefulness rating at the end of the course.", "Built into the course"),
+     ("2 · Learning", "Techs make the right call in each scenario.", "A scenario-based final check, 80% to pass, with links back to each lesson.", "Built into the course"),
+     ("3 · Behavior", "Techs use the habits at the bench.", "A supervisor observes one task at 30 days, using the weekly self-check.", "Planned"),
+     ("4 · Results", "A safer lab.", "More near misses reported, and fewer inspection findings and incidents.", "Planned")])
 lab += access(
     ["Every hazard pictogram has a text label, so color is never the only cue.",
      "Audio narration, a transcript and captions are available in every lesson.",
@@ -979,13 +917,6 @@ lab += access(
      "Test the full course with a keyboard and a screen reader.",
      "Rebuild Hood Check and Clean It or Call It? in Storyline with a logical keyboard focus order.",
      "Publish the Lab Ready Card as an accessible PDF."])
-lab += evaluation(
-    "Evaluation plan",
-    "Here's how I'd measure Lab Ready with a real group of new hires, using Kirkpatrick's four levels.",
-    [("1 · Reaction", "New techs find it useful for the job.", "A 1–5 usefulness rating at the end of the course.", "Built into the course"),
-     ("2 · Learning", "Techs make the right call in each scenario.", "A scenario-based final check, 80% to pass, with links back to each lesson.", "Built into the course"),
-     ("3 · Behavior", "Techs use the habits at the bench.", "A supervisor observes one task at 30 days, using the weekly self-check.", "Planned"),
-     ("4 · Results", "A safer lab.", "More near misses reported, and fewer inspection findings and incidents.", "Planned")])
 lab += f"""<section><div class="wrap reveal">
   <h2 class="h-md">Lessons Learned</h2>
   {paras("The biggest lesson was that the source material had problems of its own. The student contract and the adult standards disagreed on simple facts, like how long to flush an eye. Reading the actual regulation, not a summary of it, changed the course.",

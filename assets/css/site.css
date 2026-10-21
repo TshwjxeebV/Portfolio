@@ -530,37 +530,3 @@ a.step-card:hover .see .arrow, a.step-card:focus-visible .see .arrow { transform
 @media (max-width: 860px) {
   .tiles.c5, .steps-row.c3 { grid-template-columns: 1fr; }
 }
-
-/* Lab Ready design notes */
-.steps-row.c5 { grid-template-columns: repeat(5, 1fr); }
-.journey { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
-.journey li { display: flex; flex-direction: column; gap: 8px; padding: 22px 18px; border-radius: 20px; background: var(--card); border: 1px solid var(--card-line); }
-.journey li.is-course { background: rgba(224,166,114,.12); border-color: var(--copper); }
-.journey .j-n { font-family: var(--serif); font-size: 34px; line-height: 1; color: var(--copper); }
-.journey strong { color: var(--ink); font-size: 16px; line-height: 1.3; }
-.journey span:last-child { color: var(--muted); font-size: 14px; line-height: 1.5; }
-.pairs.map { margin-top: 28px; }
-.pairs.map .set-row { grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1.6fr); }
-.pairs.map .in-ld { font-weight: 500; }
-.lesson-notes { margin-top: 28px; border: 1px solid var(--card-line); border-radius: 20px; overflow: hidden; background: var(--card); }
-.ln { border-top: 1px solid var(--card-line); }
-.ln:first-child { border-top: 0; }
-.ln summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 16px; padding: 18px 22px; color: var(--ink); font-size: 18px; font-weight: 500; }
-.ln summary::-webkit-details-marker { display: none; }
-.ln summary::after { content: "+"; margin-left: auto; color: var(--copper); font-size: 22px; transition: transform .3s var(--ease); }
-.ln[open] summary::after { transform: rotate(45deg); }
-.ln summary:focus-visible { outline: 3px solid var(--copper); outline-offset: -3px; }
-.ln-n { font-family: var(--serif); color: var(--copper); font-size: 24px; min-width: 32px; }
-.ln ul { list-style: none; margin: 0; padding: 0 22px 20px 70px; display: grid; gap: 12px; }
-.ln li { color: var(--muted); font-size: 16px; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
-.ln-tag { flex: none; font-size: 12px; background: rgba(224,166,114,.14); color: var(--copper); }
-@media (max-width: 1080px) { .journey { grid-template-columns: repeat(3, 1fr); } .steps-row.c5 { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 860px) {
-  .journey, .steps-row.c5 { grid-template-columns: 1fr; }
-  .pairs.map .set-row { grid-template-columns: 1fr; gap: 4px; }
-  .pairs.map .set-row .to { display: none; }
-  .pairs.map .set-row .on-set::before, .pairs.map .set-row .in-ld::before { content: none; }
-  .pairs.map .set-row .on-set { color: var(--copper); font-weight: 600; font-size: 15px; }
-  .pairs.map .set-row.head { display: none; }
-  .ln ul { padding-left: 22px; }
-}
