@@ -3,6 +3,13 @@
 Edit the SETTINGS below, then run again to update every page.
 """
 import html
+import hashlib
+
+def _ver(path):
+    return hashlib.md5(open(path, 'rb').read()).hexdigest()[:8]
+
+CSS_V = _ver('assets/css/site.css')
+JS_V = _ver('assets/js/site.js')
 
 # ---------------- SETTINGS (edit me) ----------------
 EMAIL = "TshwjxeebKVaaj@gmail.com"
@@ -35,7 +42,7 @@ def head(title, desc):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/site.css?v={CSS_V}">
 </head>
 <body>
 <div class="ambient" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span><span class="a4"></span></div>
@@ -71,7 +78,7 @@ def footer():
     <span>© <span id="year">2026</span> Tshwjxeeb Vaaj</span>
   </div>
 </footer>
-<script src="assets/js/site.js"></script>
+<script src="assets/js/site.js?v={JS_V}"></script>
 </body>
 </html>
 """
