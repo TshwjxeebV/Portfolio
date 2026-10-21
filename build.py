@@ -275,7 +275,7 @@ def testimonials():
 
 # ======================= HOME =======================
 home = head("Tshwjxeeb Vaaj · Instructional Designer",
-            "Instructional designer and program manager. I design training that holds up when the real situation stops following the script.")
+            "Instructional designer and program manager. I design training backward, with Understanding by Design and UDL, so it holds up when the real situation stops following the script.")
 home += nav("work")
 home += f"""<main>
 <section class="home-hero">
@@ -286,10 +286,30 @@ home += f"""<main>
       <h1 class="h-xl">I'm Tshwjxeeb.</h1>
       <p class="lead">I design training that holds up when the real situation stops following the script.</p>
       <p class="hero-bio">A chemistry teacher and head coach turned instructional designer. I build simulations, scenarios and learning games from moments I've lived, so people practice the real thing before it counts.</p>
+      <div class="method">
+        <p>I start with what people need to do, decide how I'll know they can, then build the practice.</p>
+        <ul class="fw-tags" aria-label="Frameworks I design with"><li>Understanding by Design</li><li>UDL</li></ul>
+      </div>
       <div class="hero-btns">{pill("#work", "See my work")}{pill("about.html", "About me", ghost=True)}</div>
     </div>
   </div>
-  <a class="scroll-cue" href="#featured-sec" aria-label="Scroll to my work"><span></span></a>
+  <a class="scroll-cue" href="#approach" aria-label="Scroll to my approach"><span></span></a>
+</section>
+
+<section class="band" id="approach" aria-labelledby="approach-h" style="background-image:url('assets/img/coaching-hero.jpg')">
+  <div class="wrap">
+    <div class="box wide reveal">
+      <p class="eyebrow">My approach · Backward design</p>
+      <h2 class="h-md" id="approach-h">Built from real moments, not theory.</h2>
+      <p>Every module starts with something I lived: a 0&ndash;10 volleyball season, a chemistry lab, a 2nd grade classroom. Then I design it backward, in three steps.</p>
+      <ol class="ubd-steps">
+        <li><span class="n">01</span><strong>Start with what they must do</strong><span>The real action on the job, the court or in class.</span></li>
+        <li><span class="n">02</span><strong>Decide the proof</strong><span>How I'll know they can do it, before I build anything.</span></li>
+        <li><span class="n">03</span><strong>Build the practice</strong><span>Scenarios and games that rehearse that exact action.</span></li>
+      </ol>
+      <ul class="fw-tags"><li>Understanding by Design · Wiggins &amp; McTighe</li><li>UDL built in</li></ul>
+    </div>
+  </div>
 </section>
 
 <section aria-labelledby="featured" id="featured-sec">
@@ -300,20 +320,9 @@ home += f"""<main>
         <p class="eyebrow">Featured · Scenario-based training</p>
         <h2 class="h-md" id="featured">Coaching Through Conflict</h2>
         <p>A branching simulation built from my own season as a head coach: from 0 wins and last in our league to the program's first-ever top four regional performance. New coaches practice pausing, reading the moment, and letting players own the fix.</p>
-        <ul class="chips"><li>0–10 → 6–4</li><li>First-ever semifinal</li><li>68 screens</li></ul>
+        <ul class="chips"><li>0–10 → 6–4</li><li>First-ever semifinal</li><li class="fw">Backward design</li><li class="fw">UDL</li></ul>
         {pill("coaching.html", "Learn more", ghost=True)}
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="band" style="background-image:url('assets/img/coaching-hero.jpg')">
-  <div class="wrap">
-    <div class="box reveal">
-      <p class="eyebrow">My approach</p>
-      <h2 class="h-md">Built from real moments, not theory.</h2>
-      <p>Every module starts with something I lived or saw up close: a volleyball team that went from 0&ndash;10 to the program's first semifinal, a chemistry lab where safety rules lived on a page nobody remembered, and a 2nd grade classroom where students said &ldquo;greater than&rdquo; and wrote the opposite sign. I turn those moments into practice that feels real, so people can make mistakes safely before it counts.</p>
-      <div class="steps"><span>01 Find the real gap</span><span>02 Design the practice</span><span>03 Prototype &amp; test</span></div>
     </div>
   </div>
 </section>
@@ -489,6 +498,21 @@ c += f"""<section class="cs-intro">
     </div>
   </div>
 </section>
+
+<section id="designed-backward" class="designed-backward" aria-labelledby="db-h"><div class="wrap">
+  <div class="reveal db-head"><p class="eyebrow">How this was designed</p><ul class="fw-tags"><li>Understanding by Design</li></ul></div>
+  <h2 class="h-md reveal" id="db-h">Designed backward, in three steps.</h2>
+  <div class="db-grid">
+    <div class="db-card glass reveal"><span class="n">01</span><p class="eyebrow">Stage 1 · The goal</p><h3>Start with what they must do</h3><p>New head coaches handle player conflict in ways that protect the player and the team's energy. I mapped that goal down to three on-court habits.</p><a href="#objectives">See the learning objectives {ARROW}</a></div>
+    <div class="db-card glass reveal d1"><span class="n">02</span><p class="eyebrow">Stage 2 · The proof</p><h3>Decide the proof</h3><p>Each habit has a check built in: the coach's mental-timeout guess shown beside the real cause, and their first-try choice at every decision.</p><a href="#evaluation">See the evaluation plan {ARROW}</a></div>
+    <div class="db-card glass reveal d2"><span class="n">03</span><p class="eyebrow">Stage 3 · The practice</p><h3>Build the practice</h3><p>Only then did I build the scenes: 68 screens of branching practice, focused on the three highest-leverage habits from the action map.</p><a href="#artifacts">See how I built it {ARROW}</a></div>
+  </div>
+  <div class="db-grid two">
+    <div class="db-card glass accent reveal"><p class="eyebrow">Built for transfer</p><h3>The same three habits, three different moments.</h3><p>A distracted huddle, a disengaged star and a match on the line. Coaches apply the habits to a new situation each set instead of repeating one memorized answer.</p></div>
+    <div class="db-card glass reveal d1"><p class="eyebrow">UDL built in</p><h3>More than one way in.</h3><p>Ideas are taught on a whiteboard, written on the clipboard, then practiced in scenes. Replay the point lets coaches retry any decision without restarting.</p></div>
+  </div>
+  <p class="db-note reveal">Honest note: the module is still a concept. The Stage 2 checks are built into the prototype or planned for a future group of high school volleyball coaches.</p>
+</div></section>
 
 {COACH_PROCESS}
 <section><div class="wrap reveal">

@@ -584,3 +584,38 @@ a.step-card:hover .see .arrow, a.step-card:focus-visible .see .arrow { transform
 
 /* Phones: soften the ambient glow so it doesn't compete with the words */
 @media (max-width: 640px) { .ambient span { opacity: .18; filter: blur(110px); } .ambient .a2 { opacity: .24; } }
+
+/* ---------- Backward design (UbD) + UDL ---------- */
+.method { margin: -8px 0 28px; padding: 16px 20px; border: 1px solid rgba(224,166,114,.45); border-radius: 18px; background: rgba(224,166,114,.08); max-width: 52ch; }
+.method p { margin: 0 0 12px; font-weight: 600; font-size: 17px; line-height: 1.5; color: var(--ink); }
+.fw-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.fw-tags li, .chips li.fw { padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(224,166,114,.6); background: rgba(224,166,114,.12); color: var(--copper); font-size: 13px; font-weight: 600; line-height: 1.3; }
+.chips li.fw { padding: 7px 13px; }
+.band .box.wide { max-width: 860px; }
+.band .box.wide > p { color: var(--soft); }
+.ubd-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 26px 0 22px; padding: 0; list-style: none; }
+.ubd-steps li { display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid var(--card-line); }
+.ubd-steps .n, .db-card .n { font-family: var(--serif); font-size: 34px; line-height: 1; color: var(--copper); }
+.ubd-steps strong { font-size: 17px; line-height: 1.3; }
+.ubd-steps li > span:last-child { font-size: 15px; line-height: 1.5; color: var(--muted); }
+.designed-backward .db-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.designed-backward .db-head .eyebrow { margin: 0; }
+.designed-backward h2 { margin: 14px 0 28px; }
+.db-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.db-grid.two { grid-template-columns: repeat(2, 1fr); margin-top: 24px; }
+.db-card { display: flex; flex-direction: column; gap: 10px; padding: 28px; border-radius: 24px; }
+.db-card .eyebrow { margin: 6px 0 0; }
+.db-card h3 { margin: 0; font-family: var(--sans); font-size: 20px; font-weight: 600; line-height: 1.3; }
+.db-card p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.6; }
+.db-card a { margin-top: auto; padding-top: 6px; color: var(--copper); font-weight: 600; font-size: 15px; text-decoration: none; }
+.db-card a:hover .arrow, .db-card a:focus-visible .arrow { transform: translateX(6px); }
+.db-card.accent { border-color: rgba(224,166,114,.5); background: rgba(224,166,114,.07); }
+.db-note { margin: 22px 0 0; font-size: 14px; color: var(--soft); }
+@media (max-width: 860px) {
+  .ubd-steps, .db-grid, .db-grid.two { grid-template-columns: 1fr; }
+  .ubd-steps li { flex-direction: row; flex-wrap: wrap; align-items: baseline; column-gap: 14px; padding: 16px; }
+  .ubd-steps li > strong, .ubd-steps li > span:last-child { flex: 1 1 calc(100% - 60px); }
+  .ubd-steps li > span:last-child { margin-left: 50px; }
+  .band .box.wide { padding: 28px 22px; }
+  .method p { font-size: 16px; }
+}
