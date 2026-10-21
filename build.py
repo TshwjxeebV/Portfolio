@@ -824,7 +824,7 @@ lab += f"""<section class="cs-intro"><div class="wrap reveal">
   {meta_blocks([("Audience", "Newly hired adult lab technicians, from career changers to techs with years at other labs, and the supervisors who onboard them."),
                 ("Responsibilities", "Needs Analysis, Source Review (Cal/OSHA §5191 and a university Chemical Hygiene Plan), Learning Objectives, Adult Learning & UDL Design, Figma Wireframes & Prototype, Rise 360 Development, Job Aids, Evaluation Planning"),
                 ("Tools Used", "Articulate Rise 360, Figma, Figma AI, Claude")], cols=True)}
-  <p class="cs-note">Lab Ready is a portfolio concept and hasn't been delivered to learners. I adapted the source documents without naming the school district or university they came from.</p>
+  <p class="cs-note">Lab Ready is a concept course and hasn't been delivered to learners yet. I adapted the source documents without naming the school district or university they came from.</p>
   <div class="hero-btns">{pill(LAB_CTA[1], LAB_CTA[0], external=True)}</div>
 </div></section>
 """
@@ -835,8 +835,8 @@ lab += process_strip([
     ("Evaluate", "Planned all four Kirkpatrick levels, from a usefulness rating to a 30-day supervisor check.", "#evaluation", None),
 ])
 lab += """<section><div class="wrap two">
-  <div class="reveal"><h2 class="h-md">The Problem</h2><p>Most lab safety training is a list of rules you read once and sign. I handed out that kind of contract to my own chemistry students: about 70 rules across two pages. People skim, sign and forget, and a list of rules doesn't tell you what to do when a spill is too big, a hood alarm goes off, or a senior coworker cuts a corner.</p></div>
-  <div class="reveal d1"><h2 class="h-md">The Solution</h2><p>I rebuilt the rules around the moments new technicians actually face. Each lesson opens with why it matters on the job, teaches one decision, and gives practice right away: a fume hood to inspect, spills to clean up or call in, a waste label to fix. Experienced hires can test out, and everyone leaves with a one-page card for their station.</p></div>
+  <div class="reveal"><h2 class="h-md">The Problem</h2><p>In college chemistry labs and in my own classroom, safety came the same way: pages of rules and dense bullet points, signed and filed away. I handed out that kind of contract to my own students, about 70 rules across two pages. People skim, sign and forget, and a list of rules doesn't tell you what to do when a spill is too big, a hood alarm goes off, or a senior coworker cuts a corner.</p></div>
+  <div class="reveal d1"><h2 class="h-md">The Solution</h2><p>I take complex information, like long regulations and pages of bullet points, and turn it into scenarios people can actually practice. Here, I rebuilt the rules around the moments new technicians face. Each lesson opens with why it matters on the job, teaches one decision, and gives practice right away: a fume hood to inspect, spills to clean up or call in, a waste label to fix. Experienced hires can test out, and everyone leaves with a one-page card for their station.</p></div>
 </div></section>
 """
 lab += objectives(
@@ -854,12 +854,12 @@ lab += objectives(
     "Each objective maps to one of the seven decision moments and a section of the Lab Ready Card.")
 
 THOUGHTS = [
-    ("Find the gap", "Every project in my portfolio was a branching scenario. Hiring posts kept asking for Rise and compliance training, so I picked chemical safety, the subject I taught."),
-    ("Start with what I know", "I began with the safety contract I handed my own students and outlined a course around it."),
-    ("Switch to adults", "Most instructional design roles ask for adult learning, so I rewrote the course for newly hired lab technicians."),
+    ("Start in the lab", "I've spent years in chemistry labs, first as a college chemistry student and then as a chemistry teacher. Safety was always handed over the same way: long documents, dense bullet points, and a signature at the end."),
+    ("Notice the gap", "Knowing the rules on paper isn't the same as knowing what to do when a beaker tips or a hood alarm goes off. I saw that gap in my own classroom, so I started with the safety contract I gave my students."),
+    ("Teach it to adults", "The same problem follows people into their first lab job. I asked how I'd teach what I taught my students to an adult new hire, someone who brings experience, wants to know why, and needs to use it right away."),
     ("Read the real standards", "Cal/OSHA §5191 and a university Chemical Hygiene Plan raised the bar and exposed errors: 15 vs. 20 minutes for an eye flush, the outdated term MSDS, and a contact lens rule the adult standard doesn't include."),
-    ("Borrow a proven layout", "I studied a Rise course from Articulate's community challenges: photos with short captions, lots of space, one idea per block. Then I wireframed all 10 lessons in Figma."),
-    ("Design for real adults", "I added a test-out path, a “why this matters” card in every lesson, audio and transcripts, and a 6-touchpoint journey. Then I built and published the course in Rise."),
+    ("Turn notes into scenarios", "I took pages of regulations and long bullet lists and boiled them down to 7 decisions, each one something learners can practice: a hood to inspect, a spill to clean up or call in, a waste label to fix."),
+    ("Make it work for real adults", "I added a test-out path for experienced techs, a “why this matters” card in every lesson, audio and transcripts, and a 6-touchpoint journey. Then I built and published the course in Rise."),
 ]
 thoughts = "".join(f'<div class="step-card"><span class="ph">Step {i:02d}</span><h3 class="h-sm">{e(h)}</h3><p>{e(b)}</p></div>'
                    for i, (h, b) in enumerate(THOUGHTS, 1))
@@ -872,14 +872,14 @@ def lab_fig(src, alt, cap):
 lab += f"""<section id="thinking" class="process"><div class="wrap reveal">
   <p class="eyebrow">My thought process</p>
   <h2 class="h-md">How the design evolved</h2>
-  <p class="lead">Every big decision came from a question I asked along the way. Here's the path, in order.</p>
+  <p class="lead">Lab Ready grew out of problems I've seen myself, as a chemistry student, in the lab, and in my own classroom. Here's the path, in order.</p>
   <div class="steps-row c3">{thoughts}</div>
 </div></section>
 
 <section id="inside"><div class="wrap">
   <div class="reveal">
     <h2 class="h-md">Practice in every lesson</h2>
-    <p>I wireframed every lesson before opening Rise, so each block had a job before I built it. The layout follows a proven Rise pattern: a photo with a short caption, a few sentences, then practice. Each lesson teaches one decision and practices it right away.</p>
+    <p>I wireframed every lesson before opening Rise, so each block had a job before I built it. Each lesson reads like a short story: a photo with a caption, a few sentences, then practice. Each lesson teaches one decision and practices it right away.</p>
   </div>
   <div class="pair">
     {lab_fig("assets/img/labready-clean-or-call.jpg", "The Clean It or Call It? interaction with a spill on a lab bench", "Clean It or Call It?: four spills, one decision rule")}
