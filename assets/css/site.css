@@ -619,3 +619,5 @@ a.step-card:hover .see .arrow, a.step-card:focus-visible .see .arrow { transform
   .band .box.wide { padding: 28px 22px; }
   .method p { font-size: 16px; }
 }
+
+.home-hero .hero-tags { margin: 6px 0 32px; }

@@ -282,14 +282,10 @@ home += f"""<main>
   <div class="wrap">
     <figure class="portrait"><img src="assets/img/headshot.jpg" alt="Portrait of Tshwjxeeb Vaaj in a navy blazer" fetchpriority="high"></figure>
     <div class="hero-text">
-      <p class="eyebrow">Instructional Designer · Program Manager</p>
+      <p class="eyebrow">Instructional Designer</p>
       <h1 class="h-xl">I'm Tshwjxeeb.</h1>
       <p class="lead">I design training that holds up when the real situation stops following the script.</p>
-      <p class="hero-bio">I'm an instructional designer who designs learning from real moments.</p>
-      <div class="method">
-        <p>I start with the goal, decide the proof, then build the practice.</p>
-        <ul class="fw-tags" aria-label="Frameworks I design with"><li>Understanding by Design</li><li>UDL</li></ul>
-      </div>
+      <ul class="fw-tags hero-tags" aria-label="Frameworks I design with"><li>Understanding by Design</li><li>UDL</li></ul>
       <div class="hero-btns">{pill("#work", "See my work")}{pill("about.html", "About me", ghost=True)}</div>
     </div>
   </div>
